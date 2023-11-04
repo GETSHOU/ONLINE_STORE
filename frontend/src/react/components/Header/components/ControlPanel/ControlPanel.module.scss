@@ -1,0 +1,34 @@
+@use "../../../../../styles/variables" as *;
+
+.wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.control {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-right: 25px;
+
+	&Name {
+		padding-top: 3px;
+	}
+
+	& > *:nth-child(1), &Name {
+		transition: $transition-hover;
+	}
+
+	&:last-child {
+		margin-right: 0;
+	}
+
+	&:hover {
+		& > *:nth-child(1), .controlName {
+			color: $main-theme-color;
+		}
+  }
+}
+
+

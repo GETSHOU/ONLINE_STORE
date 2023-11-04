@@ -1,0 +1,43 @@
+.icon {
+	font-size: 1rem;
+	color: $main-color;
+	transition: $transition-hover;
+	user-select: none;
+
+	&.centeredY {
+		@include centeredY() {
+			position: absolute;
+		};
+	}
+	&.centeredX {
+		@include centeredX() {
+			position: absolute;
+		};
+	}
+}
+
+.iconSearch {
+	right: 10px;
+	color: $placeholder-color;
+	font-size: 1.6rem;
+}
+
+.iconControl {
+	font-size: 1.3rem;
+}
+
+.iconHeaderInfo {
+	font-size: 1.3rem;
+	color: $main-theme-color;
+}
+
+.iconCopyright {
+	font-size: 1.3rem;
+	color: $secondary-color;
+}
+
+.iconButton {
+	font-size: 1.5rem;
+	color: $secondary-color;
+}
+

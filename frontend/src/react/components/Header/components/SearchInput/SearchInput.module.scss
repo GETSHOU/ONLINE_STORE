@@ -1,0 +1,36 @@
+@use "../../../../../styles/variables" as *;
+@use "../../../../../styles/mixins" as *;
+
+.wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex: 1 0 auto;
+	height: 50px;
+	margin: 0 25px;
+}
+
+.input {
+	height: 100%;
+	width: 100%;
+	padding: 7px 50px 7px 10px;
+	color: $main-color;
+	border: 1px solid $border-fields-color;
+	border-radius: 5px;
+	background-color: $secondary-color;
+	transition: $transition-hover;
+
+	@include placeholder() {
+		color: $placeholder-color;
+	}
+
+	&:hover, &:focus {
+		background-color: #ffffff;
+		border-color: $main-theme-color;
+		 ~ * {
+			 color: $main-theme-color;
+		 }
+	}
+}
+
+

@@ -1,0 +1,45 @@
+@mixin centered() {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  @content;
+}
+@mixin centeredX() {
+  left: 50%;
+  transform: translateX(-50%);
+  @content;
+}
+@mixin centeredY() {
+  top: 50%;
+  transform: translateY(-50%);
+  @content;
+}
+
+@mixin placeholder-focus() {
+  &::-webkit-input-placeholder { color: transparent; }
+  &:-moz-placeholder           { color: transparent; }
+  &::-moz-placeholder          { color: transparent; }
+  &:-ms-input-placeholder      { color: transparent; }
+}
+@mixin placeholder() {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder           {
+    @content;
+  }
+  &::-moz-placeholder          {
+    @content;
+  }
+  &:-ms-input-placeholder      {
+    @content;
+  }
+}
+
+@mixin ph_textarea() {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+

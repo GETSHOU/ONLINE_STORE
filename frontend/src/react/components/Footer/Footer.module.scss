@@ -1,0 +1,26 @@
+@use "../../../styles/variables" as *;
+
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-grow: 0;
+	height: 50px;
+	width: 100%;
+	background-color: $main-color;
+}
+
+.copyright {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+
+	&Text {
+		display: flex;
+		align-items: center;
+		padding-top: 3px;
+		padding-left: 5px;
+		color: $secondary-color;
+	}
+}

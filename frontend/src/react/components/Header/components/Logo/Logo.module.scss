@@ -1,0 +1,20 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	user-select: none;
+}
+
+.logotype {
+	display: flex;
+	align-items: center;
+	width: 72px;
+	margin-right: 25px;
+
+	&Elem {
+		font-size: 3rem;
+		font-weight: bold;
+		letter-spacing: -9px;
+	}
+}
+
+

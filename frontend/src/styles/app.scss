@@ -1,0 +1,32 @@
+html,
+body,
+#root {
+	height: 100%;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+html {
+	font-size: 16px;
+	min-width: 1170px;
+}
+
+body {
+	color: $main-color;
+	background-color: $secondary-color;
+}
+
+* {
+	font: 1rem/1 $main-font-family, sans-serif;
+}
+
+.highlightedText {
+	color: $main-theme-color;
+	font-weight: bold;
+}
+
+

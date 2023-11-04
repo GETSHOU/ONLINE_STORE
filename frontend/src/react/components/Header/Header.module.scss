@@ -1,0 +1,26 @@
+@use "../../../styles/variables" as *;
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
+
+.top, .bottom {
+	display: flex;
+	justify-content: center;
+	flex-wrap: nowrap;
+	width: 100%;
+}
+
+.top {
+	background-color: $main-color;
+}
+
+.bottom {
+	margin-top: 15px;
+}
+
+
+

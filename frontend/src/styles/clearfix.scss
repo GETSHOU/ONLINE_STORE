@@ -1,0 +1,88 @@
+/*clearfix*/
+
+* {
+	margin: 0;
+	padding: 0;
+	border: none;
+	box-sizing: border-box;
+	word-break: break-word;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+button,
+a {
+	font-weight: normal;
+}
+
+a,
+button {
+	cursor: pointer;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	&:hover {
+		color: inherit;
+		text-decoration: none;
+	}
+}
+
+img {
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+
+input,
+textarea,
+button {
+	background: transparent;
+}
+
+textarea {
+	resize: none;
+}
+
+input,
+textarea {
+	width: 100%;
+	height: auto;
+}
+
+button:focus,
+input:focus,
+textarea:focus {
+	outline: none;
+}
+
+input,
+textarea {
+	&:focus::placeholder {
+		color: transparent;
+	}
+}
+
+button:disabled {
+	cursor: initial;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px transparent inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+/*clearfix*/
