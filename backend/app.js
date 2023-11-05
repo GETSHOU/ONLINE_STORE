@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Registration
-app.post("/", async (req, res) => {
+app.post("/register", async (req, res) => {
 	try {
 		const { user, token } = await register(
 			req.body.login,
@@ -43,7 +43,7 @@ app.post("/", async (req, res) => {
 });
 
 // Login
-app.post("/", async (req, res) => {
+app.post("/login", async (req, res) => {
 	try {
 		const { user, token } = await login(req.body.login, req.body.password);
 
@@ -56,7 +56,7 @@ app.post("/", async (req, res) => {
 });
 
 // Logout
-app.post("/", (req, res) => {
+app.post("/logout", (req, res) => {
 	res.cookie("token", "", { httpOnly: true }).send({});
 });
 

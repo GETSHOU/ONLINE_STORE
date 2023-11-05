@@ -2,10 +2,10 @@ import { ROLES, ACTION_TYPE } from "../../../constants";
 
 const initialUserState = {
 	id: null,
-	login: null,
 	roleId: ROLES.GUEST,
-	name: null,
+	login: null,
 	nickname: null,
+	name: null,
 	phone: null,
 	basket: [],
 	session: null,
