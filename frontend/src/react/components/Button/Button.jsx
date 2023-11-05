@@ -2,24 +2,27 @@ import { Link } from "react-router-dom";
 import { BUTTON_SIZE } from "../../../constants";
 import styles from "./Button.module.scss";
 
-export const Button = ({ buttonLink, text, icon, size }) => {
+export const Button = ({ buttonLink, type, text, icon, size, onClick }) => {
 	const baseClassName = styles.button;
 	const iconClassName = icon ? styles.buttonIcon : "";
 	const sizeClassName = size === BUTTON_SIZE.LARGE ? styles.buttonLarge : "";
 
+	const buttonLinkTrimmed = buttonLink && buttonLink.trim();
+
 	return (
 		<>
-			{!buttonLink.trim() ? (
+			{!buttonLink ? (
 				<button
-					type="button"
+					type={type}
 					className={`${baseClassName} ${sizeClassName} ${iconClassName}`}
+					onClick={onClick}
 				>
 					<span className={styles.buttonText}>{text}</span>
 					{icon}
 				</button>
 			) : (
 				<Link
-					to={buttonLink}
+					to={buttonLinkTrimmed}
 					className={`${baseClassName} ${sizeClassName} ${iconClassName}`}
 				>
 					<span className={styles.buttonText}>{text}</span>

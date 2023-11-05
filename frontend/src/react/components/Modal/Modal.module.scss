@@ -1,0 +1,85 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,.5);
+	z-index: 10;
+
+	opacity: 0;
+	display: none;
+
+	&.active {
+		opacity: 1;
+		display: block;
+	}
+}
+
+.wrapper {
+	@include centered() {
+		position: relative;
+	}
+
+	display: flex;
+	flex-direction: column;
+	flex: initial initial auto;
+	max-width: 440px;
+	padding: 20px;
+	background-color: $secondary-color;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 2px 3px 10px 1px rgba(0,0,0,.3);
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	.title {
+		font-size: 1.5rem;
+	}
+}
+
+.body {
+	display: flex;
+	width: 100%;
+}
+
+.footer {
+	display: flex;
+	justify-content: center;
+}
+
+.closeButton {
+	transition: $transition-hover;
+
+	& > * {
+		transition: $transition-hover;
+	}
+
+	&:hover {
+		color: $main-color !important;
+		& > * {
+			color: $main-color !important;
+		}
+	}
+}
+
+.toggle {
+	font-weight: 500;
+	color: $main-theme-color;
+	transition: $transition-hover;
+
+	&:hover {
+		color: $main-color;
+	}
+}
+
+

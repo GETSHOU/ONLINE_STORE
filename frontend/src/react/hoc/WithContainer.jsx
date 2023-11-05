@@ -1,7 +1,7 @@
 import { Container } from "../components";
 
 export const WithContainer = Component => {
-	return function ContainerHOC(props) {
+	return props => {
 		return (
 			<Container>
 				<Component {...props} />
