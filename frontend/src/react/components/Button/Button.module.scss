@@ -33,6 +33,14 @@
 		color: $secondary-color;
 		background-color: $main-color;
 	}
+
+	&:disabled {
+		background-color: $main-grey;
+		&:hover {
+			color: $secondary-color;
+			background-color: $main-grey;
+		}
+	}
 }
 
 

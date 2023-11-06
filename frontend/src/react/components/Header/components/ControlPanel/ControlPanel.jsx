@@ -1,23 +1,14 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BiSolidUser } from "react-icons/bi";
 import { IoMdCart } from "react-icons/io";
 import { openModalForm } from "../../../../store/actions";
-import { formModalState } from "../../../../store/selectors";
-import { Authorization } from "../../../Authorization/Authorization";
-import { Registration } from "../../../Registration/Registration";
-import { withModal } from "../../../../hoc";
+import { ConditionalRenderingModal } from "../../../Modal/components/ConditionalRenderingModal/ConditionalRenderingModal";
 import styles from "./ControlPanel.module.scss";
-
-const AuthorizationModal = withModal(Authorization);
-const RegistrationModal = withModal(Registration);
 
 export const ControlPanel = () => {
 	const dispatch = useDispatch();
-	const currentModal = useSelector(formModalState);
-
 	const openAuthModal = () => dispatch(openModalForm("authorization"));
-	const openRegistrationModal = () => dispatch(openModalForm("registration"));
 
 	return (
 		<>
@@ -31,19 +22,7 @@ export const ControlPanel = () => {
 					<span className={styles.controlName}>Корзина</span>
 				</Link>
 			</div>
-			{currentModal === "authorization" ? (
-				<AuthorizationModal
-					modalTitle="Авторизация"
-					buttonText="Регистрация"
-					toggleModal={openRegistrationModal}
-				/>
-			) : (
-				<RegistrationModal
-					modalTitle="Регистрация"
-					buttonText="У вас уже есть аккаунт?"
-					toggleModal={openAuthModal}
-				/>
-			)}
+			<ConditionalRenderingModal />
 		</>
 	);
 };

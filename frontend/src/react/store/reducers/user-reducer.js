@@ -2,13 +2,10 @@ import { ROLES, ACTION_TYPE } from "../../../constants";
 
 const initialUserState = {
 	id: null,
-	roleId: ROLES.GUEST,
-	login: null,
-	nickname: null,
+	email: null,
 	name: null,
-	phone: null,
-	basket: [],
 	session: null,
+	roleId: ROLES.GUEST,
 };
 
 export const userReducer = (state = initialUserState, action) => {

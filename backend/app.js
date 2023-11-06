@@ -28,9 +28,8 @@ app.use(express.json());
 app.post("/register", async (req, res) => {
 	try {
 		const { user, token } = await register(
-			req.body.login,
+			req.body.email,
 			req.body.name,
-			req.body.phone,
 			req.body.password
 		);
 
@@ -42,10 +41,10 @@ app.post("/register", async (req, res) => {
 	}
 });
 
-// Login
+// login
 app.post("/login", async (req, res) => {
 	try {
-		const { user, token } = await login(req.body.login, req.body.password);
+		const { user, token } = await login(req.body.email, req.body.password);
 
 		res
 			.cookie("token", token, { httpOnly: true })
@@ -61,7 +60,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.use(authenticated);
-// --------------------------------- НИЖЕ ДЛЯ АВТОРИЗОВАННЫЕ ПОЛЬЗОВАТЬЕЛЕЙ ----------------
+// --------------------------------- НИЖЕ ДЛЯ АВТОРИЗОВАННЫХ ПОЛЬЗОВАТЬЕЛЕЙ ----------------
 
 // получаем пользователей (только с правами админа)
 app.get("/users", hasRole([ROLES.ADMIN]), async (req, res) => {

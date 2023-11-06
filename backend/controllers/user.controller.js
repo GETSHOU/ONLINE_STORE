@@ -4,19 +4,24 @@ const { User } = require("../models/User.model");
 const { ROLES } = require("../constants/roles");
 
 // register
-async function register(login, name, phone, password) {
+async function register(email, name, password) {
+	// Проверяем, есть ли пользователь с таким email
+	const userExists = await User.exists({ email });
+
+	if (userExists) {
+		throw new Error("Пользователь с таким email уже существует");
+	}
 	// Хэш упадет, если пароль будет пустым, и для того, чтобы на фронт не отправлялась ошибка о падени bcrypt, будем заранее проверять наличие пароля и выбрасывать ошибку
 	if (!password) {
-		throw new Error("Password is empty");
+		throw new Error("Пароль пустой");
 	}
 
 	const passwordHash = await bcrypt.hash(password, 10);
 
 	// Создаем пользователя
 	const user = await User.create({
-		login,
+		email,
 		name,
-		phone,
 		password: passwordHash,
 	});
 
@@ -29,19 +34,19 @@ async function register(login, name, phone, password) {
 }
 
 // login
-async function login(login, password) {
+async function login(email, password) {
 	// для начала ищем пользователя
-	const user = await User.findOne({ login });
+	const user = await User.findOne({ email });
 
 	if (!user) {
-		throw new Error("User not found");
+		throw new Error("Пользователь не найден");
 	}
 
 	const isPasswordMatch = await bcrypt.compare(password, user.password);
 
 	// если пароли не совпадают, то выбрасываем ошибку
 	if (!isPasswordMatch) {
-		throw new Error("Wrong password");
+		throw new Error("Неверный пароль");
 	}
 
 	// иначе генерируем токен
@@ -63,7 +68,7 @@ function getRoles() {
 	return [
 		{ id: ROLES.ADMIN, name: "Admin" },
 		{ id: ROLES.MODERATOR, name: "Moderator" },
-		{ id: ROLES.USER, name: "User" },
+		{ id: ROLES.GUEST, name: "Guest" },
 	];
 }
 

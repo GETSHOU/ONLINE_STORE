@@ -1,8 +1,10 @@
+@use "../../../../../styles/variables.scss" as *;
+
 .form {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	padding: 20px 0;
+	padding: 30px 0 20px;
 
 	&Body {
 		display: flex;
@@ -13,6 +15,13 @@
 
 .footer {
 	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.formError {
+	display: flex;
 	align-items: center;
 	width: 100%;
+	margin-bottom: 20px;
 }
