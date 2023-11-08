@@ -5,3 +5,4 @@ export * from "./Footer/Footer";
 export * from "./CardCategory/CardCategory";
 export * from "./Button/Button";
 export * from "./Modal/components/ModalForm/ModalForm";
+export * from "./AdminPanel/AdminPanel";

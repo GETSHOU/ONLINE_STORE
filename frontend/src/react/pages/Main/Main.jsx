@@ -1,14 +1,13 @@
+import { useLayoutEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Header, Footer } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserAction } from "../../store/actions";
+import { userRoleSelector } from "../../store/selectors";
+import { checkAccess } from "../../../utils";
+import { ROLES, SESSION_STORAGE_NAMES } from "../../../constants";
+import { Header, Footer, AdminPanel } from "../../components";
 import { WithContainer } from "../../hoc";
 import styles from "./Main.module.scss";
-
-import { useLayoutEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userRoleSelector } from "../../store/selectors";
-import { setUserAction } from "../../store/actions";
-import { checkAccess } from "../../../utils";
-import { ROLES } from "../../../constants";
 
 const MainContentWithContainer = WithContainer(Outlet);
 
@@ -17,7 +16,7 @@ export const Main = () => {
 	const roleId = useSelector(userRoleSelector);
 
 	useLayoutEffect(() => {
-		const currentUserDataJSON = sessionStorage.getItem("userData");
+		const currentUserDataJSON = sessionStorage.getItem(SESSION_STORAGE_NAMES.USER_DATA);
 
 		if (!currentUserDataJSON) {
 			return;
@@ -37,6 +36,7 @@ export const Main = () => {
 
 	return (
 		<div className={styles.pageWrapper}>
+			{isAdmin && <AdminPanel />}
 			<div className={styles.mainContentWrapper}>
 				<div className={styles.mainContent}>
 					<Header />

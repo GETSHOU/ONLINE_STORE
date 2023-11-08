@@ -8,7 +8,7 @@ import { closeModalForm, setUserAction } from "../../store/actions";
 import { userRoleSelector } from "../../store/selectors";
 import { regFormSchema } from "../../scheme";
 import { checkAccess, request } from "../../../utils";
-import { ROLES } from "../../../constants";
+import { ROLES, SESSION_STORAGE_NAMES } from "../../../constants";
 import { ModalForm } from "../Modal/components/ModalForm/ModalForm";
 import { ModalFormField } from "../Modal/components/ModalFormField/ModalFormField";
 
@@ -48,7 +48,7 @@ export const Registration = () => {
 			}
 
 			dispatch(setUserAction(user));
-			sessionStorage.setItem("userData", JSON.stringify(user));
+			sessionStorage.setItem(SESSION_STORAGE_NAMES.USER_DATA, JSON.stringify(user));
 
 			closeModal();
 		});

@@ -1,22 +1,56 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BiSolidUser } from "react-icons/bi";
+import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
 import { IoMdCart } from "react-icons/io";
-import { openModalForm } from "../../../../store/actions";
+import { logout, openModalForm } from "../../../../store/actions";
+import { userRoleSelector } from "../../../../store/selectors";
+import { checkAccess } from "../../../../../utils";
+import { ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
 import { ConditionalRenderingModal } from "../../../Modal/components/ConditionalRenderingModal/ConditionalRenderingModal";
 import styles from "./ControlPanel.module.scss";
 
 export const ControlPanel = () => {
 	const dispatch = useDispatch();
+	const roleId = useSelector(userRoleSelector);
+
+	const isGuest = checkAccess([ROLES.GUEST], roleId);
+	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
+
 	const openAuthModal = () => dispatch(openModalForm("authorization"));
+	const onLogout = () => {
+		dispatch(logout());
+		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
+	};
+
+	const toProfile = () => {
+		console.log("Переход на страницу профиля");
+	};
 
 	return (
 		<>
 			<div className={styles.wrapper}>
-				<button className={styles.control} onClick={openAuthModal}>
-					<BiSolidUser className="icon iconControl" />
-					<span className={styles.controlName}>Кабинет</span>
-				</button>
+				{isGuest ? (
+					<button className={styles.control} onClick={openAuthModal}>
+						<RiLoginBoxFill className="icon iconControl" />
+						<span className={styles.controlName}>Войти</span>
+					</button>
+				) : (
+					<>
+						{!isAdmin && (
+							<>
+								<Link to="/" className={styles.control} onClick={toProfile}>
+									<BiSolidUser className="icon iconControl" />
+									<span className={styles.controlName}>Профиль</span>
+								</Link>
+								<button className={styles.control} onClick={onLogout}>
+									<RiLogoutBoxFill className="icon iconControl" />
+									<span className={styles.controlName}>Выйти</span>
+								</button>
+							</>
+						)}
+					</>
+				)}
 				<Link to="/" className={styles.control}>
 					<IoMdCart className="icon iconControl" />
 					<span className={styles.controlName}>Корзина</span>

@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { Modal } from "../components";
 
 export const withModal = (Component, modalTitle) => {
-	const rootEl = document.getElementById("root");
+	const rootEl = document.body;
 
 	return props => {
 		return createPortal(

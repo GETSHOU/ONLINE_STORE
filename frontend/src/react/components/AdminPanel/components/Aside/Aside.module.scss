@@ -1,0 +1,98 @@
+@use '../../../../../styles/variables.scss' as *;
+
+.aside {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+}
+
+.item {
+	display: flex;
+	height: 60px;
+	width: 60px;
+	margin: 10px;
+	border-radius: 30px;
+	background-color: $secondary-color;
+
+	&:hover {
+		animation: block-expansion .4s ease-out forwards;
+
+		.actionElem {
+			width: 100%;
+			animation: changing-border-radius .4s ease-out forwards;
+
+			&TextWrapper {
+				animation: text-shift .3s ease-out forwards;
+			}
+		}
+
+		.actionElemIconWrapper > *, .actionElemText {
+			color: $main-theme-color;
+		}
+	}
+}
+
+.actionElem {
+	overflow: hidden;
+	border-radius: 30px;
+	box-shadow: 0 3px 10px 0 rgba(0,0,0,.3);
+
+	&Inner {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	&IconWrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 60px;
+		min-width: 60px;
+		max-width: 60px;
+	}
+
+	&TextWrapper {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		height: 60px;
+		left: -200px;
+		white-space: nowrap;
+	}
+
+	&Text {
+		font-weight: 500;
+	}
+}
+
+// ANIMATION
+
+ @keyframes block-expansion {
+	0%   {border-radius: 30px;}
+  100% {border-radius: 30px; width: 210px;}
+ }
+
+ @keyframes changing-border-radius {
+	0%   {border-radius: 30px;}
+  100% {border-radius: 30px;}
+ }
+
+ @keyframes text-shift {
+	0%   {opacity: 0; visibility: hidden;}
+  50%  {opacity: 0; visibility: hidden;}
+	75%  {opacity: 0; visibility: hidden;}
+  100% {opacity: 1; visibility: visible; left: unset; position: unset; padding-right: 20px;}
+ }
