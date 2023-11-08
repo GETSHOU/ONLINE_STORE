@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaUsers } from "react-icons/fa6";
+import { AiFillHome } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { logout } from "../../../../store/actions";
@@ -23,6 +24,18 @@ export const Aside = () => {
 						<Link to="/" className={styles.actionElem}>
 							<div className={styles.actionElemInner}>
 								<div className={styles.actionElemIconWrapper}>
+									<AiFillHome className="icon iconAside" />
+								</div>
+								<div className={styles.actionElemTextWrapper}>
+									<span className={styles.actionElemText}>Главная</span>
+								</div>
+							</div>
+						</Link>
+					</li>
+					<li className={styles.item}>
+						<Link to="/" className={styles.actionElem}>
+							<div className={styles.actionElemInner}>
+								<div className={styles.actionElemIconWrapper}>
 									<BiSolidUser className="icon iconAside" />
 								</div>
 								<div className={styles.actionElemTextWrapper}>
@@ -32,7 +45,7 @@ export const Aside = () => {
 						</Link>
 					</li>
 					<li className={styles.item}>
-						<Link to="/" className={styles.actionElem}>
+						<Link to="/users" className={styles.actionElem}>
 							<div className={styles.actionElemInner}>
 								<div className={styles.actionElemIconWrapper}>
 									<FaUsers className="icon iconAside" />

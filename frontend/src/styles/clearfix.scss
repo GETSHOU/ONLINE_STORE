@@ -34,7 +34,9 @@ a {
 }
 
 a,
-button {
+button,
+select,
+option {
 	cursor: pointer;
 }
 
@@ -55,9 +57,15 @@ img {
 
 input,
 textarea,
-button {
+button,
+select,
+option {
 	outline: none;
 	background: transparent;
+}
+
+.option {
+	border: none;
 }
 
 textarea {

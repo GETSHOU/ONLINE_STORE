@@ -1,0 +1,31 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.actions {
+	display: flex;
+	align-items: center;
+	width: 100%;
+
+	&Button {
+		margin-right: 12px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&:disabled > * {
+			color: $main-grey;
+			cursor: default;
+			pointer-events: none;
+		}
+
+		&:hover > * {
+			color: $main-theme-color;
+		}
+
+		&:hover {
+			&:disabled > * {
+				color: $main-grey;
+			}
+		}
+	}
+}

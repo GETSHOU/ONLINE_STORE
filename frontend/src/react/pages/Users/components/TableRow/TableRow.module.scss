@@ -1,0 +1,28 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.tableRow {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	margin-bottom: 10px;
+	padding: 20px;
+	background-color: $secondary-color;
+	border-radius: 5px;
+}
+
+.tableCell {
+	display: flex;
+	align-items: center;
+	flex: 1;
+	padding-right: 20px;
+	font-weight: 500;
+
+	&:last-child {
+		flex: 0 0 100px;
+		padding-right: 0;
+	}
+}
+
+
+
+

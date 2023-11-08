@@ -1,0 +1,25 @@
+.select {
+	width: 100%;
+	&__single-value {
+		font-weight: 500;
+	}
+	&__control {
+		cursor: pointer !important;
+	}
+}
+
+.css-t3ipsp-control {
+	box-shadow: 0 0 0 1px $main-theme-color !important;
+	&:hover {
+		border-color: $main-theme-color !important;
+	}
+}
+
+.selectedRole {
+	font-weight: 500;
+}
+
+.css-hlgwow {
+	display: flex !important;
+	flex: initial !important;
+}

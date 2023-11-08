@@ -1,11 +1,11 @@
 import { useLayoutEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAction } from "../../store/actions";
 import { userRoleSelector } from "../../store/selectors";
 import { checkAccess } from "../../../utils";
 import { ROLES, SESSION_STORAGE_NAMES } from "../../../constants";
-import { Header, Footer, AdminPanel } from "../../components";
+import { Header, Footer, ControlMenu } from "../../components";
 import { WithContainer } from "../../hoc";
 import styles from "./Main.module.scss";
 
@@ -13,6 +13,7 @@ const MainContentWithContainer = WithContainer(Outlet);
 
 export const Main = () => {
 	const dispatch = useDispatch();
+	const isUsersPage = !!useMatch("/users");
 	const roleId = useSelector(userRoleSelector);
 
 	useLayoutEffect(() => {
@@ -35,16 +36,22 @@ export const Main = () => {
 	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
 
 	return (
-		<div className={styles.pageWrapper}>
-			{isAdmin && <AdminPanel />}
+		<div
+			className={
+				isUsersPage
+					? `${styles.pageWrapper} ${styles.darkPageWrapper}`
+					: `${styles.pageWrapper}`
+			}
+		>
+			{isAdmin && <ControlMenu />}
 			<div className={styles.mainContentWrapper}>
 				<div className={styles.mainContent}>
-					<Header />
+					{!isUsersPage && <Header />}
 					<main className={styles.contentWrapper}>
-						<MainContentWithContainer />
+						{!isUsersPage ? <MainContentWithContainer /> : <Outlet />}
 					</main>
 				</div>
-				<Footer />
+				{!isUsersPage && <Footer />}
 			</div>
 		</div>
 	);

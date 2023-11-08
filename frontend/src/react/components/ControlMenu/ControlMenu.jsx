@@ -1,7 +1,7 @@
 import { Aside } from "./components/Aside/Aside";
-import styles from "./AdminPanel.module.scss";
+import styles from "./ControlMenu.module.scss";
 
-export const AdminPanel = () => {
+export const ControlMenu = () => {
 	return (
 		<div className={styles.wrapper}>
 			<Aside />

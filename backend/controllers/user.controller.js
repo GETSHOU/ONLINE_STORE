@@ -66,9 +66,9 @@ function getUsers() {
 // get roles
 function getRoles() {
 	return [
-		{ id: ROLES.ADMIN, name: "Admin" },
-		{ id: ROLES.MODERATOR, name: "Moderator" },
-		{ id: ROLES.GUEST, name: "Guest" },
+		{ id: ROLES.ADMIN, name: "Админ" },
+		{ id: ROLES.MODERATOR, name: "Модератор" },
+		{ id: ROLES.USER, name: "Пользователь" },
 	];
 }
 

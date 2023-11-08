@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./react/store";
-import { Main, Catalog } from "./react/pages";
+import { Main, Catalog, Users } from "./react/pages";
 import "./styles/_index.scss";
 
 const rootEl = document.getElementById("root");
@@ -18,6 +18,7 @@ root.render(
 				<Routes>
 					<Route path="/" element={<Main />}>
 						<Route path="catalog" element={<Catalog />} />
+						<Route path="users" element={<Users />} />
 					</Route>
 				</Routes>
 			</Provider>
