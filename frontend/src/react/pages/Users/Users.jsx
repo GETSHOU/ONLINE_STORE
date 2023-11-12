@@ -3,19 +3,19 @@ import { useSelector } from "react-redux";
 import { userRoleSelector } from "../../store/selectors";
 import { checkAccess, request } from "../../../utils";
 import { ROLES } from "../../../constants";
-import { Table } from "./components/Table/Table";
 import { PrivateContent } from "../../components";
+import { Table } from "./components/Table/Table";
 import styles from "./Users.module.scss";
 
 export const Users = () => {
-	const [roles, setRoles] = useState([]);
 	const [users, setUsers] = useState([]);
+	const [roles, setRoles] = useState([]);
 	const [serverError, setServerError] = useState(null);
 	const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
 
-	const roleId = useSelector(userRoleSelector);
+	const userRole = useSelector(userRoleSelector);
 
-	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
+	const isAdmin = checkAccess([ROLES.ADMIN], userRole);
 
 	useEffect(() => {
 		if (!isAdmin) {
@@ -30,11 +30,13 @@ export const Users = () => {
 					return;
 				}
 
+				console.log(usersResponse.data);
+
 				setUsers(usersResponse.data);
 				setRoles(rolesResponse.data);
 			},
 		);
-	}, [isAdmin, shouldUpdateUserList]);
+	}, [userRole, isAdmin, shouldUpdateUserList]);
 
 	return (
 		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>

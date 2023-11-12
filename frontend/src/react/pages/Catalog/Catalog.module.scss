@@ -3,9 +3,3 @@
 	flex-direction: column;
 	width: 100%;
 }
-
-.cards {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}

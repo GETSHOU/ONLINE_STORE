@@ -1,5 +1,5 @@
-@use "../../../styles/variables" as *;
-@use "../../../styles/mixins" as *;
+@use "../../../../../styles/variables.scss" as *;
+@use "../../../../../styles/mixins" as *;
 
 .wrapper {
 	display: flex;
@@ -23,7 +23,6 @@
 		}
 	}
 }
-
 
 .category {
 	padding: 0 20px;

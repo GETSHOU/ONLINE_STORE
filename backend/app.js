@@ -54,13 +54,13 @@ app.post("/login", async (req, res) => {
 	}
 });
 
+app.use(authenticated);
+// ----- НИЖЕ ДЛЯ АВТОРИЗОВАННЫХ ПОЛЬЗОВАТЕЛЕЙ -----
+
 // Logout
 app.post("/logout", (req, res) => {
 	res.cookie("token", "", { httpOnly: true }).send({});
 });
-
-app.use(authenticated);
-// ----- НИЖЕ ДЛЯ АВТОРИЗОВАННЫХ ПОЛЬЗОВАТЕЛЕЙ -----
 
 // получаем пользователей (только с правами админа)
 app.get("/users", hasRole([ROLES.ADMIN]), async (req, res) => {

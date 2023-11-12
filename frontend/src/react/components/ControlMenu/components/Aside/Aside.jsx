@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
@@ -12,8 +12,9 @@ export const Aside = () => {
 	const dispatch = useDispatch();
 
 	const onLogout = () => {
-		dispatch(logout());
 		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
+		dispatch(logout());
+		Navigate("/");
 	};
 
 	return (

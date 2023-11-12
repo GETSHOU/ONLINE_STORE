@@ -1,6 +1,6 @@
-import styles from "./CardCategory.module.scss";
+import styles from "./CategoryCard.module.scss";
 
-export const CardCategory = ({ categoryTitle }) => {
+export const CategoryCard = ({ categoryTitle }) => {
 	return (
 		<div className={styles.wrapper}>
 			<h4 className={styles.category}>Каталог товаров</h4>

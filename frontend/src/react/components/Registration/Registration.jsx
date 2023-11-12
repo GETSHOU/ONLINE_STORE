@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useResetForm } from "../../hooks";
-import { closeModalForm, setUserAction } from "../../store/actions";
+import { closeModalForm, setUser } from "../../store/actions";
 import { userRoleSelector } from "../../store/selectors";
 import { regFormSchema } from "../../scheme";
 import { checkAccess, request } from "../../../utils";
@@ -47,7 +47,7 @@ export const Registration = () => {
 				return;
 			}
 
-			dispatch(setUserAction(user));
+			dispatch(setUser(user));
 			sessionStorage.setItem(SESSION_STORAGE_NAMES.USER_DATA, JSON.stringify(user));
 
 			closeModal();

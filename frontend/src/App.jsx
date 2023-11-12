@@ -1,17 +1,19 @@
 import { useLayoutEffect } from "react";
-import { Outlet, useMatch } from "react-router-dom";
+import { Route, Routes, useMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserAction } from "../../store/actions";
-import { userRoleSelector } from "../../store/selectors";
-import { checkAccess } from "../../../utils";
-import { ROLES, SESSION_STORAGE_NAMES } from "../../../constants";
-import { Header, Footer, ControlMenu } from "../../components";
-import { WithContainer } from "../../hoc";
-import styles from "./Main.module.scss";
+import { setUser } from "./react/store/actions";
+import { userRoleSelector } from "./react/store/selectors";
+import { checkAccess } from "./utils";
+import { ROLES, SESSION_STORAGE_NAMES } from "./constants";
+import { Header, Footer, ControlMenu } from "./react/components";
+import { WithContainer } from "./react/hoc";
+import styles from "./App.module.scss";
+import { Catalog, MainPage, Users } from "./react/pages";
 
-const MainContentWithContainer = WithContainer(Outlet);
+const MainPageWithContainer = WithContainer(MainPage);
+const CatalogWithContainer = WithContainer(Catalog);
 
-export const Main = () => {
+export const App = () => {
 	const dispatch = useDispatch();
 	const isUsersPage = !!useMatch("/users");
 	const roleId = useSelector(userRoleSelector);
@@ -25,7 +27,7 @@ export const Main = () => {
 			const currentUserData = JSON.parse(currentUserDataJSON);
 
 			dispatch(
-				setUserAction({
+				setUser({
 					...currentUserData,
 					roleId: Number(currentUserData.roleId),
 				}),
@@ -48,7 +50,12 @@ export const Main = () => {
 				<div className={styles.mainContent}>
 					{!isUsersPage && <Header />}
 					<main className={styles.contentWrapper}>
-						{!isUsersPage ? <MainContentWithContainer /> : <Outlet />}
+						<Routes>
+							<Route path="/" element={<MainPageWithContainer />} />
+							<Route path="/catalog" element={<CatalogWithContainer />} />
+							<Route path="/users" element={<Users />} />
+							<Route path="*" element={<div>СТРАНИЦА НЕ НАЙДЕНА!</div>} />
+						</Routes>
 					</main>
 				</div>
 				{!isUsersPage && <Footer />}

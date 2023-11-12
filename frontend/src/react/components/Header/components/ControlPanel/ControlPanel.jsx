@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidUser } from "react-icons/bi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
@@ -18,9 +18,11 @@ export const ControlPanel = () => {
 	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
 
 	const openAuthModal = () => dispatch(openModalForm("authorization"));
+
 	const onLogout = () => {
-		dispatch(logout());
 		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
+		dispatch(logout());
+		Navigate("/");
 	};
 
 	const toProfile = () => {

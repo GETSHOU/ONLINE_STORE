@@ -6,11 +6,11 @@ const { ROLES } = require("../constants/roles");
 // register
 async function register(email, name, password) {
 	// Проверяем, есть ли пользователь с таким email
-	const userExists = await User.exists({ email });
+	// const userExists = await User.exists({ email });
 
-	if (userExists) {
-		throw new Error("Пользователь с таким email уже существует");
-	}
+	// if (userExists) {
+	// 	throw new Error("Пользователь с таким email уже существует");
+	// }
 	// Хэш упадет, если пароль будет пустым, и для того, чтобы на фронт не отправлялась ошибка о падени bcrypt, будем заранее проверять наличие пароля и выбрасывать ошибку
 	if (!password) {
 		throw new Error("Пароль пустой");

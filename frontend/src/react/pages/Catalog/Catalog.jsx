@@ -1,14 +1,10 @@
-import { CardCategory } from "../../components";
+import { CategoryCards } from "./components/CategoryCards/CategoryCards";
 import styles from "./Catalog.module.scss";
 
 export const Catalog = () => {
 	return (
 		<div className={styles.wrapper}>
-			<div className={styles.cards}>
-				<CardCategory categoryTitle={"Комплектующие для ПК"} />
-				<CardCategory categoryTitle={"Периферия"} />
-				<CardCategory categoryTitle={"Серверное оборудование"} />
-			</div>
+			<CategoryCards />
 		</div>
 	);
 };
