@@ -1,0 +1,59 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.card {
+	display: flex;
+	padding: 20px 0;
+	border-top: 1px solid #e1e1e1;
+
+	&:last-child {
+		border-bottom: 1px solid #e1e1e1;
+	}
+
+	& > div {
+		margin-right: 20px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	&Image {
+		display: flex;
+		align-items: flex-start;
+		flex: 0 0 180px;
+	}
+
+	&Content {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	&Title {
+		margin-bottom: 20px;
+		font-size: 1.2rem;
+		line-height: 1.3rem;
+		font-weight: 500;
+	}
+
+	&Text {
+		line-height: 1.4rem;
+	}
+
+	&Actions {
+		display: flex;
+		flex-direction: column;
+		flex: 0 0 180px;
+	}
+}
+
+.price {
+	display: flex;
+	flex-wrap: nowrap;
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 1.4rem;
+	font-weight: 500;
+}
+
+

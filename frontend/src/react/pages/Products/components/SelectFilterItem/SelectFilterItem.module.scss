@@ -1,0 +1,43 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.item {
+	margin-bottom: 10px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.label {
+  display: flex;
+	flex-flow: row-reverse;
+	align-items: center;
+	font-size: 0.9rem;
+	line-height: 20px;
+  cursor: pointer;
+  user-select: none;
+
+	.input {
+		display: none;
+	}
+
+	.checkmark {
+		display: flex;
+		height: 20px;
+		width: 20px;
+		margin-right: 10px;
+		background-color: #eee;
+		border-radius: 50%;
+		transition: $transition-hover;
+	}
+
+	&:hover {
+		.checkmark {
+			background-color: #ccc;
+		}
+	}
+}
+
+.input:checked ~ .checkmark {
+  background-color: $main-theme-color;
+}

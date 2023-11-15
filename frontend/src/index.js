@@ -12,11 +12,9 @@ if (!rootEl) throw new Error("Cannot find root element with that id");
 const root = ReactDOM.createRoot(rootEl);
 
 root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<Provider store={store}>
-				<App />
-			</Provider>
-		</BrowserRouter>
-	</React.StrictMode>,
+	<BrowserRouter>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</BrowserRouter>,
 );

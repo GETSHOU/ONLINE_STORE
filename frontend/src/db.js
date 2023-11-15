@@ -13,7 +13,7 @@ const specs = {
 		TDP: "",
 	},
 	videocards: {
-		videoProcessorManufacturer: "",
+		developer: "", // NVIDIA, AMD
 		series: "",
 		memory: "",
 		memoryType: "",
