@@ -60,6 +60,11 @@
 	&ArrowDropup, &ArrowDropdown {
 		font-size: 1.5rem;
 	}
+
+	&EmptyCart {
+		font-size: 4rem;
+		color: $main-theme-color;
+	}
 }
 
 
