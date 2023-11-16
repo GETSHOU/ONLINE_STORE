@@ -25,8 +25,6 @@ export const ProductFilter = () => {
 		);
 	};
 
-	console.log(checked);
-
 	return (
 		<aside className={styles.filter}>
 			<h4 className={styles.filterTitle}>Фильтры</h4>
@@ -46,7 +44,7 @@ export const ProductFilter = () => {
 			</ul>
 			<Button
 				type="button"
-				text="Показать"
+				text="Сбросить фильтр"
 				onChange={() => {
 					console.log(checked);
 				}}

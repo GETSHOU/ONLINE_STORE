@@ -1,0 +1,36 @@
+@use "../../../styles/variables.scss" as *;
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	background-color: $very-light-grey;
+	transition: $transition-hover;
+
+	&:hover {
+		background-color: $main-theme-color;
+
+		& > * {
+			color: $secondary-color;
+		}
+	}
+
+	&:disabled {
+		background-color: $very-light-grey;
+		cursor: initial;
+
+		& > * {
+			color: $main-grey;
+		}
+
+		&:hover {
+			background-color: $very-light-grey;
+
+			& > * {
+				color: $main-grey;
+			}
+		}
+	}
+}

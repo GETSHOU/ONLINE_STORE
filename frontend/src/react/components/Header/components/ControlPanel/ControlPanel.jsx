@@ -53,7 +53,7 @@ export const ControlPanel = () => {
 						)}
 					</>
 				)}
-				<Link to="/" className={styles.control}>
+				<Link to="/cart" className={styles.control}>
 					<IoMdCart className="icon iconControl" />
 					<span className={styles.controlName}>Корзина</span>
 				</Link>

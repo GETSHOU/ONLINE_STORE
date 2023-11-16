@@ -1,0 +1,37 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.cart {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 10px 0;
+	border-bottom: 1px solid $very-light-grey;
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&InnerWrapper {
+		display: flex;
+		align-items: center;
+		margin-right: 20px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&.price {
+			flex: 0 0 150px;
+			display: flex;
+			align-items: center;
+			margin-right: 20px;
+
+			span {
+				font-size: 1.2rem;
+				font-weight: 500;
+			}
+		}
+	}
+}
+
+

@@ -1,0 +1,47 @@
+@use "../../../styles/variables.scss" as *;
+
+.product {
+	display: flex;
+	align-items: center;
+	width: 100%;
+
+	&Image {
+		display: flex;
+		align-items: center;
+		flex: 0 0 120px;
+		margin-right: 20px;
+	}
+
+	&Info {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	&TextRow {
+		margin-bottom: 10px;
+		font-size: 0.9rem;
+		line-height: 1.2rem;
+
+		&:first-child {
+			font-weight: 500;
+			color: $main-grey;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&TitleLink {
+		font-size: 1.1rem;
+		line-height: 1.2rem;
+		font-weight: bold;
+		transition: $transition-hover;
+
+		&:hover {
+			color: $main-theme-color;
+		}
+	}
+}
+
+

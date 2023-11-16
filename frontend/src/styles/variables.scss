@@ -5,11 +5,13 @@ $dark-theme-color: #202124;
 
 $main-grey: #828282;
 $light-grey: #c7c7c7;
+$very-light-grey: #e7e7e7;
 $red: #d60000;
 
 $placeholder-color: $main-grey;
 $border-input-color: $light-grey;
 $form-error: $red;
+$border-color: $very-light-grey;
 
 $main-font-family: 'Montserrat';
 
@@ -17,6 +19,8 @@ $transition-hover: all .2s ease;
 
 $width-admin-panel: 20px;
 
+$page-static-width: 1440px;
+$container-width: $page-static-width;
 
 
 

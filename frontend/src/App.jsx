@@ -5,13 +5,14 @@ import { setUser } from "./react/store/actions";
 import { userRoleSelector } from "./react/store/selectors";
 import { checkAccess } from "./utils";
 import { ROLES, SESSION_STORAGE_NAMES } from "./constants";
+import { MainPage, Catalog, Cart, Users } from "./react/pages";
 import { Header, Footer, ControlMenu } from "./react/components";
 import { WithContainer } from "./react/hoc";
 import styles from "./App.module.scss";
-import { Catalog, MainPage, Users } from "./react/pages";
 
 const MainPageWithContainer = WithContainer(MainPage);
 const CatalogWithContainer = WithContainer(Catalog);
+const CartWithContainer = WithContainer(Cart);
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -46,13 +47,14 @@ export const App = () => {
 			}
 		>
 			{isAdmin && <ControlMenu />}
-			<div className={styles.mainContentWrapper}>
+			<div className={styles.wrapper}>
 				<div className={styles.mainContent}>
 					{!isUsersPage && <Header />}
 					<main className={styles.contentWrapper}>
 						<Routes>
 							<Route path="/" element={<MainPageWithContainer />} />
 							<Route path="/catalog" element={<CatalogWithContainer />} />
+							<Route path="/cart" element={<CartWithContainer />} />
 							<Route path="/users" element={<Users />} />
 							<Route path="*" element={<div>СТРАНИЦА НЕ НАЙДЕНА!</div>} />
 						</Routes>

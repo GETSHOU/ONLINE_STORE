@@ -1,0 +1,52 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.spec {
+	display: flex;
+	width: 100%;
+	margin-bottom: 5px;
+
+	&InnerWrapper {
+		overflow: hidden;
+		margin-right: 7px;
+
+		&:first-child {
+			flex: 0 0 350px;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	&Text {
+		text-align: left;
+		align-items: flex-start;
+		line-height: 1.2rem;
+	}
+
+	&Title {
+		width: 100%;
+		font-weight: 500;
+		color: $main-grey;
+	}
+
+	&Desc {
+	font-weight: 500;
+	}
+}
+
+.dottedLine {
+	position: relative;
+	padding-left: 7px;
+
+	span {
+		position: absolute;
+    color: $light-grey;
+    line-height: 1.2rem;
+    letter-spacing: .15rem;
+    word-break: normal;
+		user-select: none;
+    pointer-events: none;
+    z-index: -1;
+	}
+}

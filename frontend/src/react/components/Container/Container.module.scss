@@ -1,7 +1,9 @@
+@use "../../../styles/variables.scss" as *;
+
 .wrapper {
 	display: flex;
 	flex-direction: column;
-	width: 1170px;
+	width: $container-width;
 	height: 100%;
 	padding: 0 15px;
 }
