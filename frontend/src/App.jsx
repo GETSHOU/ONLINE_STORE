@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./react/store/actions";
 import { userRoleSelector } from "./react/store/selectors";
 import { checkAccess } from "./utils";
-import { ROLES, SESSION_STORAGE_NAMES } from "./constants";
+import { ERRORS, ROLES, SESSION_STORAGE_NAMES } from "./constants";
 import { MainPage, Catalog, Cart, Users } from "./react/pages";
-import { Header, Footer, ControlMenu } from "./react/components";
+import { Header, Footer, ControlMenu, Error } from "./react/components";
 import { WithContainer } from "./react/hoc";
 import styles from "./App.module.scss";
 
@@ -50,13 +50,19 @@ export const App = () => {
 			<div className={styles.wrapper}>
 				<div className={styles.mainContent}>
 					{!isUsersPage && <Header />}
-					<main className={styles.contentWrapper}>
+					<main
+						className={
+							!isUsersPage
+								? `${styles.contentWrapper}`
+								: `${styles.contentWrapper} ${styles.contentWrapperUsersPage}`
+						}
+					>
 						<Routes>
 							<Route path="/" element={<MainPageWithContainer />} />
 							<Route path="/catalog" element={<CatalogWithContainer />} />
 							<Route path="/cart" element={<CartWithContainer />} />
 							<Route path="/users" element={<Users />} />
-							<Route path="*" element={<div>СТРАНИЦА НЕ НАЙДЕНА!</div>} />
+							<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />
 						</Routes>
 					</main>
 				</div>

@@ -12,3 +12,4 @@ export * from "./CountSwitcher/CountSwitcher";
 export * from "./ProductInfo/ProductInfo";
 export * from "./SortingProductList/SortingProductList";
 export * from "./ProductDetails/ProductDetails";
+export * from "./Error/Error";
