@@ -26,21 +26,26 @@ export const ControlMenu = () => {
 						<ControlMenuListItem
 							link="/"
 							text="Главная"
-							icon={<AiFillHome className="icon iconAside" />}
+							icon={<AiFillHome className="icon iconControlMenu" />}
 						/>
 						<ControlMenuListItem
 							link="/"
 							text="Профиль"
-							icon={<BiSolidUser className="icon iconAside" />}
+							icon={<BiSolidUser className="icon iconControlMenu" />}
 						/>
 						<ControlMenuListItem
 							link="/users"
 							text="Пользователи"
-							icon={<FaUsers className="icon iconAside" />}
+							icon={<FaUsers className="icon iconControlMenu" />}
+						/>
+						<ControlMenuListItem
+							link="/product-catalog-management"
+							text="Управление каталогом"
+							icon={<FaUsers className="icon iconControlMenu" />}
 						/>
 						<ControlMenuListItem
 							text="Выйти"
-							icon={<RiLogoutBoxFill className="icon iconAside" />}
+							icon={<RiLogoutBoxFill className="icon iconControlMenu" />}
 							onLogout={onLogout}
 						/>
 					</ul>

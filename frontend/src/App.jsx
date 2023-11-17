@@ -46,8 +46,8 @@ export const App = () => {
 					: `${styles.pageWrapper}`
 			}
 		>
-			{/* {isAdmin && <ControlMenu />} */}
-			<ControlMenu />
+			{isAdmin && <ControlMenu />}
+			{/* <ControlMenu /> */}
 			<div className={styles.wrapper}>
 				<div className={styles.mainContent}>
 					{!isUsersPage && <Header />}
