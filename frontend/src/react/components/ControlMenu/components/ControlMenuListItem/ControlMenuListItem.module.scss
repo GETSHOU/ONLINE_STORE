@@ -1,22 +1,4 @@
-@use '../../../../../styles/variables.scss' as *;
-
-.aside {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-.nav {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	height: 100%;
-}
-
-.list {
-	display: flex;
-	flex-direction: column;
-}
+@use "../../../../../styles/variables.scss" as *;
 
 .item {
 	display: flex;
@@ -26,30 +8,13 @@
 	border-radius: 30px;
 	background-color: $secondary-color;
 
-	&:hover {
-		animation: block-expansion .4s ease-out forwards;
-
-		.actionElem {
-			width: 100%;
-			animation: changing-border-radius .4s ease-out forwards;
-
-			&TextWrapper {
-				animation: text-shift .3s ease-out forwards;
-			}
-		}
-
-		.actionElemIconWrapper > *, .actionElemText {
-			color: $main-theme-color;
-		}
+	&Action {
+		overflow: hidden;
+		border-radius: 30px;
+		box-shadow: 0 2px 7px 0 rgba(0,0,0,.2);
 	}
-}
 
-.actionElem {
-	overflow: hidden;
-	border-radius: 30px;
-	box-shadow: 0 3px 10px 0 rgba(0,0,0,.3);
-
-	&Inner {
+	&InnerWrapper {
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -76,7 +41,26 @@
 	&Text {
 		font-weight: 500;
 	}
+
+	&:hover {
+		animation: block-expansion .3s ease-out forwards;
+
+		.itemAction {
+			width: 100%;
+			animation: changing-border-radius .3s ease-out forwards;
+		}
+
+		.itemTextWrapper {
+			animation: text-shift .2s ease-out forwards;
+		}
+
+		.itemIconWrapper > *, .itemText {
+			color: $main-theme-color;
+		}
+	}
 }
+
+
 
 // ANIMATION
 

@@ -11,3 +11,22 @@
 	background-color: $main-theme-color;
 	z-index: 10;
 }
+
+.aside {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+}
+

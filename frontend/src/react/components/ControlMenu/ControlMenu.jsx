@@ -1,10 +1,51 @@
-import { Aside } from "./components/Aside/Aside";
+import { useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { FaUsers } from "react-icons/fa6";
+import { AiFillHome } from "react-icons/ai";
+import { BiSolidUser } from "react-icons/bi";
+import { RiLogoutBoxFill } from "react-icons/ri";
+import { logout } from "../../store/actions";
+import { SESSION_STORAGE_NAMES } from "../../../constants";
+import { ControlMenuListItem } from "./components/ControlMenuListItem/ControlMenuListItem";
 import styles from "./ControlMenu.module.scss";
 
 export const ControlMenu = () => {
+	const dispatch = useDispatch();
+
+	const onLogout = () => {
+		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
+		dispatch(logout());
+		Navigate("/");
+	};
+
 	return (
 		<div className={styles.wrapper}>
-			<Aside />
+			<aside className={styles.aside}>
+				<nav className={styles.nav}>
+					<ul className={styles.list}>
+						<ControlMenuListItem
+							link="/"
+							text="Главная"
+							icon={<AiFillHome className="icon iconAside" />}
+						/>
+						<ControlMenuListItem
+							link="/"
+							text="Профиль"
+							icon={<BiSolidUser className="icon iconAside" />}
+						/>
+						<ControlMenuListItem
+							link="/users"
+							text="Пользователи"
+							icon={<FaUsers className="icon iconAside" />}
+						/>
+						<ControlMenuListItem
+							text="Выйти"
+							icon={<RiLogoutBoxFill className="icon iconAside" />}
+							onLogout={onLogout}
+						/>
+					</ul>
+				</nav>
+			</aside>
 		</div>
 	);
 };
