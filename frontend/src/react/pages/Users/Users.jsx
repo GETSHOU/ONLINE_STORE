@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { userRoleSelector } from "../../store/selectors";
 import { checkAccess, request } from "../../../utils";
 import { ROLES } from "../../../constants";
-import { PrivateContent } from "../../components";
+import { AdminContent, PrivateContent } from "../../components";
 import { Table } from "./components/Table/Table";
-import styles from "./Users.module.scss";
+// import styles from "./Users.module.scss";
 
 export const Users = () => {
 	const [users, setUsers] = useState([]);
@@ -39,16 +39,15 @@ export const Users = () => {
 	}, [userRole, isAdmin, shouldUpdateUserList]);
 
 	return (
-		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-			<div className={styles.wrapper}>
-				<h2 className={styles.title}>Пользователи</h2>
-				<Table
-					users={users}
-					roles={roles}
-					shouldUpdateUserList={shouldUpdateUserList}
-					setShouldUpdateUserList={setShouldUpdateUserList}
-				/>
-			</div>
-		</PrivateContent>
+		// <PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
+		<AdminContent pageTitle="Пользователи">
+			<Table
+				users={users}
+				roles={roles}
+				shouldUpdateUserList={shouldUpdateUserList}
+				setShouldUpdateUserList={setShouldUpdateUserList}
+			/>
+		</AdminContent>
+		// </PrivateContent>
 	);
 };

@@ -4,10 +4,10 @@ import { PaymentDetails } from "./components/PaymentDetails/PaymentDetails";
 import { EmptyCart } from "./components/EmptyCart/EmptyCart";
 import styles from "./Cart.module.scss";
 
-export const Cart = () => {
+export const Cart = ({ pageTitle }) => {
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title="Корзина" />
+			<PageTitle title={pageTitle} />
 			{/* <div className={styles.content}>
 				<ul className={styles.list}>
 					<CartItem id={1} />

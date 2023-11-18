@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
+import { TbLayoutGrid } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { logout } from "../../store/actions";
 import { SESSION_STORAGE_NAMES } from "../../../constants";
@@ -39,9 +40,9 @@ export const ControlMenu = () => {
 							icon={<FaUsers className="icon iconControlMenu" />}
 						/>
 						<ControlMenuListItem
-							link="/product-catalog-management"
+							link="/catalog-management"
 							text="Управление каталогом"
-							icon={<FaUsers className="icon iconControlMenu" />}
+							icon={<TbLayoutGrid className="icon iconControlMenu" />}
 						/>
 						<ControlMenuListItem
 							text="Выйти"

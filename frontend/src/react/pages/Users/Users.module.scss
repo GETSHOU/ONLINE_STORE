@@ -1,15 +1,2 @@
 @use "../../../styles/variables.scss" as * ;
 
-.wrapper {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	padding: 100px;
-}
-
-.title {
-	margin-bottom: 50px;
-	font-size: 2.5rem;
-	font-weight: 500;
-	color: $secondary-color;
-}

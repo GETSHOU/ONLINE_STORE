@@ -5,7 +5,7 @@ import { setUser } from "./react/store/actions";
 import { userRoleSelector } from "./react/store/selectors";
 import { checkAccess } from "./utils";
 import { ERRORS, ROLES, SESSION_STORAGE_NAMES } from "./constants";
-import { MainPage, Catalog, Cart, Users } from "./react/pages";
+import { MainPage, Catalog, Cart, Users, CatalogManagement } from "./react/pages";
 import { Header, Footer, ControlMenu, Error } from "./react/components";
 import { WithContainer } from "./react/hoc";
 import styles from "./App.module.scss";
@@ -17,6 +17,7 @@ const CartWithContainer = WithContainer(Cart);
 export const App = () => {
 	const dispatch = useDispatch();
 	const isUsersPage = !!useMatch("/users");
+	const isCatalogManagementPage = !!useMatch("/catalog-management");
 	const roleId = useSelector(userRoleSelector);
 
 	useLayoutEffect(() => {
@@ -37,37 +38,48 @@ export const App = () => {
 	}, [dispatch]);
 
 	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
+	const isAdminPanel = isUsersPage || isCatalogManagementPage;
 
 	return (
 		<div
 			className={
-				isUsersPage
+				isAdminPanel
 					? `${styles.pageWrapper} ${styles.darkPageWrapper}`
 					: `${styles.pageWrapper}`
 			}
 		>
-			{isAdmin && <ControlMenu />}
-			{/* <ControlMenu /> */}
+			{/* {isAdmin && <ControlMenu />} */}
+			<ControlMenu />
 			<div className={styles.wrapper}>
 				<div className={styles.mainContent}>
-					{!isUsersPage && <Header />}
+					{!isAdminPanel && <Header />}
 					<main
 						className={
-							!isUsersPage
+							!isAdminPanel
 								? `${styles.contentWrapper}`
-								: `${styles.contentWrapper} ${styles.contentWrapperUsersPage}`
+								: `${styles.contentWrapper} ${styles.adminPanel}`
 						}
 					>
 						<Routes>
-							<Route path="/" element={<MainPageWithContainer />} />
-							<Route path="/catalog" element={<CatalogWithContainer />} />
-							<Route path="/cart" element={<CartWithContainer />} />
-							<Route path="/users" element={<Users />} />
+							<Route
+								path="/"
+								element={<MainPageWithContainer pageTitle="Главная страница" />}
+							/>
+							<Route
+								path="/catalog"
+								element={<CatalogWithContainer pageTitle="Каталог" />}
+							/>
+							<Route path="/cart" element={<CartWithContainer pageTitle="Корзина" />} />
+							<Route path="/users" element={<Users pageTitle="Пользователи" />} />
+							<Route
+								path="/catalog-management"
+								element={<CatalogManagement pageTitle="Управление каталогом" />}
+							/>
 							<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />
 						</Routes>
 					</main>
 				</div>
-				{!isUsersPage && <Footer />}
+				{!isAdminPanel && <Footer />}
 			</div>
 		</div>
 	);

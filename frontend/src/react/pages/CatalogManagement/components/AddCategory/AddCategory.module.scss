@@ -1,0 +1,41 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	height: 200px;
+	border: 5px solid $secondary-color;
+	border-radius: 20px;
+	transition: $transition-hover;
+
+	&Icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+	}
+
+	&Title {
+		margin-top: 20px;
+		font-size: 1.3rem;
+		line-height: 1.5rem;
+		color: $secondary-color;
+		font-weight: 500;
+		transition: $transition-hover;
+	}
+
+	&:hover {
+		border-color: $main-theme-color;
+
+		& > * {
+			color: $main-theme-color;
+		}
+
+		.buttonTitle {
+			color: $main-theme-color;
+		}
+	}
+}
