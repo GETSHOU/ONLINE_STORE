@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { AdminContent, PrivateContent } from "../../components";
-import { AddCategory } from "./components/AddCategory/AddCategory";
-import { CategoryCard } from "./components/CategoryCard/CategoryCard";
+import {
+	AdminContent,
+	PrivateContent,
+	AddCategoryCard,
+	EditableCategoryCard,
+} from "../../components";
 import { ROLES } from "../../../constants";
 import styles from "./CatalogManagement.module.scss";
 
-export const CatalogManagement = () => {
+export const CatalogManagement = ({ pageTitle }) => {
 	const [serverError, setServerError] = useState(null);
 
 	const handleAddCategory = () => {
@@ -22,23 +25,23 @@ export const CatalogManagement = () => {
 
 	return (
 		// <PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-		<AdminContent pageTitle="Управление каталогом">
-			<AddCategory title="Добавить категорию" action={handleAddCategory} />
+		<AdminContent pageTitle={pageTitle}>
+			<AddCategoryCard title="Добавить категорию" handleAdd={handleAddCategory} />
 			<div className={styles.categoryCards}>
-				<CategoryCard
+				<EditableCategoryCard
 					linkTitle="Комплектующие для ПК"
-					handleEditCategory={handleEditCategory}
-					handleRemoveCategory={handleRemoveCategory}
+					handleEdit={handleEditCategory}
+					handleRemove={handleRemoveCategory}
 				/>
-				<CategoryCard
+				<EditableCategoryCard
 					linkTitle="Периферия"
-					handleEditCategory={handleEditCategory}
-					handleRemoveCategory={handleRemoveCategory}
+					handleEdit={handleEditCategory}
+					handleRemove={handleRemoveCategory}
 				/>
-				<CategoryCard
+				<EditableCategoryCard
 					linkTitle="Серверное оборудование"
-					handleEditCategory={handleEditCategory}
-					handleRemoveCategory={handleRemoveCategory}
+					handleEdit={handleEditCategory}
+					handleRemove={handleRemoveCategory}
 				/>
 			</div>
 		</AdminContent>

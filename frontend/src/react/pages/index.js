@@ -5,3 +5,5 @@ export * from "./Product/Product";
 export * from "./Cart/Cart";
 export * from "./Users/Users";
 export * from "./CatalogManagement/CatalogManagement";
+export * from "./SubcategoryManagement/SubcategoryManagement";
+export * from "./ProductsManagement/ProductsManagement";

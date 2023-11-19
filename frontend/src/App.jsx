@@ -5,7 +5,15 @@ import { setUser } from "./react/store/actions";
 import { userRoleSelector } from "./react/store/selectors";
 import { checkAccess } from "./utils";
 import { ERRORS, ROLES, SESSION_STORAGE_NAMES } from "./constants";
-import { MainPage, Catalog, Cart, Users, CatalogManagement } from "./react/pages";
+import {
+	Cart,
+	Users,
+	Catalog,
+	MainPage,
+	CatalogManagement,
+	ProductsManagement,
+	SubcategoryManagement,
+} from "./react/pages";
 import { Header, Footer, ControlMenu, Error } from "./react/components";
 import { WithContainer } from "./react/hoc";
 import styles from "./App.module.scss";
@@ -18,6 +26,8 @@ export const App = () => {
 	const dispatch = useDispatch();
 	const isUsersPage = !!useMatch("/users");
 	const isCatalogManagementPage = !!useMatch("/catalog-management");
+	const isSubcategoryManagementPage = !!useMatch("/subcategory-management");
+	const isProductsManagementPage = !!useMatch("/products-management");
 	const roleId = useSelector(userRoleSelector);
 
 	useLayoutEffect(() => {
@@ -38,7 +48,11 @@ export const App = () => {
 	}, [dispatch]);
 
 	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
-	const isAdminPanel = isUsersPage || isCatalogManagementPage;
+	const isAdminPanel =
+		isUsersPage ||
+		isCatalogManagementPage ||
+		isSubcategoryManagementPage ||
+		isProductsManagementPage;
 
 	return (
 		<div
@@ -74,6 +88,14 @@ export const App = () => {
 							<Route
 								path="/catalog-management"
 								element={<CatalogManagement pageTitle="Управление каталогом" />}
+							/>
+							<Route
+								path="/subcategory-management"
+								element={<SubcategoryManagement pageTitle="Управление подкатегориямии" />}
+							/>
+							<Route
+								path="/products-management"
+								element={<ProductsManagement pageTitle="Управление товарами" />}
 							/>
 							<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />
 						</Routes>
