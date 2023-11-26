@@ -19,7 +19,7 @@ export const EmptyCart = () => {
 					</span>
 				</div>
 				<div className={styles.messageRow}>
-					<Button buttonLink="/catalog" text="Перейти в каталог"></Button>
+					<Button buttonLink="/categories" text="Перейти в каталог"></Button>
 				</div>
 			</div>
 		</div>

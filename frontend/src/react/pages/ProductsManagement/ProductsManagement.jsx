@@ -3,7 +3,7 @@ import { AdminContent, PrivateContent } from "../../components";
 import { ROLES } from "../../../constants";
 import styles from "./ProductsManagement.module.scss";
 
-export const ProductsManagement = ({ pageTitle }) => {
+export const ProductsManagement = () => {
 	const [serverError, setServerError] = useState(null);
 
 	const handleAddProduct = () => {
@@ -19,8 +19,8 @@ export const ProductsManagement = ({ pageTitle }) => {
 	};
 
 	return (
-		// <PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-		<AdminContent pageTitle={pageTitle}></AdminContent>
-		// </PrivateContent>
+		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
+			<AdminContent pageTitle="Управление товарами"></AdminContent>
+		</PrivateContent>
 	);
 };

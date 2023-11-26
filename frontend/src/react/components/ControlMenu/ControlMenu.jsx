@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
@@ -12,11 +12,12 @@ import styles from "./ControlMenu.module.scss";
 
 export const ControlMenu = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const onLogout = () => {
 		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
 		dispatch(logout());
-		Navigate("/");
+		navigate("/");
 	};
 
 	return (
@@ -40,7 +41,7 @@ export const ControlMenu = () => {
 							icon={<FaUsers className="icon iconControlMenu" />}
 						/>
 						<ControlMenuListItem
-							link="/catalog-management"
+							link="/categories-management"
 							text="Управление каталогом"
 							icon={<TbLayoutGrid className="icon iconControlMenu" />}
 						/>

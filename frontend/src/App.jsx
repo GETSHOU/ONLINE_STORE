@@ -8,26 +8,30 @@ import { ERRORS, ROLES, SESSION_STORAGE_NAMES } from "./constants";
 import {
 	Cart,
 	Users,
-	Catalog,
 	MainPage,
-	CatalogManagement,
+	Categories,
+	Subcategories,
 	ProductsManagement,
-	SubcategoryManagement,
+	CategoriesManagement,
+	SubcategoriesManagement,
 } from "./react/pages";
 import { Header, Footer, ControlMenu, Error } from "./react/components";
 import { WithContainer } from "./react/hoc";
 import styles from "./App.module.scss";
 
-const MainPageWithContainer = WithContainer(MainPage);
-const CatalogWithContainer = WithContainer(Catalog);
 const CartWithContainer = WithContainer(Cart);
+const MainPageWithContainer = WithContainer(MainPage);
+const CategoriesWithContainer = WithContainer(Categories);
+const SubcategoriesWithContainer = WithContainer(Subcategories);
 
 export const App = () => {
 	const dispatch = useDispatch();
+
 	const isUsersPage = !!useMatch("/users");
-	const isCatalogManagementPage = !!useMatch("/catalog-management");
-	const isSubcategoryManagementPage = !!useMatch("/subcategory-management");
 	const isProductsManagementPage = !!useMatch("/products-management");
+	const isCategoriesManagementPage = !!useMatch("/categories-management");
+	const isSubcategoriesManagementPage = !!useMatch("/subcategories-management");
+
 	const roleId = useSelector(userRoleSelector);
 
 	useLayoutEffect(() => {
@@ -50,8 +54,8 @@ export const App = () => {
 	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
 	const isAdminPanel =
 		isUsersPage ||
-		isCatalogManagementPage ||
-		isSubcategoryManagementPage ||
+		isCategoriesManagementPage ||
+		isSubcategoriesManagementPage ||
 		isProductsManagementPage;
 
 	return (
@@ -62,8 +66,8 @@ export const App = () => {
 					: `${styles.pageWrapper}`
 			}
 		>
-			{/* {isAdmin && <ControlMenu />} */}
-			<ControlMenu />
+			{isAdmin && <ControlMenu />}
+			{/* <ControlMenu /> */}
 			<div className={styles.wrapper}>
 				<div className={styles.mainContent}>
 					{!isAdminPanel && <Header />}
@@ -75,28 +79,20 @@ export const App = () => {
 						}
 					>
 						<Routes>
+							<Route path="/" element={<MainPageWithContainer />} />
+							<Route path="/categories" element={<CategoriesWithContainer />} />
 							<Route
-								path="/"
-								element={<MainPageWithContainer pageTitle="Главная страница" />}
+								path="/categories/:id/subcategories"
+								element={<SubcategoriesWithContainer />}
 							/>
+							<Route path="/cart" element={<CartWithContainer />} />
+							<Route path="/users" element={<Users />} />
+							<Route path="/categories-management" element={<CategoriesManagement />} />
 							<Route
-								path="/catalog"
-								element={<CatalogWithContainer pageTitle="Каталог" />}
+								path="/subcategories-management"
+								element={<SubcategoriesManagement />}
 							/>
-							<Route path="/cart" element={<CartWithContainer pageTitle="Корзина" />} />
-							<Route path="/users" element={<Users pageTitle="Пользователи" />} />
-							<Route
-								path="/catalog-management"
-								element={<CatalogManagement pageTitle="Управление каталогом" />}
-							/>
-							<Route
-								path="/subcategory-management"
-								element={<SubcategoryManagement pageTitle="Управление подкатегориямии" />}
-							/>
-							<Route
-								path="/products-management"
-								element={<ProductsManagement pageTitle="Управление товарами" />}
-							/>
+							<Route path="/products-management" element={<ProductsManagement />} />
 							<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />
 						</Routes>
 					</main>

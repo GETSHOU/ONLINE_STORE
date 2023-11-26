@@ -8,7 +8,26 @@ export const FormSelect = ({ roles, roleOnChange, selectedRoleId }) => {
 
 	return (
 		<Select
-			className="select"
+			className="react-select-container"
+			classNamePrefix="react-select"
+			styles={{
+				control: (styles, state) => ({
+					...styles,
+					borderColor: state.isFocused ? "#2f82ff !important" : "#c7c7c7 !important",
+					boxShadow: "none",
+				}),
+				dropdownIndicator: (styles, state) => ({
+					...styles,
+					color: state.isFocused ? "#2f82ff !important" : "#828282 !important",
+				}),
+				option: styles => {
+					return {
+						...styles,
+						fontWeight: "500",
+						cursor: "pointer",
+					};
+				},
+			}}
 			isSearchable={!isSearchable}
 			name="roles"
 			value={selectedRole}

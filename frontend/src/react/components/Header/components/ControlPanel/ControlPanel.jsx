@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidUser } from "react-icons/bi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
@@ -12,6 +12,7 @@ import styles from "./ControlPanel.module.scss";
 
 export const ControlPanel = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const roleId = useSelector(userRoleSelector);
 
 	const isGuest = checkAccess([ROLES.GUEST], roleId);
@@ -22,7 +23,7 @@ export const ControlPanel = () => {
 	const onLogout = () => {
 		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
 		dispatch(logout());
-		Navigate("/");
+		navigate("/");
 	};
 
 	const toProfile = () => {

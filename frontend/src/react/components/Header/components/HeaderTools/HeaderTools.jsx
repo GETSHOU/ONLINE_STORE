@@ -20,7 +20,7 @@ export const HeaderTools = () => {
 			<Logo />
 			<div className={styles.tools}>
 				<Button
-					buttonLink="/catalog"
+					buttonLink="/categories"
 					size={BUTTON_SIZE.LARGE}
 					text="Каталог"
 					icon={<HiBars3BottomLeft className="icon iconButton" />}

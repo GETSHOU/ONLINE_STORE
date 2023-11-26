@@ -13,19 +13,23 @@ export const Table = ({
 		<div className={styles.tableWrapper}>
 			<div className={styles.table}>
 				<TableTitles />
-				{users.map(({ id, roleId, email, name, registeredAt }) => (
-					<TableRow
-						key={id}
-						name={name}
-						email={email}
-						roles={roles.filter(({ id: roleId }) => roleId !== ROLES.GUEST)}
-						userId={id}
-						roleId={roleId}
-						registeredAt={registeredAt}
-						shouldUpdateUserList={shouldUpdateUserList}
-						setShouldUpdateUserList={setShouldUpdateUserList}
-					/>
-				))}
+				{users && (
+					<>
+						{users.map(({ id, roleId, email, name, registeredAt }) => (
+							<TableRow
+								key={id}
+								name={name}
+								email={email}
+								roles={roles.filter(({ id: roleId }) => roleId !== ROLES.GUEST)}
+								userId={id}
+								roleId={roleId}
+								registeredAt={registeredAt}
+								shouldUpdateUserList={shouldUpdateUserList}
+								setShouldUpdateUserList={setShouldUpdateUserList}
+							/>
+						))}
+					</>
+				)}
 			</div>
 		</div>
 	);

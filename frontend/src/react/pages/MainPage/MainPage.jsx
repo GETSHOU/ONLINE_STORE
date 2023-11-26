@@ -6,7 +6,7 @@ import { Product } from "../Product/Product";
 export const MainPage = ({ pageTitle }) => {
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={pageTitle} />
+			<PageTitle title="Главная" />
 			{/* <Products /> */}
 			{/* <Product /> */}
 		</div>

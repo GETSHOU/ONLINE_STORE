@@ -5,7 +5,6 @@ import { checkAccess, request } from "../../../utils";
 import { ROLES } from "../../../constants";
 import { AdminContent, PrivateContent } from "../../components";
 import { Table } from "./components/Table/Table";
-// import styles from "./Users.module.scss";
 
 export const Users = () => {
 	const [users, setUsers] = useState([]);
@@ -13,41 +12,47 @@ export const Users = () => {
 	const [serverError, setServerError] = useState(null);
 	const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
 
-	const userRole = useSelector(userRoleSelector);
+	const roleId = useSelector(userRoleSelector);
 
-	const isAdmin = checkAccess([ROLES.ADMIN], userRole);
+	const [isLoading, setIsLoading] = useState(false);
+
+	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
 
 	useEffect(() => {
 		if (!isAdmin) {
 			return;
 		}
 
-		Promise.all([request("/users"), request("/users/roles")]).then(
-			([usersResponse, rolesResponse]) => {
+		setIsLoading(true);
+
+		Promise.all([request("/users"), request("/users/roles")])
+			.then(([usersResponse, rolesResponse]) => {
 				if (usersResponse.error || rolesResponse.error) {
 					setServerError(usersResponse.error || rolesResponse.error);
 
 					return;
 				}
 
-				console.log(usersResponse.data);
-
 				setUsers(usersResponse.data);
 				setRoles(rolesResponse.data);
-			},
-		);
-	}, [userRole, isAdmin, shouldUpdateUserList]);
+
+				setIsLoading(false);
+			})
+			.finally(() => setIsLoading(false));
+	}, [shouldUpdateUserList, roleId, isAdmin]);
 
 	return (
-		// <PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-		<AdminContent pageTitle="Пользователи">
-			<Table
-				users={users}
-				roles={roles}
-				shouldUpdateUserList={shouldUpdateUserList}
-				setShouldUpdateUserList={setShouldUpdateUserList}
-			/>
-		</AdminContent>
-		// </PrivateContent>
+		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
+			<AdminContent pageTitle="Пользователи">
+				{!isLoading ? (
+					<Table
+						users={users}
+						roles={roles}
+						shouldUpdateUserList={shouldUpdateUserList}
+						setShouldUpdateUserList={setShouldUpdateUserList}
+					/>
+				) : null}
+			</AdminContent>
+		</PrivateContent>
 	);
 };

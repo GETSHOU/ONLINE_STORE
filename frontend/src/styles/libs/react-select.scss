@@ -1,25 +1,45 @@
-.select {
+.react-select-container {
 	width: 100%;
-	&__single-value {
-		font-weight: 500;
-	}
+	border: none !important;
+}
+
+.react-select {
 	&__control {
+		border-color: $border-input-color !important;
 		cursor: pointer !important;
+		outline: none !important;
+		transition: $transition-hover !important;
+
+		&:hover {
+			border-color: $main-theme-color !important;
+			outline: none !important;
+		}
+	}
+
+	&__value-container {
+		display: flex !important;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+		height: 100%;
+	}
+
+	&__dropdown-indicator {
+		transition: $transition-hover !important;
+	}
+
+	&__option * {
+		font-weight: bold !important;
 	}
 }
 
-.css-t3ipsp-control {
-	box-shadow: 0 0 0 1px $main-theme-color !important;
-	&:hover {
-		border-color: $main-theme-color !important;
-	}
-}
+// .css-t3ipsp-control {
+// 	box-shadow: 0 0 0 1px $main-theme-color !important;
+// 	&:hover {
+// 		border-color: $main-theme-color !important;
+// 	}
+// }
 
 .selectedRole {
 	font-weight: 500;
-}
-
-.css-hlgwow {
-	display: flex !important;
-	flex: initial !important;
 }

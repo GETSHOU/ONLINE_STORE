@@ -48,6 +48,7 @@ export const Registration = () => {
 			}
 
 			dispatch(setUser(user));
+
 			sessionStorage.setItem(SESSION_STORAGE_NAMES.USER_DATA, JSON.stringify(user));
 
 			closeModal();

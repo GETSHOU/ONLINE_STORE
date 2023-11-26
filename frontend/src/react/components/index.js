@@ -16,3 +16,4 @@ export * from "./Error/Error";
 export * from "./AdminContent/AdminContent";
 export * from "./AdminContent/components/AddCategoryCard/AddCategoryCard";
 export * from "./AdminContent/components/EditableCategoryCard/EditableCategoryCard";
+export * from "./CategoryCard/CategoryCard";

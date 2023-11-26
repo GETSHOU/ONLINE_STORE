@@ -7,7 +7,7 @@ import styles from "./Cart.module.scss";
 export const Cart = ({ pageTitle }) => {
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={pageTitle} />
+			<PageTitle title="Корзина" />
 			{/* <div className={styles.content}>
 				<ul className={styles.list}>
 					<CartItem id={1} />
