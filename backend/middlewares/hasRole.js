@@ -1,4 +1,4 @@
-module.exports = function (roles) {
+const hasRole = (roles) => {
 	return (req, res, next) => {
 		if (!roles.includes(req.user.role)) {
 			res.send({ error: "Доступ запрещен" });
@@ -9,3 +9,5 @@ module.exports = function (roles) {
 		next();
 	};
 };
+
+module.exports = hasRole;

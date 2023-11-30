@@ -21,9 +21,11 @@ export const Actions = ({
 	const isSaveButtonDisabled = selectedRoleId === initialRoleId;
 
 	const onRoleSave = (userId, newUserRoleId) => {
-		request(`/users/${userId}`, "PATCH", { roleId: newUserRoleId }).then(() => {
-			setInitialRoleId(newUserRoleId);
-		});
+		request(`/api/users/${userId}/update`, "PATCH", { roleId: newUserRoleId }).then(
+			() => {
+				setInitialRoleId(newUserRoleId);
+			},
+		);
 	};
 
 	const onUserRemove = userId => {
@@ -31,7 +33,7 @@ export const Actions = ({
 			return;
 		}
 
-		request(`/users/${userId}`, "DELETE").then(() => {
+		request(`/api/users/${userId}/delete`, "DELETE").then(() => {
 			setShouldUpdateUserList(!shouldUpdateUserList);
 		});
 	};

@@ -38,7 +38,7 @@ export const Authorization = () => {
 	const closeModal = () => dispatch(closeModalForm());
 
 	const onSubmit = ({ email, password }) => {
-		request("/login", "POST", { email, password }).then(({ error, user }) => {
+		request("/api/login", "POST", { email, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
 				setShowError(true);

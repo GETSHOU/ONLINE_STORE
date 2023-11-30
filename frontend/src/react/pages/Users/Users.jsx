@@ -25,7 +25,7 @@ export const Users = () => {
 
 		setIsLoading(true);
 
-		Promise.all([request("/users"), request("/users/roles")])
+		Promise.all([request("/api/users"), request("/api/users/roles")])
 			.then(([usersResponse, rolesResponse]) => {
 				if (usersResponse.error || rolesResponse.error) {
 					setServerError(usersResponse.error || rolesResponse.error);

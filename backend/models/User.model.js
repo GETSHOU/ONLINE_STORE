@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { ROLES } = require("../constants/roles");
 
-// благодаря timestamps, mongoose будет добавлять каждому документу поля 'created_at' и 'updated_at', где будут храниться даты создания и редактирования этого документа
 const UserSchema = mongoose.Schema(
 	{
 		email: {
@@ -27,6 +26,4 @@ const UserSchema = mongoose.Schema(
 
 const User = mongoose.model("User", UserSchema);
 
-module.exports = {
-	User,
-};
+module.exports = User;

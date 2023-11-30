@@ -6,6 +6,7 @@ import { BiSolidUser } from "react-icons/bi";
 import { TbLayoutGrid } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { logout } from "../../store/actions";
+import { request } from "../../../utils";
 import { SESSION_STORAGE_NAMES } from "../../../constants";
 import { ControlMenuListItem } from "./components/ControlMenuListItem/ControlMenuListItem";
 import styles from "./ControlMenu.module.scss";
@@ -15,9 +16,11 @@ export const ControlMenu = () => {
 	const navigate = useNavigate();
 
 	const onLogout = () => {
-		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
-		dispatch(logout());
-		navigate("/");
+		request("/api/logout", "POST").then(() => {
+			sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
+			dispatch(logout());
+			navigate("/");
+		});
 	};
 
 	return (

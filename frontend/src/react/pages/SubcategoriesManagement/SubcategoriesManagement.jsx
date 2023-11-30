@@ -25,7 +25,7 @@ export const SubcategoriesManagement = () => {
 
 	return (
 		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-			<AdminContent pageTitle="Управление подкатегориямии">
+			<AdminContent pageTitle="Управление подкатегориями">
 				<AddCategoryCard title="Добавить подкатегорию" handleAdd={handleAddSubcategory} />
 				<div className={styles.categoryCards}>
 					<EditableCategoryCard

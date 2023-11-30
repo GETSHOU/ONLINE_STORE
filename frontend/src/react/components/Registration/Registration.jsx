@@ -40,19 +40,21 @@ export const Registration = () => {
 	const closeModal = () => dispatch(closeModalForm());
 
 	const onSubmit = ({ email, name, password }) => {
-		request("/register", "POST", { email, name, password }).then(({ error, user }) => {
-			if (error) {
-				setServerError(`Ошибка запроса: ${error}`);
-				setShowError(true);
-				return;
-			}
+		request("/api/register", "POST", { email, name, password }).then(
+			({ error, user }) => {
+				if (error) {
+					setServerError(`Ошибка запроса: ${error}`);
+					setShowError(true);
+					return;
+				}
 
-			dispatch(setUser(user));
+				dispatch(setUser(user));
 
-			sessionStorage.setItem(SESSION_STORAGE_NAMES.USER_DATA, JSON.stringify(user));
+				sessionStorage.setItem(SESSION_STORAGE_NAMES.USER_DATA, JSON.stringify(user));
 
-			closeModal();
-		});
+				closeModal();
+			},
+		);
 	};
 
 	const emailErrorMessage = errors.email?.message;

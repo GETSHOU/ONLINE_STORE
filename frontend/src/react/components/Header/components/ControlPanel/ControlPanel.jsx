@@ -5,7 +5,7 @@ import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
 import { IoMdCart } from "react-icons/io";
 import { logout, openModalForm } from "../../../../store/actions";
 import { userRoleSelector } from "../../../../store/selectors";
-import { checkAccess } from "../../../../../utils";
+import { checkAccess, request } from "../../../../../utils";
 import { ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
 import { ConditionalRenderingModal } from "../../../Modal/components/ConditionalRenderingModal/ConditionalRenderingModal";
 import styles from "./ControlPanel.module.scss";
@@ -21,9 +21,11 @@ export const ControlPanel = () => {
 	const openAuthModal = () => dispatch(openModalForm("authorization"));
 
 	const onLogout = () => {
-		sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
-		dispatch(logout());
-		navigate("/");
+		request("/api/logout", "POST").then(() => {
+			sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
+			dispatch(logout());
+			navigate("/");
+		});
 	};
 
 	const toProfile = () => {

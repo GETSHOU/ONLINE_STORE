@@ -1,7 +1,7 @@
-const { User } = require("../models/User.model");
-const { verify } = require("../helpers/token");
+const User = require("../models/User.model");
+const { verify } = require("../services/token");
 
-module.exports = async function (req, res, next) {
+const authenticated = async (req, res, next) => {
 	try {
 		const tokenData = verify(req.cookies.token);
 
@@ -20,3 +20,5 @@ module.exports = async function (req, res, next) {
 		res.send({ error: e.message || "Token error" });
 	}
 };
+
+module.exports = authenticated;

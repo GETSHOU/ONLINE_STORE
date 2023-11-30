@@ -25,7 +25,7 @@ export const CategoriesManagement = () => {
 
 	return (
 		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-			<AdminContent pageTitle="Управление категориям">
+			<AdminContent pageTitle="Управление категориями">
 				<AddCategoryCard title="Добавить категорию" handleAdd={handleAddCategory} />
 				<div className={styles.categoryCards}>
 					<EditableCategoryCard
