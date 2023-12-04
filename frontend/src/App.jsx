@@ -14,6 +14,7 @@ import {
 	ProductsManagement,
 	CategoriesManagement,
 	SubcategoriesManagement,
+	Products,
 } from "./react/pages";
 import { Header, Footer, ControlMenu, Error } from "./react/components";
 import { WithContainer } from "./react/hoc";
@@ -23,6 +24,7 @@ const CartWithContainer = WithContainer(Cart);
 const MainPageWithContainer = WithContainer(MainPage);
 const CategoriesWithContainer = WithContainer(Categories);
 const SubcategoriesWithContainer = WithContainer(Subcategories);
+const ProductsWithContainer = WithContainer(Products);
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -67,7 +69,6 @@ export const App = () => {
 			}
 		>
 			{isAdmin && <ControlMenu />}
-			{/* <ControlMenu /> */}
 			<div className={styles.wrapper}>
 				<div className={styles.mainContent}>
 					{!isAdminPanel && <Header />}
@@ -84,6 +85,10 @@ export const App = () => {
 							<Route
 								path="/categories/:id/subcategories"
 								element={<SubcategoriesWithContainer />}
+							/>
+							<Route
+								path="/subcategories/:id/products"
+								element={<ProductsWithContainer />}
 							/>
 							<Route path="/cart" element={<CartWithContainer />} />
 							<Route path="/users" element={<Users />} />

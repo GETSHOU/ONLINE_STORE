@@ -25,11 +25,11 @@ const subcategoriesController = {
 	},
 	get: async (categoryId, res) => {
 		try {
-			const subcategories = await Subcategory.find({ parent: categoryId });
+			const subcategories = await Subcategory.find({
+				parent: categoryId,
+			}).populate("parent");
 
 			res.send({ data: subcategories.map(mapSubcategory) });
-
-			return subcategories;
 		} catch (e) {
 			res.send({ error: e.message });
 		}

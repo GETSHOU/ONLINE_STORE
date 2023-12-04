@@ -1,40 +1,41 @@
-import { useEffect, useState } from "react";
-import { PageTitle, CategoryCard } from "../../components";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategories, setCategoriesIsLoading } from "../../store/actions";
+import { categoriesSelector, categoriesIsLoadingSelector } from "../../store/selectors";
 import { request } from "../../../utils";
+import { PageTitle, CategoryCard } from "../../components";
 import styles from "./Categories.module.scss";
 
 export const Categories = () => {
-	const [categories, setCategories] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	setIsLoading(true);
+	const isLoading = useSelector(categoriesIsLoadingSelector);
+	const categories = useSelector(categoriesSelector);
 
-	// 	request("/api/categories")
-	// 		.then(({ data }) => {
-	// 			setCategories(data);
-	// 			setIsLoading(false);
-	// 		})
-	// 		.finally(() => setIsLoading(false));
-	// }, []);
+	useEffect(() => {
+		dispatch(setCategoriesIsLoading(true));
+
+		request("/api/categories")
+			.then(response => {
+				dispatch(setCategories(response.data));
+			})
+			.catch(e => console.log(e.message))
+			.finally(() => dispatch(setCategoriesIsLoading(false)));
+	}, [dispatch]);
 
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={"Каталог товаров"} />
+			<PageTitle title="Каталог товаров" />
 			<div className={styles.cards}>
-				{/* {!isLoading ? (
+				{isLoading ? null : categories.length > 0 ? (
 					<>
-						{categories.map(({ id, title }) => {
-							return <CategoryCard key={id} id={id} categoryTitle={title} />;
-						})}
+						{categories.map(({ id, title }) => (
+							<CategoryCard key={id} id={id} categoryTitle={title} />
+						))}
 					</>
 				) : (
-					<div>ЗАГРУЗКА...</div>
-				)} */}
-
-				<CategoryCard categoryTitle={"Комплектующие для ПК"} />
-				<CategoryCard categoryTitle={"Периферия"} />
-				<CategoryCard categoryTitle={"Серверное оборудование"} />
+					<div className={styles.empty}>Категорий нет</div>
+				)}
 			</div>
 		</div>
 	);

@@ -25,8 +25,6 @@ const categoriesController = {
 			const categories = await Category.find();
 
 			res.send({ data: categories.map(mapCategory) });
-
-			return categories;
 		} catch (e) {
 			res.send({ error: e.message });
 		}

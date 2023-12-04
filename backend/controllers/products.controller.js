@@ -25,11 +25,11 @@ const productsController = {
 	},
 	get: async (subcategoryId, res) => {
 		try {
-			const products = await Product.find({ parent: subcategoryId });
+			const products = await Product.find({ parent: subcategoryId }).populate(
+				"parent"
+			);
 
 			res.send({ data: products.map(mapProduct) });
-
-			return products;
 		} catch (e) {
 			res.send({ error: e.message });
 		}

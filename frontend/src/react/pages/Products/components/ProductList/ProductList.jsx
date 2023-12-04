@@ -9,11 +9,6 @@ export const ProductList = () => {
 			<ProductCard />
 			<ProductCard />
 			<ProductCard />
-			<ProductCard />
-			<ProductCard />
-			<ProductCard />
-			<ProductCard />
-			<ProductCard />
 		</ul>
 	);
 };

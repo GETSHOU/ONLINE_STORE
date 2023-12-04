@@ -66,7 +66,7 @@ app.post(routes.auth.logout, (req, res) => {
 	authController.logout(res);
 });
 
-// Получае пользователей
+// Получение пользователей
 app.get(routes.usersManagement.users, hasRole([ROLES.ADMIN]), (req, res) => {
 	usersController.get(res);
 });

@@ -5,11 +5,20 @@ import {
 	compose,
 } from "redux";
 import thunk from "redux-thunk";
-import { appReducer, userReducer } from "./reducers";
+import {
+	appReducer,
+	userReducer,
+	usersReducer,
+	categoriesReducer,
+	subcategoriesReducer,
+} from "./reducers";
 
 const reducer = combineReducers({
 	app: appReducer,
 	user: userReducer,
+	users: usersReducer,
+	catalog: categoriesReducer,
+	subcatalog: subcategoriesReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
