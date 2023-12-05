@@ -1,6 +1,6 @@
 import { SortingProductList } from "../../components";
+import { ProductCard } from "./components/ProductCard/ProductCard";
 import { ProductFilter } from "./components/ProductFilter/ProductFilter";
-import { ProductList } from "./components/ProductList/ProductList";
 import styles from "./Products.module.scss";
 
 export const Products = () => {
@@ -14,7 +14,13 @@ export const Products = () => {
 					<SortingProductList />
 				</div>
 				<div className={styles.contenMain}>
-					<ProductList />
+					<ul className={styles.list}>
+						<ProductCard />
+						<ProductCard />
+						<ProductCard />
+						<ProductCard />
+						<ProductCard />
+					</ul>
 				</div>
 			</div>
 		</div>
