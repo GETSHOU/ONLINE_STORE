@@ -17,3 +17,4 @@ export * from "./AdminContent/AdminContent";
 export * from "./AdminContent/components/AddCategoryCard/AddCategoryCard";
 export * from "./AdminContent/components/EditableCategoryCard/EditableCategoryCard";
 export * from "./CategoryCard/CategoryCard";
+export * from "./Comments/Comments";

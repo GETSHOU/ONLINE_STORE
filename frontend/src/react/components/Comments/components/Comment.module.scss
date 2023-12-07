@@ -1,0 +1,54 @@
+@use '../../../../styles/variables.scss' as * ;
+
+.comment {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-top: 20px;
+	border: 1px solid $border-color;
+  border-radius: 10px;
+	background-color: $white;
+	box-shadow: 0 2px 10px 0 rgba(0,0,0,0.05);
+
+	&Header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		padding: 10px 20px;
+		border-bottom: 1px solid $border-color;
+	}
+
+	&Author {
+		font-size: 1.3rem;
+		font-weight: 500;
+	}
+
+	&Actions {
+		display: flex;
+		align-items: center;
+	}
+
+	&Body {
+		display: flex;
+		width: 100%;
+		padding: 20px;
+	}
+
+	&Text {
+		line-height: 1.3rem;
+	}
+
+	&Footer {
+		display: flex;
+		width: 100%;
+		padding: 0 20px 20px;
+	}
+
+	&Date {
+		color: $main-grey;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+}
