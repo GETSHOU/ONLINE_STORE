@@ -1,32 +1,59 @@
+import { useDispatch, useSelector } from "react-redux";
 import { FaTrashAlt } from "react-icons/fa";
+import { deleteComment } from "../../../store/actions";
+import { userRoleSelector } from "../../../store/selectors";
+import { checkAccess, formatServerDate, request } from "../../../../utils";
+import { ROLES } from "../../../../constants";
 import { ActionButton } from "../../ActionButton/ActionButton";
 import styles from "./Comment.module.scss";
 
-export const Comment = () => {
-	const handleDelete = () => {
-		console.log("Comment is DELETED");
+export const Comment = ({
+	productId,
+	commentId,
+	authorName,
+	authorRoleId,
+	content,
+	publishedAt,
+}) => {
+	const dispatch = useDispatch();
+	const roleId = useSelector(userRoleSelector);
+
+	const handleDeleteComment = (productId, commentId) => {
+		request(`/api/products/${productId}/comments/${commentId}/delete`, "DELETE").then(
+			() => {
+				dispatch(deleteComment(commentId));
+			},
+		);
 	};
+
+	const isAdmin = checkAccess([ROLES.ADMIN], authorRoleId);
+	const isModerator = checkAccess([ROLES.MODERATOR], authorRoleId);
+	const isAdminAndModerator = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
 	return (
 		<div className={styles.comment}>
 			<header className={styles.commentHeader}>
-				<div className={styles.commentAuthor}>{"Сергей"}</div>
-				<div className={styles.commentActions}>
-					<ActionButton
-						icon={<FaTrashAlt className="icon iconTrash" />}
-						clickFunction={handleDelete}
-					/>
+				<div className={styles.commentAuthor}>
+					{isAdmin
+						? `${authorName} (Администратор)`
+						: isModerator
+						? `${authorName} (Модератор)`
+						: authorName}
 				</div>
+				{isAdminAndModerator && (
+					<div className={styles.commentActions}>
+						<ActionButton
+							icon={<FaTrashAlt className="icon iconTrash" />}
+							clickFunction={() => handleDeleteComment(productId, commentId)}
+						/>
+					</div>
+				)}
 			</header>
 			<div className={styles.commentBody}>
-				<p className={styles.commentText}>
-					{
-						"Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей."
-					}
-				</p>
+				<p className={styles.commentText}>{content}</p>
 			</div>
 			<footer className={styles.commentFooter}>
-				<span className={styles.commentDate}>{"26.11.2023, 21:19:55"}</span>
+				<span className={styles.commentDate}>{formatServerDate(publishedAt)}</span>
 			</footer>
 		</div>
 	);

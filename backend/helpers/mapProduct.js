@@ -1,5 +1,5 @@
-// const mongoose = require("mongoose");
-// const mapComment = require("./mapComment");
+const mongoose = require("mongoose");
+const mapComment = require("./mapComment");
 
 module.exports = function (product) {
 	return {
@@ -11,8 +11,8 @@ module.exports = function (product) {
 		specs: product.specs,
 		price: product.price,
 		previewImageUrl: product.previewImage,
-		// comments: product.comments.map((comment) =>
-		// 	mongoose.isObjectIdOrHexString(comment) ? comment : mapComment(comment)
-		// ),
+		comments: product.comments.map((comment) =>
+			mongoose.isObjectIdOrHexString(comment) ? comment : mapComment(comment)
+		),
 	};
 };

@@ -2,6 +2,7 @@
 
 .card {
 	display: flex;
+	width: 100%;
 	padding: 20px 0;
 	border-bottom: 1px solid $very-light-grey;
 
@@ -16,6 +17,7 @@
 	&InnerWrapper {
 		display: flex;
 		align-items: center;
+		width: 100%;
 		margin-right: 20px;
 
 		&:last-child {

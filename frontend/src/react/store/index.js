@@ -11,6 +11,8 @@ import {
 	usersReducer,
 	categoriesReducer,
 	subcategoriesReducer,
+	productsReducer,
+	productReducer,
 } from "./reducers";
 
 const reducer = combineReducers({
@@ -19,6 +21,8 @@ const reducer = combineReducers({
 	users: usersReducer,
 	catalog: categoriesReducer,
 	subcatalog: subcategoriesReducer,
+	goods: productsReducer,
+	product: productReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

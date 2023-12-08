@@ -11,11 +11,6 @@ export const ProductFilter = () => {
 		{ id: 2, name: "Asus" },
 		{ id: 3, name: "ASRock" },
 	];
-	const db_videorads_series = [
-		{ id: 11, name: "GeForce RTX 4070 Ti" },
-		{ id: 22, name: "GeForce RTX 4090" },
-		{ id: 33, name: "Radeon RX 7900 XTX" },
-	];
 
 	const handleToggle = value => {
 		setChecked(prevValue =>
@@ -24,6 +19,8 @@ export const ProductFilter = () => {
 				: [...prevValue, value],
 		);
 	};
+
+	const handleClear = () => setChecked([]);
 
 	return (
 		<aside className={styles.filter}>
@@ -35,20 +32,8 @@ export const ProductFilter = () => {
 					data={db_vendors}
 					handleToggle={handleToggle}
 				/>
-				<SelectFilter
-					title="Серия"
-					checked={checked}
-					data={db_videorads_series}
-					handleToggle={handleToggle}
-				/>
 			</ul>
-			<Button
-				type="button"
-				text="Сбросить фильтр"
-				onChange={() => {
-					console.log(checked);
-				}}
-			/>
+			<Button type="button" text="Сбросить фильтр" onClick={handleClear} />
 		</aside>
 	);
 };

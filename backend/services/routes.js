@@ -23,6 +23,12 @@ const routes = {
 	productsManagement: {
 		products: `${baseUrl}subcategories/:subcategoryId/products`,
 		create: `${baseUrl}subcategories/:subcategoryId/products/create`,
+		product: `${baseUrl}products/:productId`,
+	},
+	commentsManagement: {
+		create: `${baseUrl}products/:productId/comments/create`,
+		delete: `${baseUrl}products/:productId/comments/:commentId/delete`,
+		comments: `${baseUrl}products/:productId/comments`,
 	},
 };
 

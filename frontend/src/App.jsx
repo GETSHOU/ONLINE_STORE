@@ -15,6 +15,7 @@ import {
 	CategoriesManagement,
 	SubcategoriesManagement,
 	Products,
+	Product,
 } from "./react/pages";
 import { Header, Footer, ControlMenu, Error } from "./react/components";
 import { WithContainer } from "./react/hoc";
@@ -25,6 +26,7 @@ const MainPageWithContainer = WithContainer(MainPage);
 const CategoriesWithContainer = WithContainer(Categories);
 const SubcategoriesWithContainer = WithContainer(Subcategories);
 const ProductsWithContainer = WithContainer(Products);
+const ProductWithContainer = WithContainer(Product);
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -90,6 +92,7 @@ export const App = () => {
 								path="/subcategories/:id/products"
 								element={<ProductsWithContainer />}
 							/>
+							<Route path="/products/:id" element={<ProductWithContainer />} />
 							<Route path="/cart" element={<CartWithContainer />} />
 							<Route path="/users" element={<Users />} />
 							<Route path="/categories-management" element={<CategoriesManagement />} />

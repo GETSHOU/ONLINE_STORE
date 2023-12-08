@@ -8,7 +8,7 @@ export const MainPage = ({ pageTitle }) => {
 		<div className={styles.wrapper}>
 			<PageTitle title="Главная" />
 			{/* <Products /> */}
-			<Product />
+			{/* <Product /> */}
 		</div>
 	);
 };

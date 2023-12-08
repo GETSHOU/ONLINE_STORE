@@ -4,5 +4,5 @@ export * from "./users-reducer";
 
 export * from "./categories-reducer";
 export * from "./subcategories-reducer";
-
-// TODO: Нужны редьюсеры для категорий, подкатегорий и товаров
+export * from "./products-reducer";
+export * from "./product-reducer";

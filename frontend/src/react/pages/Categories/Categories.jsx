@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategories, setCategoriesIsLoading } from "../../store/actions";
 import { categoriesSelector, categoriesIsLoadingSelector } from "../../store/selectors";
@@ -12,15 +12,23 @@ export const Categories = () => {
 	const isLoading = useSelector(categoriesIsLoadingSelector);
 	const categories = useSelector(categoriesSelector);
 
+	// const [isLoading, setIsLoading] = useState(true);
+	// const [categories, setCategories] = useState([]);
+
 	useEffect(() => {
 		dispatch(setCategoriesIsLoading(true));
+		// setIsLoading(true);
 
 		request("/api/categories")
 			.then(response => {
 				dispatch(setCategories(response.data));
+				// setCategories(response.data);
 			})
 			.catch(e => console.log(e.message))
-			.finally(() => dispatch(setCategoriesIsLoading(false)));
+			.finally(() => {
+				dispatch(setCategoriesIsLoading(false));
+				// setIsLoading(false);
+			});
 	}, [dispatch]);
 
 	return (
@@ -33,9 +41,7 @@ export const Categories = () => {
 							<CategoryCard key={id} id={id} categoryTitle={title} />
 						))}
 					</>
-				) : (
-					<div className={styles.empty}>Категорий нет</div>
-				)}
+				) : null}
 			</div>
 		</div>
 	);

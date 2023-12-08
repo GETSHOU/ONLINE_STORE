@@ -34,12 +34,12 @@ const ProductSchema = mongoose.Schema({
 			message: "URL-адрес изображения невалиден",
 		},
 	},
-	// comments: [
-	// 	{
-	// 		type: mongoose.Schema.Types.ObjectId,
-	// 		ref: "Comment",
-	// 	},
-	// ],
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment",
+		},
+	],
 });
 
 const Product = mongoose.model("Product", ProductSchema);

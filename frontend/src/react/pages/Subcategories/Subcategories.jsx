@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMatch, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubcategories, setSubcategoriesIsLoading } from "../../store/actions";
@@ -6,7 +6,7 @@ import {
 	subcategoriesSelector,
 	subcategoriesIsLoadingSelector,
 } from "../../store/selectors";
-import { request } from "../../../utils";
+import { getSectionTitle, request } from "../../../utils";
 import { CategoryCard, PageTitle } from "../../components";
 import styles from "./Subcategories.module.scss";
 
@@ -17,29 +17,32 @@ export const Subcategories = () => {
 	const isLoading = useSelector(subcategoriesIsLoadingSelector);
 	const subcategories = useSelector(subcategoriesSelector);
 
+	// const [isLoading, setIsLoading] = useState(true);
+	// const [subcategories, setSubcategories] = useState([]);
+
 	const isSubcategoriesPage = !!useMatch(`/categories/:id/subcategories`);
 
 	useEffect(() => {
 		dispatch(setSubcategoriesIsLoading(true));
+		// setIsLoading(true);
 
 		request(`/api/categories/${params.id}/subcategories`)
 			.then(response => {
 				dispatch(setSubcategories(response.data));
-				dispatch(setSubcategoriesIsLoading(false));
+				// setSubcategories(response.data);
 			})
 			.catch(e => console.log(e.message))
-			.finally(() => dispatch(setSubcategoriesIsLoading(false)));
-	}, [dispatch, params.id]);
+			.finally(() => {
+				dispatch(setSubcategoriesIsLoading(false));
+				// setIsLoading(false);
+			});
+	}, [dispatch, params]);
 
-	const parentTitles = subcategories.map(({ parent }) => parent);
-
-	let parentTitle = parentTitles.reduce((result, item) => {
-		return result.includes(item) ? result.join() : [...result, item];
-	}, []);
+	const sectionTitle = getSectionTitle(subcategories);
 
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={!isLoading && parentTitle} />
+			<PageTitle title={!isLoading && sectionTitle} />
 			<div className={styles.cards}>
 				{isLoading ? null : subcategories.length > 0 ? (
 					<>
@@ -55,9 +58,7 @@ export const Subcategories = () => {
 							);
 						})}
 					</>
-				) : (
-					<div className={styles.empty}>Подкатегорий нет</div>
-				)}
+				) : null}
 			</div>
 		</div>
 	);
