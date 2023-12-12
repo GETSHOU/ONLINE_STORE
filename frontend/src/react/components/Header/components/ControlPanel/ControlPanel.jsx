@@ -11,10 +11,10 @@ import { ConditionalRenderingModal } from "../../../Modal/components/Conditional
 import styles from "./ControlPanel.module.scss";
 
 export const ControlPanel = () => {
-	const dispatch = useDispatch();
 	const roleId = useSelector(userRoleSelector);
-
-	const isAdminOrModerator = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
+	const dispatch = useDispatch();
+	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
+	const isAllowedRoles = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
 	const openAuthModal = () => dispatch(openModalForm("authorization"));
 
@@ -22,11 +22,7 @@ export const ControlPanel = () => {
 		dispatch(logout());
 	};
 
-	const toProfile = () => {
-		console.log("Переход на страницу профиля");
-	};
-
-	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
+	// TODO: сделать компонент, который отображает имя текущего пользователя
 
 	return (
 		<>
@@ -38,12 +34,8 @@ export const ControlPanel = () => {
 					</button>
 				) : (
 					<>
-						{!isAdminOrModerator && (
+						{!isAllowedRoles && (
 							<>
-								<Link to="/" className={styles.control} onClick={toProfile}>
-									<BiSolidUser className="icon iconControl" />
-									<span className={styles.controlName}>Профиль</span>
-								</Link>
 								<button className={styles.control} onClick={onLogout}>
 									<RiLogoutBoxFill className="icon iconControl" />
 									<span className={styles.controlName}>Выйти</span>

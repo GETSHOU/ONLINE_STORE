@@ -1,10 +1,9 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa6";
-import { BiSolidUser } from "react-icons/bi";
+import { CgWebsite } from "react-icons/cg";
 import { TbLayoutGrid } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
-import { CgWebsite } from "react-icons/cg";
 import { logout } from "../../store/actions";
 import { PrivateNavMenuItem } from "./components/PrivateNavMenuItem/PrivateNavMenuItem";
 import styles from "./PrivateNavMenu.module.scss";
@@ -27,11 +26,6 @@ export const PrivateNavMenu = () => {
 							link="/"
 							text="На главную сайта"
 							icon={<CgWebsite className="icon iconControlMenu" />}
-						/>
-						<PrivateNavMenuItem
-							link="/profile"
-							text="Профиль"
-							icon={<BiSolidUser className="icon iconControlMenu" />}
 						/>
 						<PrivateNavMenuItem
 							link="/users"
