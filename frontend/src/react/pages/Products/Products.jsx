@@ -1,45 +1,44 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { setProducts, setProductsIsLoading } from "../../store/actions";
-import { productsIsLoadingSelector, productsSelector } from "../../store/selectors";
-import { getSectionTitle, request } from "../../../utils";
-import { PageTitle, SortingProductList } from "../../components";
-import { ProductCard } from "./components/ProductCard/ProductCard";
+import { useNavigate, useParams } from "react-router-dom";
+import { request } from "../../../utils";
+import { SortingProductList } from "../../components";
 import { ProductFilter } from "./components/ProductFilter/ProductFilter";
+import { ProductCard } from "./components/ProductCard/ProductCard";
 import styles from "./Products.module.scss";
 
 export const Products = () => {
+	const [products, setProducts] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [dataNotExist, setDataNotExist] = useState(false);
+
 	const params = useParams();
-	const dispatch = useDispatch();
-
-	const isLoading = useSelector(productsIsLoadingSelector);
-	const products = useSelector(productsSelector);
-
-	// const [isLoading, setIsLoading] = useState(true);
-	// const [products, setProducts] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		dispatch(setProductsIsLoading(true));
-		// setIsLoading(true);
+		setIsLoading(true);
 
 		request(`/api/subcategories/${params.id}/products`)
 			.then(response => {
-				dispatch(setProducts(response.data));
-				// setProducts(response.data);
+				if (!isLoading) {
+					if (response.data.length === 0) {
+						setDataNotExist(true);
+						navigate("/products-not-exist", { replace: true });
+
+						return;
+					}
+
+					setDataNotExist(false);
+					setProducts(response.data);
+				}
 			})
 			.catch(e => console.log(e.message))
 			.finally(() => {
-				dispatch(setProductsIsLoading(false));
-				// setIsLoading(false);
+				setIsLoading(false);
 			});
-	}, [dispatch, params]);
-
-	const sectionTitle = getSectionTitle(products);
+	}, [navigate, params.id]);
 
 	return (
 		<div className={styles.products}>
-			<PageTitle title={!isLoading && sectionTitle} />
 			<div className={styles.content}>
 				<div className={`${styles.contentInnerWrapper} ${styles.filter}`}>
 					<ProductFilter />
@@ -50,22 +49,24 @@ export const Products = () => {
 					</div>
 					<div className={styles.contenMain}>
 						<ul className={styles.list}>
-							{isLoading ? null : (
-								<>
-									{products.map(({ id, title, specs, price, previewImageUrl }) => {
-										return (
-											<ProductCard
-												key={id}
-												productId={id}
-												title={title}
-												specs={specs}
-												price={price}
-												previewImageUrl={previewImageUrl}
-											/>
-										);
-									})}
-								</>
-							)}
+							{!isLoading
+								? !dataNotExist && (
+										<>
+											{products.map(({ id, title, specs, price, previewImageUrl }) => {
+												return (
+													<ProductCard
+														key={id}
+														productId={id}
+														title={title}
+														specs={specs}
+														price={price}
+														previewImageUrl={previewImageUrl}
+													/>
+												);
+											})}
+										</>
+								  )
+								: null}
 						</ul>
 					</div>
 				</div>

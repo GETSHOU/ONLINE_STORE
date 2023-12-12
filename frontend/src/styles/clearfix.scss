@@ -1,5 +1,3 @@
-/*clearfix*/
-
 * {
 	margin: 0;
 	padding: 0;
@@ -86,13 +84,17 @@ textarea:focus {
 
 input,
 textarea {
-	&:focus::placeholder {
-		color: transparent;
-	}
-}
+	transition: $transition-hover;
 
-button:disabled {
-	cursor: initial;
+	@include placeholder() {
+		color: $light-grey;
+		font-weight: normal;
+		transition: $transition-hover;
+	}
+	@include placeholder-hover() {
+		color: $main-theme-color;
+	}
+	@include placeholder-focus()
 }
 
 input:-webkit-autofill,

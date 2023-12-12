@@ -36,7 +36,6 @@
 	padding: 1rem;
 	border: 1px solid $border-input-color;
 	border-radius: 5px;
-	transition: $transition-hover;
 
 	&:focus, &:not(:placeholder-shown) {
 		padding-top: 1.7rem;

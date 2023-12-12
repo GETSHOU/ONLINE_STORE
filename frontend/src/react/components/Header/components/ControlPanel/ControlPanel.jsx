@@ -1,48 +1,44 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidUser } from "react-icons/bi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
 import { IoMdCart } from "react-icons/io";
 import { logout, openModalForm } from "../../../../store/actions";
 import { userRoleSelector } from "../../../../store/selectors";
-import { checkAccess, request } from "../../../../../utils";
-import { ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
+import { checkAccess } from "../../../../../utils";
+import { ROLES } from "../../../../../constants";
 import { ConditionalRenderingModal } from "../../../Modal/components/ConditionalRenderingModal/ConditionalRenderingModal";
 import styles from "./ControlPanel.module.scss";
 
 export const ControlPanel = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 	const roleId = useSelector(userRoleSelector);
 
-	const isGuest = checkAccess([ROLES.GUEST], roleId);
-	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
+	const isAdminOrModerator = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
 	const openAuthModal = () => dispatch(openModalForm("authorization"));
 
 	const onLogout = () => {
-		request("/api/logout", "POST").then(() => {
-			sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
-			dispatch(logout());
-			navigate("/");
-		});
+		dispatch(logout());
 	};
 
 	const toProfile = () => {
 		console.log("Переход на страницу профиля");
 	};
 
+	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
+
 	return (
 		<>
 			<div className={styles.wrapper}>
-				{isGuest ? (
+				{!userIsLoggedIn ? (
 					<button className={styles.control} onClick={openAuthModal}>
 						<RiLoginBoxFill className="icon iconControl" />
 						<span className={styles.controlName}>Войти</span>
 					</button>
 				) : (
 					<>
-						{!isAdmin && (
+						{!isAdminOrModerator && (
 							<>
 								<Link to="/" className={styles.control} onClick={toProfile}>
 									<BiSolidUser className="icon iconControl" />

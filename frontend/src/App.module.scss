@@ -6,34 +6,8 @@
 	display: flex;
 	height: 100%;
 	width: 100%;
-	&.darkPageWrapper {
+
+	&.privatePageWrapper {
 		background-color: $dark-theme-color;
 	}
-}
-
-.wrapper {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-}
-
-.mainContent {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	align-items: center;
-}
-
-.contentWrapper {
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	align-items: center;
-	width: 100%;
-	padding: 0 0 50px;
-}
-
-.adminPanel {
-	padding: 0;
 }

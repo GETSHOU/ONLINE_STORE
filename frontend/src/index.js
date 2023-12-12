@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./react/store";
+import { AuthProvider } from "./react/components";
 import { App } from "./App";
 import "./styles/_index.scss";
 
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(rootEl);
 root.render(
 	<BrowserRouter>
 		<Provider store={store}>
-			<App />
+			<AuthProvider>
+				<App />
+			</AuthProvider>
 		</Provider>
 	</BrowserRouter>,
 );

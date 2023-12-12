@@ -1,4 +1,4 @@
-import { ROLES } from "../../../../../constants";
+import { ROLES } from "../../../../../constants/";
 import { TableTitles } from "../TableTitles/TableTitles";
 import { TableRow } from "../TableRow/TableRow";
 import styles from "./Table.module.scss";

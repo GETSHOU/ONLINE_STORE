@@ -1,112 +1,66 @@
-import { useLayoutEffect } from "react";
 import { Route, Routes, useMatch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./react/store/actions";
+import { useSelector } from "react-redux";
 import { userRoleSelector } from "./react/store/selectors";
 import { checkAccess } from "./utils";
-import { ERRORS, ROLES, SESSION_STORAGE_NAMES } from "./constants";
+import { ERRORS, ROLES } from "./constants";
 import {
 	Cart,
 	Users,
 	MainPage,
 	Categories,
 	Subcategories,
-	ProductsManagement,
 	CategoriesManagement,
-	SubcategoriesManagement,
 	Products,
 	Product,
 } from "./react/pages";
-import { Header, Footer, ControlMenu, Error } from "./react/components";
-import { WithContainer } from "./react/hoc";
+import { Error } from "./react/components";
+import { AdminAsideNavMenu } from "./react/components/AdminContent/components/AdminAsideNavMenu/AdminAsideNavMenu";
 import styles from "./App.module.scss";
 
-const CartWithContainer = WithContainer(Cart);
-const MainPageWithContainer = WithContainer(MainPage);
-const CategoriesWithContainer = WithContainer(Categories);
-const SubcategoriesWithContainer = WithContainer(Subcategories);
-const ProductsWithContainer = WithContainer(Products);
-const ProductWithContainer = WithContainer(Product);
-
 export const App = () => {
-	const dispatch = useDispatch();
-
-	const isUsersPage = !!useMatch("/users");
-	const isProductsManagementPage = !!useMatch("/products-management");
-	const isCategoriesManagementPage = !!useMatch("/categories-management");
-	const isSubcategoriesManagementPage = !!useMatch("/subcategories-management");
-
 	const roleId = useSelector(userRoleSelector);
+	const isAdminOrModerator = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
-	useLayoutEffect(() => {
-		const currentUserDataJSON = sessionStorage.getItem(SESSION_STORAGE_NAMES.USER_DATA);
+	const isUsersPage = useMatch("/users");
+	const isCategoriesManagementPage = useMatch("/categories-management");
+	const isNotExistPage = useMatch("/users-not-exist");
 
-		if (!currentUserDataJSON) {
-			return;
-		} else {
-			const currentUserData = JSON.parse(currentUserDataJSON);
-
-			dispatch(
-				setUser({
-					...currentUserData,
-					roleId: Number(currentUserData.roleId),
-				}),
-			);
-		}
-	}, [dispatch]);
-
-	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
-	const isAdminPanel =
-		isUsersPage ||
-		isCategoriesManagementPage ||
-		isSubcategoriesManagementPage ||
-		isProductsManagementPage;
+	const privatePages = isUsersPage || isCategoriesManagementPage || isNotExistPage;
 
 	return (
 		<div
 			className={
-				isAdminPanel
-					? `${styles.pageWrapper} ${styles.darkPageWrapper}`
-					: `${styles.pageWrapper}`
+				!privatePages
+					? `${styles.pageWrapper}`
+					: `${styles.pageWrapper} ${styles.privatePageWrapper}`
 			}
 		>
-			{isAdmin && <ControlMenu />}
-			<div className={styles.wrapper}>
-				<div className={styles.mainContent}>
-					{!isAdminPanel && <Header />}
-					<main
-						className={
-							!isAdminPanel
-								? `${styles.contentWrapper}`
-								: `${styles.contentWrapper} ${styles.adminPanel}`
-						}
-					>
-						<Routes>
-							<Route path="/" element={<MainPageWithContainer />} />
-							<Route path="/categories" element={<CategoriesWithContainer />} />
-							<Route
-								path="/categories/:id/subcategories"
-								element={<SubcategoriesWithContainer />}
-							/>
-							<Route
-								path="/subcategories/:id/products"
-								element={<ProductsWithContainer />}
-							/>
-							<Route path="/products/:id" element={<ProductWithContainer />} />
-							<Route path="/cart" element={<CartWithContainer />} />
-							<Route path="/users" element={<Users />} />
-							<Route path="/categories-management" element={<CategoriesManagement />} />
-							<Route
-								path="/subcategories-management"
-								element={<SubcategoriesManagement />}
-							/>
-							<Route path="/products-management" element={<ProductsManagement />} />
-							<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />
-						</Routes>
-					</main>
-				</div>
-				{!isAdminPanel && <Footer />}
-			</div>
+			{isAdminOrModerator && <AdminAsideNavMenu />}
+			<Routes>
+				{/*Интернет-магазин*/}
+				<Route path="/" element={<MainPage />}>
+					<Route path="categories" element={<Categories />} />
+					<Route path="categories/:id/subcategories" element={<Subcategories />} />
+					<Route path="subcategories/:id/products" element={<Products />} />
+					<Route path="products/:id" element={<Product />} />
+					<Route path="cart" element={<Cart />} />
+
+					{/*Ошибки*/}
+					<Route path="categories-not-exist" element={<div>Категорий нет</div>} />
+					<Route path="subcategories-not-exist" element={<div>Подкатегорий нет</div>} />
+					<Route path="products-not-exist" element={<div>Продуктов нет</div>} />
+				</Route>
+
+				{/*Админ-панель*/}
+				<Route path="/users" element={<Users />} />
+				<Route path="/categories-management" element={<CategoriesManagement />} />
+
+				{/*Ошибки*/}
+				<Route path="/users-not-exist" element={<div>Пользователей нет</div>} />
+
+				{/*Общие Ошибки*/}
+				<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />
+			</Routes>
 		</div>
 	);
 };

@@ -19,16 +19,16 @@ export const Comment = ({
 	const roleId = useSelector(userRoleSelector);
 
 	const handleDeleteComment = (productId, commentId) => {
-		request(`/api/products/${productId}/comments/${commentId}/delete`, "DELETE").then(
-			() => {
+		request(`/api/products/${productId}/comments/${commentId}/delete`, "DELETE")
+			.then(() => {
 				dispatch(deleteComment(commentId));
-			},
-		);
+			})
+			.catch(e => console.log(e.message));
 	};
 
 	const isAdmin = checkAccess([ROLES.ADMIN], authorRoleId);
 	const isModerator = checkAccess([ROLES.MODERATOR], authorRoleId);
-	const isAdminAndModerator = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
+	const AdminOrModerator = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
 	return (
 		<div className={styles.comment}>
@@ -40,7 +40,7 @@ export const Comment = ({
 						? `${authorName} (Модератор)`
 						: authorName}
 				</div>
-				{isAdminAndModerator && (
+				{AdminOrModerator && (
 					<div className={styles.commentActions}>
 						<ActionButton
 							icon={<FaTrashAlt className="icon iconTrash" />}

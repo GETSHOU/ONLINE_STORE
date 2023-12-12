@@ -1,7 +1,11 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, SESSION_STORAGE_NAMES } from "../../../constants";
+import { request } from "../../../utils";
 
 export const logout = () => {
-	return {
-		type: ACTION_TYPE.LOGOUT,
+	return dispatch => {
+		request("/api/logout", "POST").then(() => {
+			sessionStorage.removeItem(SESSION_STORAGE_NAMES.USER_DATA);
+			dispatch({ type: ACTION_TYPE.LOGOUT });
+		});
 	};
 };

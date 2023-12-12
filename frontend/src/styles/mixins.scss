@@ -15,12 +15,6 @@
   @content;
 }
 
-@mixin placeholder-focus() {
-  &::-webkit-input-placeholder { color: transparent; }
-  &:-moz-placeholder           { color: transparent; }
-  &::-moz-placeholder          { color: transparent; }
-  &:-ms-input-placeholder      { color: transparent; }
-}
 @mixin placeholder() {
   &::-webkit-input-placeholder {
     @content;
@@ -35,11 +29,20 @@
     @content;
   }
 }
-
-@mixin ph_textarea() {
-  &::-webkit-input-placeholder {
-    @content;
-  }
+@mixin placeholder-hover() {
+	&:hover {
+		&::-webkit-input-placeholder { @content; }
+		&:-moz-placeholder           { @content; }
+		&::-moz-placeholder          { @content; }
+		&:-ms-input-placeholder      { @content; }
+	}
 }
-
+@mixin placeholder-focus() {
+	&:focus {
+		&::-webkit-input-placeholder { color: transparent; }
+		&:-moz-placeholder           { color: transparent; }
+		&::-moz-placeholder          { color: transparent; }
+		&:-ms-input-placeholder      { color: transparent; }
+	}
+}
 

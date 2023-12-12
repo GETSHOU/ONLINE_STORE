@@ -5,23 +5,11 @@ import {
 	compose,
 } from "redux";
 import thunk from "redux-thunk";
-import {
-	appReducer,
-	userReducer,
-	usersReducer,
-	categoriesReducer,
-	subcategoriesReducer,
-	productsReducer,
-	productReducer,
-} from "./reducers";
+import { appReducer, userReducer, productReducer } from "./reducers";
 
 const reducer = combineReducers({
 	app: appReducer,
 	user: userReducer,
-	users: usersReducer,
-	catalog: categoriesReducer,
-	subcatalog: subcategoriesReducer,
-	goods: productsReducer,
 	product: productReducer,
 });
 

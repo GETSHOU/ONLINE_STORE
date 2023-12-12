@@ -1,10 +1,12 @@
 import { ROLES, ACTION_TYPE } from "../../../constants";
 
 const initialUserState = {
-	id: null,
-	email: null,
-	name: null,
-	roleId: ROLES.GUEST,
+	userData: {
+		id: null,
+		email: null,
+		name: "Гость",
+		roleId: ROLES.GUEST,
+	},
 	isLoggedIn: false,
 };
 
@@ -13,7 +15,10 @@ export const userReducer = (state = initialUserState, action) => {
 		case ACTION_TYPE.SET_USER:
 			return {
 				...state,
-				...action.payload,
+				userData: {
+					...state.userData,
+					...action.payload,
+				},
 				isLoggedIn: true,
 			};
 		case ACTION_TYPE.LOGOUT:

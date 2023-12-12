@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUsers, setUsersIsLoading } from "../../store/actions";
-import {
-	rolesSelector,
-	userRoleSelector,
-	usersIsLoadingSelector,
-	usersSelector,
-} from "../../store/selectors";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { userRoleSelector } from "../../store/selectors";
 import { checkAccess, request } from "../../../utils";
 import { ROLES } from "../../../constants";
 import { AdminContent, PrivateContent } from "../../components";
 import { Table } from "./components/Table/Table";
 
 export const Users = () => {
-	// TODO: сделать так, чтобы не мелькал весь список пользователей при редактировании/удалении одного их них
+	const [users, setUsers] = useState([]);
+	const [roles, setRoles] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [dataNotExist, setDataNotExist] = useState(false);
 	const [serverError, setServerError] = useState(null);
 	const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
 
-	const dispatch = useDispatch();
-
-	const users = useSelector(usersSelector);
-	const roles = useSelector(rolesSelector);
+	const navigate = useNavigate();
 	const roleId = useSelector(userRoleSelector);
-	const isLoading = useSelector(usersIsLoadingSelector);
 
 	const isAdmin = checkAccess([ROLES.ADMIN], roleId);
 
@@ -31,7 +25,7 @@ export const Users = () => {
 			return;
 		}
 
-		dispatch(setUsersIsLoading(true));
+		setIsLoading(true);
 
 		Promise.all([request("/api/users"), request("/api/users/roles")])
 			.then(([usersResponse, rolesResponse]) => {
@@ -41,24 +35,39 @@ export const Users = () => {
 					return;
 				}
 
-				dispatch(setUsers({ users: usersResponse.data, roles: rolesResponse.data }));
+				if (!isLoading) {
+					if (!usersResponse.data) {
+						setDataNotExist(true);
+						navigate("/users-not-exist", { replace: true });
+
+						return;
+					} else if (!rolesResponse.data) {
+						throw new Error("Ролей нет");
+					}
+
+					setUsers(usersResponse.data);
+					setRoles(rolesResponse.data);
+					setDataNotExist(false);
+				}
 			})
-			.finally(() => dispatch(setUsersIsLoading(false)));
-	}, [dispatch, shouldUpdateUserList, roleId, isAdmin]);
+			.finally(() => setIsLoading(false));
+	}, [isAdmin, navigate, shouldUpdateUserList]);
 
 	return (
 		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
 			<AdminContent pageTitle="Пользователи">
-				{isLoading ? null : users.length > 0 ? (
-					<Table
-						users={users}
-						roles={roles}
-						shouldUpdateUserList={shouldUpdateUserList}
-						setShouldUpdateUserList={setShouldUpdateUserList}
-					/>
-				) : (
-					<div>Пользователей нет</div>
-				)}
+				{!isLoading
+					? !dataNotExist && (
+							<>
+								<Table
+									users={users}
+									roles={roles}
+									shouldUpdateUserList={shouldUpdateUserList}
+									setShouldUpdateUserList={setShouldUpdateUserList}
+								/>
+							</>
+					  )
+					: null}
 			</AdminContent>
 		</PrivateContent>
 	);

@@ -9,7 +9,7 @@ const initialProductState = {
 	price: "",
 	previewImageUrl: "",
 	comments: [],
-	isLoading: null,
+	isLoading: false,
 };
 
 export const productReducer = (state = initialProductState, action) => {

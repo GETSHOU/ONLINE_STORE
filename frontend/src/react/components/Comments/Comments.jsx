@@ -2,26 +2,49 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdSend } from "react-icons/io";
 import { createComment } from "../../store/actions";
-import { userRoleSelector } from "../../store/selectors";
-import { checkAccess, getCommentsCount, request } from "../../../utils";
-import { ROLES } from "../../../constants";
+import { getCommentsCount, request } from "../../../utils";
 import { Comment } from "./components/Comment";
 import styles from "./Comments.module.scss";
 
 export const Comments = ({ comments, productId }) => {
 	const [newComment, setNewComment] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(true);
 
 	const dispatch = useDispatch();
-	const roleId = useSelector(userRoleSelector);
 
-	const isGuest = checkAccess([ROLES.GUEST], roleId);
+	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 
 	const handleCreateComment = (productId, content) => {
-		request(`/api/products/${productId}/comments/create`, "POST", { content }).then(
-			response => {
-				dispatch(createComment(response));
-			},
-		);
+		const trimmedContent = content.trim();
+
+		setIsLoading(true);
+		setNewComment("");
+
+		request(`/api/products/${productId}/comments/create`, "POST", {
+			content: trimmedContent,
+		})
+			.then(response => {
+				if (!content) {
+					return;
+				}
+				dispatch(createComment(response.data));
+				setIsDisabled(true);
+			})
+			.catch(e => console.log(e.message))
+			.finally(() => {
+				setIsLoading(false);
+			});
+	};
+
+	const onChangeText = ({ target }) => {
+		setNewComment(target.value);
+
+		if (target.value.trim().length !== 0) {
+			setIsDisabled(false);
+		} else {
+			setIsDisabled(true);
+		}
 	};
 
 	return (
@@ -30,18 +53,20 @@ export const Comments = ({ comments, productId }) => {
 				<h2 className={styles.title}>{getCommentsCount(comments.length)}</h2>
 			</div>
 			<div className={styles.comments}>
-				{!isGuest && (
+				{userIsLoggedIn && (
 					<div className={styles.commentsField}>
 						<textarea
 							className={styles.commentsTextarea}
 							name="comment"
-							placeholder="Написать комментарий..."
+							placeholder={isLoading ? "" : "Написать комментарий..."}
 							value={newComment}
-							onChange={({ target }) => setNewComment(target.value)}
+							onChange={onChangeText}
 							rows="6"
+							readOnly={isLoading && true}
 						/>
 						<button
 							className={styles.button}
+							disabled={isDisabled}
 							onClick={() => handleCreateComment(productId, newComment)}
 						>
 							<IoMdSend className="icon iconSendingComment" />

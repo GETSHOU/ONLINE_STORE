@@ -1,4 +1,3 @@
-import { PageTitle } from "../../components";
 import { CartItem } from "./components/CartItem/CartItem";
 import { PaymentDetails } from "./components/PaymentDetails/PaymentDetails";
 import { EmptyCart } from "./components/EmptyCart/EmptyCart";
@@ -7,7 +6,6 @@ import styles from "./Cart.module.scss";
 export const Cart = ({ pageTitle }) => {
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title="Корзина" />
 			{/* <div className={styles.content}>
 				<ul className={styles.list}>
 					<CartItem id={1} />

@@ -1,14 +1,12 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useResetForm } from "../../hooks";
 import { closeModalForm, setUser } from "../../store/actions";
-import { userRoleSelector } from "../../store/selectors";
 import { authFormSchema } from "../../scheme";
-import { checkAccess, request } from "../../../utils";
-import { ROLES, SESSION_STORAGE_NAMES } from "../../../constants";
+import { request } from "../../../utils";
+import { SESSION_STORAGE_NAMES } from "../../../constants";
 import { ModalForm } from "../Modal/components/ModalForm/ModalForm";
 import { ModalFormField } from "../Modal/components/ModalFormField/ModalFormField";
 
@@ -17,7 +15,6 @@ export const Authorization = () => {
 	const [showError, setShowError] = useState(false);
 
 	const dispatch = useDispatch();
-	const roleId = useSelector(userRoleSelector);
 
 	const {
 		register,
@@ -55,12 +52,6 @@ export const Authorization = () => {
 
 	const emailErrorMessage = errors.email?.message;
 	const passwordErrorMessage = errors.password?.message;
-
-	const isGuest = checkAccess([ROLES.GUEST], roleId);
-
-	if (!isGuest) {
-		return <Navigate to="/" />;
-	}
 
 	return (
 		<ModalForm

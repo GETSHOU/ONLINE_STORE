@@ -1,15 +1,24 @@
+import { useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { userRoleSelector, userIsLoggedInSelector } from "../../store/selectors";
+import { userRoleSelector } from "../../store/selectors";
 import { checkAccess } from "../../../utils";
 import { ERRORS } from "../../../constants";
 import { Error } from "../Error/Error";
 
 export const PrivateContent = ({ children, access, serverError = null }) => {
+	const [accessError, setAccessError] = useState(null);
 	const roleId = useSelector(userRoleSelector);
-	const userIsLoggedIn = useSelector(userIsLoggedInSelector);
 
-	const accessError = checkAccess(access, roleId) ? null : ERRORS.ACCESS_DENIED;
+	const accessState = checkAccess(access, roleId);
 	const error = serverError || accessError;
 
-	return <>{!!error ? <Error error={error} /> : children}</>;
+	useLayoutEffect(() => {
+		if (accessState) {
+			setAccessError(null);
+		} else {
+			setAccessError(ERRORS.ACCESS_DENIED);
+		}
+	}, [accessState]);
+
+	return <>{error ? <Error error={error} /> : children}</>;
 };

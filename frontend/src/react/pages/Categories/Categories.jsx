@@ -1,47 +1,51 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCategories, setCategoriesIsLoading } from "../../store/actions";
-import { categoriesSelector, categoriesIsLoadingSelector } from "../../store/selectors";
+import { useNavigate } from "react-router-dom";
 import { request } from "../../../utils";
-import { PageTitle, CategoryCard } from "../../components";
+import { CategoryCard } from "../../components";
 import styles from "./Categories.module.scss";
 
 export const Categories = () => {
-	const dispatch = useDispatch();
+	const [categories, setCategories] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [dataNotExist, setDataNotExist] = useState(false);
 
-	const isLoading = useSelector(categoriesIsLoadingSelector);
-	const categories = useSelector(categoriesSelector);
-
-	// const [isLoading, setIsLoading] = useState(true);
-	// const [categories, setCategories] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		dispatch(setCategoriesIsLoading(true));
-		// setIsLoading(true);
+		setIsLoading(true);
 
 		request("/api/categories")
 			.then(response => {
-				dispatch(setCategories(response.data));
-				// setCategories(response.data);
+				if (!isLoading) {
+					if (!response.data) {
+						setDataNotExist(true);
+						navigate("/categories-not-exist", { replace: true });
+
+						return;
+					}
+
+					setDataNotExist(false);
+					setCategories(response.data);
+				}
 			})
 			.catch(e => console.log(e.message))
 			.finally(() => {
-				dispatch(setCategoriesIsLoading(false));
-				// setIsLoading(false);
+				setIsLoading(false);
 			});
-	}, [dispatch]);
+	}, [navigate]);
 
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title="Каталог товаров" />
 			<div className={styles.cards}>
-				{isLoading ? null : categories.length > 0 ? (
-					<>
-						{categories.map(({ id, title }) => (
-							<CategoryCard key={id} id={id} categoryTitle={title} />
-						))}
-					</>
-				) : null}
+				{!isLoading
+					? !dataNotExist && (
+							<>
+								{categories.map(({ id, title }) => (
+									<CategoryCard key={id} id={id} categoryTitle={title} />
+								))}
+							</>
+					  )
+					: null}
 			</div>
 		</div>
 	);

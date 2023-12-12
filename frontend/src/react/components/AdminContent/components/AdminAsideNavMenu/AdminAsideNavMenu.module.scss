@@ -1,13 +1,14 @@
-@use '../../../styles/variables.scss' as *;
+@use '../../../../../styles/variables.scss' as *;
 
 .wrapper {
-	position: sticky;
+	position: fixed;
 	display: flex;
 	flex-direction: column;
 	top: 0;
 	left: 0;
 	width: $width-admin-panel;
 	bottom: 0;
+	height: 100%;
 	background-color: $main-theme-color;
 	z-index: 10;
 }

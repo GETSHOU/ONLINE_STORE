@@ -1,7 +1,6 @@
 import { ACTION_TYPE } from "../../../constants";
 
 const initialAppState = {
-	isLogout: false,
 	modalForm: {
 		isOpen: false,
 		currentModal: "",
@@ -10,11 +9,6 @@ const initialAppState = {
 
 export const appReducer = (state = initialAppState, action) => {
 	switch (action.type) {
-		case ACTION_TYPE.LOGOUT:
-			return {
-				...state,
-				isLogout: !state.isLogout,
-			};
 		case ACTION_TYPE.OPEN_MODAL_FORM:
 			return {
 				...state,
