@@ -4,8 +4,8 @@ import { userRoleSelector } from "./react/store/selectors";
 import { checkAccess } from "./utils";
 import { ERRORS, ROLES } from "./constants";
 import {
-	Cart,
 	Users,
+	Basket,
 	Product,
 	Products,
 	MainPage,
@@ -51,7 +51,7 @@ export const App = () => {
 					<Route path="categories/:id/subcategories" element={<Subcategories />} />
 					<Route path="subcategories/:id/products" element={<Products />} />
 					<Route path="products/:id" element={<Product />} />
-					<Route path="cart" element={<Cart />} />
+					<Route path="basket" element={<Basket />} />
 
 					{/*Ошибки*/}
 					<Route path="categories-not-exist" element={<div>Категорий нет</div>} />

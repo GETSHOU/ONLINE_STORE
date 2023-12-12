@@ -52,7 +52,7 @@ export const ControlPanel = () => {
 						)}
 					</>
 				)}
-				<Link to="/cart" className={styles.control}>
+				<Link to="/basket" className={styles.control}>
 					<IoMdCart className="icon iconControl" />
 					<span className={styles.controlName}>Корзина</span>
 				</Link>

@@ -1,5 +1,5 @@
-export * from "./Cart/Cart";
 export * from "./Users/Users";
+export * from "./Basket/Basket";
 export * from "./Product/Product";
 export * from "./Products/Products";
 export * from "./MainPage/MainPage";

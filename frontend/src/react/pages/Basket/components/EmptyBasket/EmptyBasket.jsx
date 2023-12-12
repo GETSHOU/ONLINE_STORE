@@ -1,14 +1,14 @@
 import { BsCartXFill } from "react-icons/bs";
 import { IoMdCart } from "react-icons/io";
 import { Button } from "../../../../components";
-import styles from "./EmptyCart.module.scss";
+import styles from "./EmptyBasket.module.scss";
 
-export const EmptyCart = () => {
+export const EmptyBasket = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.message}>
 				<div className={styles.messageRow}>
-					<BsCartXFill className="icon iconEmptyCart" />
+					<BsCartXFill className="icon iconEmptyBasket" />
 				</div>
 				<div className={styles.messageRow}>
 					<span className={styles.messageText}>В корзине пока ничего нет</span>
