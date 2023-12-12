@@ -3,7 +3,7 @@ import { Container } from "../components";
 export const WithContainer = Component => {
 	return props => {
 		return (
-			<Container>
+			<Container isAdminOrModerator={props.isAdminOrModerator}>
 				<Component {...props} />
 			</Container>
 		);

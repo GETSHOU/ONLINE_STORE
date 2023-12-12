@@ -32,13 +32,13 @@ export const App = () => {
 			className={
 				!privatePages
 					? `${styles.pageWrapper}`
-					: `${styles.pageWrapper} ${styles.privatePageWrapper}`
+					: `${styles.pageWrapper} ${styles.privatePage}`
 			}
 		>
 			{isAdminOrModerator && <AdminAsideNavMenu />}
 			<Routes>
 				{/*Интернет-магазин*/}
-				<Route path="/" element={<MainPage />}>
+				<Route path="/" element={<MainPage isAdminOrModerator={isAdminOrModerator} />}>
 					<Route path="categories" element={<Categories />} />
 					<Route path="categories/:id/subcategories" element={<Subcategories />} />
 					<Route path="subcategories/:id/products" element={<Products />} />

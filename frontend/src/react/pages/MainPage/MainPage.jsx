@@ -10,17 +10,17 @@ const Breadcrumbs = () => {
 const BreadcrumbsWithContainer = WithContainer(Breadcrumbs);
 const MainContentWithContainer = WithContainer(Outlet);
 
-export const MainPage = () => {
+export const MainPage = ({ isAdminOrModerator }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.wrapperInner}>
-				<Header />
+				<Header isAdminOrModerator={isAdminOrModerator} />
 				<main className={styles.wrapperMain}>
-					<BreadcrumbsWithContainer />
-					<MainContentWithContainer />
+					<BreadcrumbsWithContainer isAdminOrModerator={isAdminOrModerator} />
+					<MainContentWithContainer isAdminOrModerator={isAdminOrModerator} />
 				</main>
 			</div>
-			<Footer />
+			<Footer isAdminOrModerator={isAdminOrModerator} />
 		</div>
 	);
 };

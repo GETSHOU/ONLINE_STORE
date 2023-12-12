@@ -1,5 +1,6 @@
 export * from "./AuthProvider/AuthProvider";
 export * from "./Container/Container";
+export * from "./ContainerPrivatePage/ContainerPrivatePage";
 export * from "./Modal/Modal";
 export * from "./Header/Header";
 export * from "./Footer/Footer";

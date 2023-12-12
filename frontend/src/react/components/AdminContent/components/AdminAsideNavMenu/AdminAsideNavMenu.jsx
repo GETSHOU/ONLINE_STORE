@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa6";
-import { AiFillHome } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
 import { TbLayoutGrid } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
@@ -26,7 +25,7 @@ export const AdminAsideNavMenu = () => {
 					<ul className={styles.list}>
 						<AsideNavItem
 							link="/"
-							text="Сайт"
+							text="На главную сайта"
 							icon={<CgWebsite className="icon iconControlMenu" />}
 						/>
 						<AsideNavItem

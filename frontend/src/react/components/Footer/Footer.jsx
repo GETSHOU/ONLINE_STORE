@@ -1,16 +1,13 @@
-import { AiOutlineCopyright } from "react-icons/ai";
-import { Container } from "../Container/Container";
+import { WithContainer } from "../../hoc";
+import { FooterContent } from "./components/FooterContent/FooterContent";
 import styles from "./Footer.module.scss";
 
-export const Footer = () => {
+const FooterWithContainer = WithContainer(FooterContent);
+
+export const Footer = ({ isAdminOrModerator }) => {
 	return (
 		<footer className={styles.wrapper}>
-			<Container>
-				<div className={styles.copyright}>
-					<AiOutlineCopyright className="icon iconCopyright" />
-					<span className={styles.copyrightText}>2023. Все права защищены.</span>
-				</div>
-			</Container>
+			<FooterWithContainer isAdminOrModerator={isAdminOrModerator} />
 		</footer>
 	);
 };

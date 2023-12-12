@@ -20,8 +20,9 @@ $transition-hover: all .2s ease;
 
 $width-admin-panel: 20px;
 
-$page-static-width: 1440px;
-$container-width: $page-static-width;
+$page-min-width: 1440px;
+$container-width: $page-min-width;
+$container-private-page-width: $page-min-width;
 
 $disabled: $main-grey;
 

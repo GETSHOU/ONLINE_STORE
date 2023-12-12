@@ -6,6 +6,7 @@ import { checkAccess, request } from "../../../utils";
 import { ROLES } from "../../../constants";
 import { AdminContent, PrivateContent } from "../../components";
 import { Table } from "./components/Table/Table";
+import { ContainerPrivatePage } from "../../components";
 
 export const Users = () => {
 	const [users, setUsers] = useState([]);
@@ -55,20 +56,22 @@ export const Users = () => {
 
 	return (
 		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-			<AdminContent pageTitle="Пользователи">
-				{!isLoading
-					? !dataNotExist && (
-							<>
-								<Table
-									users={users}
-									roles={roles}
-									shouldUpdateUserList={shouldUpdateUserList}
-									setShouldUpdateUserList={setShouldUpdateUserList}
-								/>
-							</>
-					  )
-					: null}
-			</AdminContent>
+			<ContainerPrivatePage>
+				<AdminContent pageTitle="Пользователи">
+					{!isLoading
+						? !dataNotExist && (
+								<>
+									<Table
+										users={users}
+										roles={roles}
+										shouldUpdateUserList={shouldUpdateUserList}
+										setShouldUpdateUserList={setShouldUpdateUserList}
+									/>
+								</>
+						  )
+						: null}
+				</AdminContent>
+			</ContainerPrivatePage>
 		</PrivateContent>
 	);
 };
