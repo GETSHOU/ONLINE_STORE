@@ -6,26 +6,34 @@ import { ERRORS, ROLES } from "./constants";
 import {
 	Cart,
 	Users,
+	Product,
+	Products,
 	MainPage,
 	Categories,
 	Subcategories,
+	ProductsManagement,
 	CategoriesManagement,
-	Products,
-	Product,
+	SubcategoriesManagement,
 } from "./react/pages";
-import { Error } from "./react/components";
-import { AdminAsideNavMenu } from "./react/components/AdminContent/components/AdminAsideNavMenu/AdminAsideNavMenu";
+import { PrivateNavMenu, Error } from "./react/components";
 import styles from "./App.module.scss";
 
 export const App = () => {
 	const roleId = useSelector(userRoleSelector);
-	const isAdminOrModerator = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
+	const isAllowedRoles = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
-	const isUsersPage = useMatch("/users");
-	const isCategoriesManagementPage = useMatch("/categories-management");
-	const isNotExistPage = useMatch("/users-not-exist");
+	const isUsersPage = !!useMatch("/users");
+	const isNotExistPage = !!useMatch("/users-not-exist");
+	const isProductsManagementPage = !!useMatch("/subcategories-m/:id/products-m");
+	const isCategoriesManagementPage = !!useMatch("/categories-m");
+	const isSubcategoriesManagementPage = !!useMatch("/categories-m/:id/subcategories-m");
 
-	const privatePages = isUsersPage || isCategoriesManagementPage || isNotExistPage;
+	const privatePages =
+		isUsersPage ||
+		isNotExistPage ||
+		isProductsManagementPage ||
+		isCategoriesManagementPage ||
+		isSubcategoriesManagementPage;
 
 	return (
 		<div
@@ -35,10 +43,10 @@ export const App = () => {
 					: `${styles.pageWrapper} ${styles.privatePage}`
 			}
 		>
-			{isAdminOrModerator && <AdminAsideNavMenu />}
+			{isAllowedRoles && <PrivateNavMenu />}
 			<Routes>
 				{/*Интернет-магазин*/}
-				<Route path="/" element={<MainPage isAdminOrModerator={isAdminOrModerator} />}>
+				<Route path="/" element={<MainPage />}>
 					<Route path="categories" element={<Categories />} />
 					<Route path="categories/:id/subcategories" element={<Subcategories />} />
 					<Route path="subcategories/:id/products" element={<Products />} />
@@ -48,15 +56,23 @@ export const App = () => {
 					{/*Ошибки*/}
 					<Route path="categories-not-exist" element={<div>Категорий нет</div>} />
 					<Route path="subcategories-not-exist" element={<div>Подкатегорий нет</div>} />
-					<Route path="products-not-exist" element={<div>Продуктов нет</div>} />
+					<Route path="products-not-exist" element={<div>Товаров нет</div>} />
 				</Route>
 
 				{/*Админ-панель*/}
 				<Route path="/users" element={<Users />} />
-				<Route path="/categories-management" element={<CategoriesManagement />} />
+				<Route path="/categories-m" element={<CategoriesManagement />} />
+				<Route
+					path="/categories-m/:id/subcategories-m"
+					element={<SubcategoriesManagement />}
+				/>
+				<Route path="/subcategories-m/:id/products-m" element={<ProductsManagement />} />
 
 				{/*Ошибки*/}
-				<Route path="/users-not-exist" element={<div>Пользователей нет</div>} />
+				<Route path="/users-m-not-exist" element={<div>Пользователей нет</div>} />
+				<Route path="/categories-m-not-exist" element={<div>Категорий нет</div>} />
+				<Route path="/subcategories-m-not-exist" element={<div>Подкатегорий нет</div>} />
+				<Route path="/products-m-not-exist" element={<div>Товаров нет</div>} />
 
 				{/*Общие Ошибки*/}
 				<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />

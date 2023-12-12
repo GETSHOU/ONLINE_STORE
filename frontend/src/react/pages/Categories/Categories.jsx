@@ -17,7 +17,7 @@ export const Categories = () => {
 		request("/api/categories")
 			.then(response => {
 				if (!isLoading) {
-					if (!response.data) {
+					if (response.data.length === 0) {
 						setDataNotExist(true);
 						navigate("/categories-not-exist", { replace: true });
 

@@ -38,6 +38,8 @@ export const Actions = ({
 		});
 	};
 
+	// TODO: посмотреть можно ли заменить эти кнопки на компонент ActionButton
+
 	return (
 		<div className={styles.actions}>
 			<button

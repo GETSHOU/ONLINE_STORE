@@ -1,26 +1,25 @@
 import { useState } from "react";
-import { AdminContent, PrivateContent } from "../../components";
 import { ROLES } from "../../../constants";
-import styles from "./ProductsManagement.module.scss";
+import { PrivateProvider, PrivateContent } from "../../components";
 
 export const ProductsManagement = () => {
 	const [serverError, setServerError] = useState(null);
 
-	const handleAddProduct = () => {
-		console.log("Категория добавлена");
+	const handleCreateProduct = () => {
+		console.log("Товар добавлен");
 	};
 
 	const handleEditProduct = () => {
-		console.log("Категория изменена");
+		console.log("Товар изменен");
 	};
 
 	const handleRemoveProduct = () => {
-		console.log("Категория удалена");
+		console.log("Товар удален");
 	};
 
 	return (
-		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-			<AdminContent pageTitle="Управление товарами"></AdminContent>
-		</PrivateContent>
+		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]} serverError={serverError}>
+			<PrivateContent pageTitle={"Управление товарами"}></PrivateContent>
+		</PrivateProvider>
 	);
 };

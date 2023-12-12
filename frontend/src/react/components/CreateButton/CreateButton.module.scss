@@ -1,0 +1,29 @@
+@use "../../../styles/variables.scss" as *;
+
+.button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100px;
+	height: 100px;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: $secondary-color;
+	transition: $transition-hover;
+
+	&Icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+	}
+
+	&:hover {
+		background-color: $main-theme-color;
+
+		& > * {
+			color: $secondary-color;
+		}
+	}
+}

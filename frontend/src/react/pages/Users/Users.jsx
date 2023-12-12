@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 import { userRoleSelector } from "../../store/selectors";
 import { checkAccess, request } from "../../../utils";
 import { ROLES } from "../../../constants";
-import { AdminContent, PrivateContent } from "../../components";
+import { PrivateProvider, PrivateContent } from "../../components";
 import { Table } from "./components/Table/Table";
-import { ContainerPrivatePage } from "../../components";
 
 export const Users = () => {
 	const [users, setUsers] = useState([]);
@@ -14,6 +13,7 @@ export const Users = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [dataNotExist, setDataNotExist] = useState(false);
 	const [serverError, setServerError] = useState(null);
+	const [dataIsLoaded, setDataIsLoaded] = useState(false);
 	const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
 
 	const navigate = useNavigate();
@@ -37,12 +37,12 @@ export const Users = () => {
 				}
 
 				if (!isLoading) {
-					if (!usersResponse.data) {
+					if (usersResponse.data.length === 0) {
 						setDataNotExist(true);
-						navigate("/users-not-exist", { replace: true });
+						navigate("/users-m-not-exist", { replace: true });
 
 						return;
-					} else if (!rolesResponse.data) {
+					} else if (rolesResponse.data.length === 0) {
 						throw new Error("Ролей нет");
 					}
 
@@ -51,27 +51,29 @@ export const Users = () => {
 					setDataNotExist(false);
 				}
 			})
-			.finally(() => setIsLoading(false));
+			.finally(() => {
+				setDataIsLoaded(true);
+				setIsLoading(false);
+			});
 	}, [isAdmin, navigate, shouldUpdateUserList]);
 
 	return (
-		<PrivateContent access={[ROLES.ADMIN]} serverError={serverError}>
-			<ContainerPrivatePage>
-				<AdminContent pageTitle="Пользователи">
-					{!isLoading
-						? !dataNotExist && (
-								<>
-									<Table
-										users={users}
-										roles={roles}
-										shouldUpdateUserList={shouldUpdateUserList}
-										setShouldUpdateUserList={setShouldUpdateUserList}
-									/>
-								</>
-						  )
-						: null}
-				</AdminContent>
-			</ContainerPrivatePage>
-		</PrivateContent>
+		<PrivateProvider access={[ROLES.ADMIN]} serverError={serverError}>
+			<PrivateContent pageTitle={"Пользователи"}>
+				{!isLoading
+					? !dataNotExist && (
+							<>
+								<Table
+									users={users}
+									roles={roles}
+									dataIsLoaded={dataIsLoaded}
+									shouldUpdateUserList={shouldUpdateUserList}
+									setShouldUpdateUserList={setShouldUpdateUserList}
+								/>
+							</>
+					  )
+					: null}
+			</PrivateContent>
+		</PrivateProvider>
 	);
 };

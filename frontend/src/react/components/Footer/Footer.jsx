@@ -4,10 +4,10 @@ import styles from "./Footer.module.scss";
 
 const FooterWithContainer = WithContainer(FooterContent);
 
-export const Footer = ({ isAdminOrModerator }) => {
+export const Footer = ({ isAllowedRoles }) => {
 	return (
 		<footer className={styles.wrapper}>
-			<FooterWithContainer isAdminOrModerator={isAdminOrModerator} />
+			<FooterWithContainer isAllowedRoles={isAllowedRoles} />
 		</footer>
 	);
 };

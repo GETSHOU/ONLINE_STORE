@@ -5,11 +5,11 @@ import { BiSolidUser } from "react-icons/bi";
 import { TbLayoutGrid } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { CgWebsite } from "react-icons/cg";
-import { logout } from "../../../../store/actions";
-import { AsideNavItem } from "./components/AsideNavItem/AsideNavItem";
-import styles from "./AdminAsideNavMenu.module.scss";
+import { logout } from "../../store/actions";
+import { PrivateNavMenuItem } from "./components/PrivateNavMenuItem/PrivateNavMenuItem";
+import styles from "./PrivateNavMenu.module.scss";
 
-export const AdminAsideNavMenu = () => {
+export const PrivateNavMenu = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -23,27 +23,27 @@ export const AdminAsideNavMenu = () => {
 			<aside className={styles.aside}>
 				<nav className={styles.nav}>
 					<ul className={styles.list}>
-						<AsideNavItem
+						<PrivateNavMenuItem
 							link="/"
 							text="На главную сайта"
 							icon={<CgWebsite className="icon iconControlMenu" />}
 						/>
-						<AsideNavItem
+						<PrivateNavMenuItem
 							link="/profile"
 							text="Профиль"
 							icon={<BiSolidUser className="icon iconControlMenu" />}
 						/>
-						<AsideNavItem
+						<PrivateNavMenuItem
 							link="/users"
 							text="Пользователи"
 							icon={<FaUsers className="icon iconControlMenu" />}
 						/>
-						<AsideNavItem
-							link="/categories-management"
+						<PrivateNavMenuItem
+							link="/categories-m"
 							text="Управление каталогом"
 							icon={<TbLayoutGrid className="icon iconControlMenu" />}
 						/>
-						<AsideNavItem
+						<PrivateNavMenuItem
 							text="Выйти"
 							icon={<RiLogoutBoxFill className="icon iconControlMenu" />}
 							onLogout={onLogout}

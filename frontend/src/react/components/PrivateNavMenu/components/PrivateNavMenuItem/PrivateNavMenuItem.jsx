@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import styles from "./AsideNavItem.module.scss";
+import styles from "./PrivateNavMenuItem.module.scss";
 
-export const AsideNavItem = ({ link, text, icon, onLogout }) => {
+export const PrivateNavMenuItem = ({ link, text, icon, onLogout }) => {
 	return (
 		<li className={styles.item}>
 			{link ? (

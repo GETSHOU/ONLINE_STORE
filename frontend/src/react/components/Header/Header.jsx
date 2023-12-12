@@ -6,14 +6,14 @@ import styles from "./Header.module.scss";
 const HeaderInfoWithContainer = WithContainer(HeaderInfo);
 const HeaderToolsWithContainer = WithContainer(HeaderTools);
 
-export const Header = ({ isAdminOrModerator }) => {
+export const Header = ({ isAllowedRoles }) => {
 	return (
 		<header className={styles.wrapper}>
 			<div className={styles.top}>
-				<HeaderInfoWithContainer isAdminOrModerator={isAdminOrModerator} />
+				<HeaderInfoWithContainer isAllowedRoles={isAllowedRoles} />
 			</div>
 			<div className={styles.bottom}>
-				<HeaderToolsWithContainer isAdminOrModerator={isAdminOrModerator} />
+				<HeaderToolsWithContainer isAllowedRoles={isAllowedRoles} />
 			</div>
 		</header>
 	);
