@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { openModalForm } from "../../../../store/actions";
-import { formModalState } from "../../../../store/selectors";
+import { currentModalSelector } from "../../../../store/selectors";
 import { MODAL_FORM } from "../../../../../constants";
 import { withModal } from "../../../../hoc";
 import { Authorization } from "../../../Authorization/Authorization";
@@ -11,7 +11,7 @@ const RegistrationModal = withModal(Registration);
 
 export const ConditionalRenderingModal = () => {
 	const dispatch = useDispatch();
-	const currentModal = useSelector(formModalState);
+	const currentModal = useSelector(currentModalSelector);
 
 	const openAuthModal = () => dispatch(openModalForm(MODAL_FORM.AUTH));
 	const openRegistrationModal = () => dispatch(openModalForm(MODAL_FORM.REG));

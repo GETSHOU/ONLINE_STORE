@@ -24,7 +24,7 @@ export const appReducer = (state = initialAppState, action) => {
 				modalForm: {
 					...state.modalForm,
 					isOpen: false,
-					currentModal: action.payload,
+					currentModal: "",
 				},
 			};
 		default:

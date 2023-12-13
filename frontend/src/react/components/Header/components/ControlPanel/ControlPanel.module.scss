@@ -2,7 +2,7 @@
 
 .wrapper {
 	display: flex;
-	align-items: center;
+	align-items: baseline;
 }
 
 .control {
@@ -12,11 +12,17 @@
 	align-items: center;
 	margin-right: 25px;
 
-	&Name {
-		padding-top: 3px;
+	&Item {
+		padding-top: 5px;
 	}
 
-	& > *:nth-child(1), &Name {
+	&.disabled {
+		& > *:nth-child(1), .controlItem {
+			transition: none;
+		}
+	}
+
+	& > *:nth-child(1), &Item {
 		transition: $transition-hover;
 	}
 
@@ -25,8 +31,15 @@
 	}
 
 	&:hover {
-		& > *:nth-child(1), .controlName {
+		& > *:nth-child(1), .controlItem {
 			color: $main-theme-color;
+		}
+
+		&.disabled {
+			& > *:nth-child(1), .controlItem {
+				color: $main-color;
+				cursor: default;
+			}
 		}
   }
 }

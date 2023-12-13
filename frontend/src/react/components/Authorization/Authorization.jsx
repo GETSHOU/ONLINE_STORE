@@ -1,9 +1,10 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useResetForm } from "../../hooks";
+import { useResetAuthForm } from "../../hooks";
 import { closeModalForm, setUser } from "../../store/actions";
+import { currentModalSelector } from "../../store/selectors";
 import { authFormSchema } from "../../scheme";
 import { request } from "../../../utils";
 import { SESSION_STORAGE_NAMES } from "../../../constants";
@@ -15,6 +16,7 @@ export const Authorization = () => {
 	const [showError, setShowError] = useState(false);
 
 	const dispatch = useDispatch();
+	const currentModal = useSelector(currentModalSelector);
 
 	const {
 		register,
@@ -30,7 +32,7 @@ export const Authorization = () => {
 		mode: "all",
 	});
 
-	useResetForm(reset);
+	useResetAuthForm(reset, currentModal);
 
 	const closeModal = () => dispatch(closeModalForm());
 

@@ -19,7 +19,7 @@ export const userReducer = (state = initialUserState, action) => {
 					...state.userData,
 					...action.payload,
 				},
-				isLoggedIn: true,
+				isLoggedIn: !state.isLoggedIn,
 			};
 		case ACTION_TYPE.LOGOUT:
 			return initialUserState;
