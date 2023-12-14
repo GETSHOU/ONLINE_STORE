@@ -1,15 +1,15 @@
+import { useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { IoMdCart } from "react-icons/io";
 import { BiSolidUser } from "react-icons/bi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
-import { IoMdCart } from "react-icons/io";
 import { logout, openModalForm } from "../../../../store/actions";
 import { userRoleSelector, userNameSelector } from "../../../../store/selectors";
 import { checkAccess } from "../../../../../utils";
 import { ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
 import { ConditionalRenderingModal } from "../../../Modal/components/ConditionalRenderingModal/ConditionalRenderingModal";
 import styles from "./ControlPanel.module.scss";
-import { useLayoutEffect, useState } from "react";
 
 export const ControlPanel = () => {
 	const roleId = useSelector(userRoleSelector);
