@@ -12,10 +12,13 @@
 			margin-right: 0;
 		}
 
-		&:disabled > * {
-			color: $main-grey;
+		&:disabled {
 			cursor: default;
 			pointer-events: none;
+		}
+
+		&:disabled > * {
+			color: $main-grey;
 		}
 
 		&:hover > * {

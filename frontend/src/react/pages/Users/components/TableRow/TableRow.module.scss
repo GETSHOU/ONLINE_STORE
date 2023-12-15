@@ -4,8 +4,9 @@
 	display: flex;
 	width: 100%;
 	align-items: center;
+	height: 60px;
 	margin-top: 10px;
-	padding: 20px;
+	padding: 7px;
 	background-color: $secondary-color;
 	border-radius: 5px;
 }
@@ -14,12 +15,16 @@
 	display: flex;
 	align-items: center;
 	flex: 1;
-	padding-right: 20px;
+	height: 100%;
+	margin-right: 15px;
+	padding: 0 10px;
 	font-weight: 500;
+	background-color: rgba(0,0,0,.1);
+	border-radius: 5px;
 
 	&:last-child {
 		flex: 0 0 100px;
-		padding-right: 0;
+		margin-right: 0;
 	}
 }
 
