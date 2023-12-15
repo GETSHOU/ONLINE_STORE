@@ -1,0 +1,20 @@
+@use "../../../styles/variables.scss" as *;
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	&Body {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	&Error {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		margin-top: 20px;
+	}
+}

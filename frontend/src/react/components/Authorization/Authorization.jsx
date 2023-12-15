@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useResetAuthForm } from "../../hooks";
-import { closeModalForm, setUser } from "../../store/actions";
+import { closeModal, setUser } from "../../store/actions";
 import { currentModalSelector } from "../../store/selectors";
 import { authFormSchema } from "../../scheme";
 import { request } from "../../../utils";
 import { SESSION_STORAGE_NAMES } from "../../../constants";
-import { ModalForm } from "../Modal/components/ModalForm/ModalForm";
-import { ModalFormField } from "../Modal/components/ModalFormField/ModalFormField";
+import { Form } from "../Form/Form";
+import { FormGroup } from "../Form/components/FormGroup/FormGroup";
 
 export const Authorization = () => {
-	const [serverError, setServerError] = useState(null);
-	const [showError, setShowError] = useState(false);
+	const [showErrorForm, setShowErrorForm] = useState(false);
+	const [serverErrorForm, setServerErrorForm] = useState(null);
 
 	const dispatch = useDispatch();
 	const currentModal = useSelector(currentModalSelector);
@@ -34,13 +34,11 @@ export const Authorization = () => {
 
 	useResetAuthForm(reset, currentModal);
 
-	const closeModal = () => dispatch(closeModalForm());
-
 	const onSubmit = ({ email, password }) => {
 		request("/api/login", "POST", { email, password }).then(({ error, user }) => {
 			if (error) {
-				setServerError(`Ошибка запроса: ${error}`);
-				setShowError(true);
+				setServerErrorForm(`Ошибка запроса: ${error}`);
+				setShowErrorForm(true);
 				return;
 			}
 
@@ -48,7 +46,7 @@ export const Authorization = () => {
 
 			sessionStorage.setItem(SESSION_STORAGE_NAMES.USER_DATA, JSON.stringify(user));
 
-			closeModal();
+			dispatch(closeModal());
 		});
 	};
 
@@ -56,15 +54,14 @@ export const Authorization = () => {
 	const passwordErrorMessage = errors.password?.message;
 
 	return (
-		<ModalForm
+		<Form
 			onSubmit={handleSubmit(onSubmit)}
-			buttonText="Войти"
-			showError={showError}
-			serverError={serverError}
+			showErrorForm={showErrorForm}
+			serverErrorForm={serverErrorForm}
 			emailErrorMessage={emailErrorMessage}
 			passwordErrorMessage={passwordErrorMessage}
 		>
-			<ModalFormField
+			<FormGroup
 				type="text"
 				name="email"
 				labelname="Почта"
@@ -73,12 +70,12 @@ export const Authorization = () => {
 				error={emailErrorMessage}
 				{...register("email", {
 					onChange: () => {
-						setServerError(null);
-						setShowError(false);
+						setServerErrorForm(null);
+						setShowErrorForm(false);
 					},
 				})}
 			/>
-			<ModalFormField
+			<FormGroup
 				type="password"
 				name="password"
 				labelname="Пароль"
@@ -87,6 +84,13 @@ export const Authorization = () => {
 				error={passwordErrorMessage}
 				{...register("password")}
 			/>
-		</ModalForm>
+			<FormGroup
+				isButton={true}
+				buttonText="Войти"
+				serverErrorForm={serverErrorForm}
+				emailErrorMessage={emailErrorMessage}
+				passwordErrorMessage={passwordErrorMessage}
+			/>
+		</Form>
 	);
 };

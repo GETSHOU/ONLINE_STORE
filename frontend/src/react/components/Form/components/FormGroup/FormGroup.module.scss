@@ -1,0 +1,57 @@
+@use "../../../../../styles/variables.scss" as * ;
+@use "../../../../../styles/mixins.scss" as * ;
+
+.formGroup {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-bottom: 20px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&Field {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	&Label {
+		top: 1rem;
+		left: 1rem;
+		color: $main-grey;
+		pointer-events: none;
+		transition: $transition-hover;
+
+		@include centeredY() {
+			position: absolute;
+		}
+	}
+
+	&Input {
+		height: 3.5rem;
+		padding: 1rem;
+		border: 1px solid $border-input-color;
+		border-radius: 5px;
+
+		&:focus, &:not(:placeholder-shown) {
+			padding-top: 1.7rem;
+			padding-bottom: 0.5rem;
+			border: 1px solid $main-theme-color;
+		}
+
+		&:focus ~ .formGroupLabel, &:not(:placeholder-shown) ~ .formGroupLabel {
+			top: 0.5rem;
+			color: $main-theme-color;
+			font-size: 0.8rem;
+			font-weight: 500;
+			transform: initial;
+		}
+	}
+
+	&Error {
+		margin-top: 10px;
+	}
+}

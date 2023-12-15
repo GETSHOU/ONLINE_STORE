@@ -1,0 +1,9 @@
+@use '../../../styles/variables.scss' as * ;
+
+.formWrapper {
+	display: flex;
+	width: 425px;
+	padding: 20px;
+	background-color: $secondary-color;
+	border-radius: 5px;
+}

@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdCart } from "react-icons/io";
 import { BiSolidUser } from "react-icons/bi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
-import { logout, openModalForm } from "../../../../store/actions";
+import { logout, openModal } from "../../../../store/actions";
 import { userRoleSelector, userNameSelector } from "../../../../store/selectors";
 import { checkAccess } from "../../../../../utils";
-import { ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
-import { ConditionalRenderingModal } from "../../../Modal/components/ConditionalRenderingModal/ConditionalRenderingModal";
+import { MODAL_TYPES, ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
 import styles from "./ControlPanel.module.scss";
 
 export const ControlPanel = () => {
@@ -32,7 +31,7 @@ export const ControlPanel = () => {
 		setUserName(currentUserName);
 	}, [currentUserName, roleId, setUserName, sessionState, userName]);
 
-	const openAuthModal = () => dispatch(openModalForm("authorization"));
+	const handleOpenModal = () => dispatch(openModal(MODAL_TYPES.AUTHORIZATION));
 
 	const onLogout = () => {
 		dispatch(logout());
@@ -50,7 +49,7 @@ export const ControlPanel = () => {
 					<span className={styles.controlItem}>Корзина</span>
 				</Link>
 				{!sessionState ? (
-					<button className={styles.control} onClick={openAuthModal}>
+					<button className={styles.control} onClick={handleOpenModal}>
 						<RiLoginBoxFill className="icon iconControl" />
 						<span className={styles.controlItem}>Войти</span>
 					</button>
@@ -63,7 +62,6 @@ export const ControlPanel = () => {
 					)
 				)}
 			</div>
-			<ConditionalRenderingModal />
 		</>
 	);
 };

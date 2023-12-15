@@ -1,1 +1,1 @@
-export const currentModalSelector = ({ app }) => app.modalForm.currentModal;
+export const currentModalSelector = ({ app }) => app.modal.modalType;

@@ -1,8 +1,8 @@
 import { ACTION_TYPE } from "../../../constants";
 
-export const openModalForm = payload => {
+export const closeModal = payload => {
 	return {
-		type: ACTION_TYPE.OPEN_MODAL_FORM,
+		type: ACTION_TYPE.CLOSE_MODAL,
 		payload: payload,
 	};
 };

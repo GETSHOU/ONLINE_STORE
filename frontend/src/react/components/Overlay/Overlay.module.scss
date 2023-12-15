@@ -1,0 +1,23 @@
+@use '../../../styles/variables.scss' as * ;
+
+.overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	min-width: $page-min-width;
+	background-color: rgba(0,0,0,.5);
+	z-index: 10;
+
+	opacity: 0;
+	display: none;
+
+	&.active {
+		opacity: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

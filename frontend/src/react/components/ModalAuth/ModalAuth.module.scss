@@ -1,0 +1,32 @@
+@use '../../../styles/variables.scss' as *;
+
+.modalAuth {
+	display: flex;
+	flex-direction: column;
+	width: 440px;
+
+	&Body {
+		display: flex;
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	&Actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+	}
+
+	&Toggle {
+		font-weight: 500;
+		color: $main-theme-color;
+		transition: $transition-hover;
+
+		&:hover {
+			color: $main-color;
+		}
+	}
+}
+
+

@@ -1,14 +1,16 @@
 import { createPortal } from "react-dom";
-import { Modal } from "../components";
+import { Overlay, Modal } from "../components";
 
-export const withModal = (Component, modalTitle) => {
+export const WithModal = Component => {
 	const rootEl = document.body;
 
 	return props => {
 		return createPortal(
-			<Modal modalTitle={modalTitle} {...props}>
-				<Component {...props} />
-			</Modal>,
+			<Overlay>
+				<Modal {...props}>
+					<Component {...props} />
+				</Modal>
+			</Overlay>,
 			rootEl,
 		);
 	};

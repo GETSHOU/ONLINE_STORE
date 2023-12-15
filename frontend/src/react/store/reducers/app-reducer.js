@@ -1,30 +1,30 @@
 import { ACTION_TYPE } from "../../../constants";
 
 const initialAppState = {
-	modalForm: {
+	modal: {
 		isOpen: false,
-		currentModal: "",
+		modalType: "",
 	},
 };
 
 export const appReducer = (state = initialAppState, action) => {
 	switch (action.type) {
-		case ACTION_TYPE.OPEN_MODAL_FORM:
+		case ACTION_TYPE.OPEN_MODAL:
 			return {
 				...state,
-				modalForm: {
-					...state.modalForm,
+				modal: {
+					...state.modal,
 					isOpen: true,
-					currentModal: action.payload,
+					modalType: action.payload,
 				},
 			};
-		case ACTION_TYPE.CLOSE_MODAL_FORM:
+		case ACTION_TYPE.CLOSE_MODAL:
 			return {
 				...state,
-				modalForm: {
-					...state.modalForm,
+				modal: {
+					...state.modal,
 					isOpen: false,
-					currentModal: "",
+					modalType: "",
 				},
 			};
 		default:
