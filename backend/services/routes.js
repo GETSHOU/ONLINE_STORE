@@ -7,28 +7,36 @@ const routes = {
 		logout: `${baseUrl}logout`,
 	},
 	usersManagement: {
-		users: `${baseUrl}users`,
+		get: `${baseUrl}users`,
 		update: `${baseUrl}users/:userId/update`,
 		delete: `${baseUrl}users/:userId/delete`,
-		roles: `${baseUrl}users/roles`,
+	},
+	rolesManagement: {
+		get: `${baseUrl}users/roles`,
 	},
 	categoriesManagement: {
-		categories: `${baseUrl}categories`,
+		get: `${baseUrl}categories`,
 		create: `${baseUrl}categories/create`,
+		update: `${baseUrl}categories/:categoryId/update`,
+		delete: `${baseUrl}categories/:categoryId/delete`,
 	},
 	subcategoriesManagement: {
-		subcategories: `${baseUrl}categories/:categoryId/subcategories`,
+		get: `${baseUrl}categories/:categoryId/subcategories`,
 		create: `${baseUrl}categories/:categoryId/subcategories/create`,
+		update: `${baseUrl}subcategories/:subcategoryId/update`,
+		delete: `${baseUrl}subcategories/:subcategoryId/delete`,
 	},
 	productsManagement: {
-		products: `${baseUrl}subcategories/:subcategoryId/products`,
+		getAll: `${baseUrl}subcategories/:subcategoryId/products`,
+		getOne: `${baseUrl}products/:productId`,
 		create: `${baseUrl}subcategories/:subcategoryId/products/create`,
-		product: `${baseUrl}products/:productId`,
+		update: `${baseUrl}subcategories/:subcategoryId/products/:productId/update`,
+		delete: `${baseUrl}subcategories/:subcategoryId/products/:productId/delete`,
 	},
 	commentsManagement: {
+		get: `${baseUrl}products/:productId/comments`,
 		create: `${baseUrl}products/:productId/comments/create`,
 		delete: `${baseUrl}products/:productId/comments/:commentId/delete`,
-		comments: `${baseUrl}products/:productId/comments`,
 	},
 };
 

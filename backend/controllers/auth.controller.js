@@ -26,10 +26,16 @@ const authController = {
 
 			return { user, token };
 		} catch (e) {
-			res.send({ error: e.message || "Unknown error" });
+			if (e.code === 11000) {
+				return res
+					.status(400)
+					.send({ error: "Такой пользователь уже существует!" });
+			}
+
+			res.status(400).send({ error: e.message });
+			res.status(500).send({ error: e.message });
 		}
 	},
-
 	login: async (email, password, res) => {
 		try {
 			const user = await User.findOne({ email });
@@ -55,7 +61,6 @@ const authController = {
 			res.send({ error: e.message || "login: Неизвестная ошибка" });
 		}
 	},
-
 	logout: (res) => {
 		res.cookie("token", "", { httpOnly: true }).send({});
 	},

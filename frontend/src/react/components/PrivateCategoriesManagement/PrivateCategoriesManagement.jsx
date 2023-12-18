@@ -3,24 +3,24 @@ import styles from "./PrivateCategoriesManagement.module.scss";
 
 export const PrivateCategoriesManagement = ({
 	data,
-	handleEdit,
 	cardLinkText,
-	handleRemove,
+	isCategoriesPage,
 	isSubcategoriesPage,
 }) => {
 	return (
 		<div className={styles.cards}>
-			{data.map(({ id, title }) => (
-				<EditCategoryCard
-					id={id}
-					key={id}
-					handleEdit={handleEdit}
-					handleRemove={handleRemove}
-					cardLinkText={cardLinkText}
-					categoryTitle={title}
-					isSubcategoriesPage={isSubcategoriesPage}
-				/>
-			))}
+			{data.map(({ id, title }) => {
+				return (
+					<EditCategoryCard
+						id={id}
+						key={id}
+						title={title}
+						cardLinkText={cardLinkText}
+						isCategoriesPage={isCategoriesPage}
+						isSubcategoriesPage={isSubcategoriesPage}
+					/>
+				);
+			})}
 		</div>
 	);
 };

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useResetAuthForm } from "../../hooks";
 import { closeModal, setUser } from "../../store/actions";
-import { currentModalSelector } from "../../store/selectors";
+import { modalTypeSelector } from "../../store/selectors";
 import { authFormSchema } from "../../scheme";
 import { request } from "../../../utils";
 import { SESSION_STORAGE_NAMES } from "../../../constants";
@@ -16,7 +16,7 @@ export const Authorization = () => {
 	const [serverErrorForm, setServerErrorForm] = useState(null);
 
 	const dispatch = useDispatch();
-	const currentModal = useSelector(currentModalSelector);
+	const currentModal = useSelector(modalTypeSelector);
 
 	const {
 		register,

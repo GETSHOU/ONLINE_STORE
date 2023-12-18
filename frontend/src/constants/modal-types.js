@@ -1,6 +1,6 @@
 export const MODAL_TYPES = {
-	CONFIRM: "confirm",
-	REGISTRATION: "registration",
-	AUTHORIZATION: "authorization",
-	CREATE_CATEGORY: "create_category",
+	CONFIRM: "CONFIRM",
+	REGISTRATION: "REGISTRATION",
+	AUTHORIZATION: "AUTHORIZATION",
+	EDIT_CATEGORY: "EDIT_CATEGORY",
 };

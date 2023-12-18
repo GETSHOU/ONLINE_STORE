@@ -45,27 +45,27 @@ app.post(routes.auth.login, (req, res) => {
 });
 
 // Получение категорий
-app.get(routes.categoriesManagement.categories, (req, res) => {
+app.get(routes.categoriesManagement.get, (req, res) => {
 	categoriesController.get(res);
 });
 
 // Получение подкатегорий выбранной категории
-app.get(routes.subcategoriesManagement.subcategories, (req, res) => {
+app.get(routes.subcategoriesManagement.get, (req, res) => {
 	subcategoriesController.get(req.params.categoryId, res);
 });
 
 // Получение товаров выбранной подкатегории
-app.get(routes.productsManagement.products, (req, res) => {
+app.get(routes.productsManagement.getAll, (req, res) => {
 	productsController.getAll(req.params.subcategoryId, res);
 });
 
 // Получение одного товара
-app.get(routes.productsManagement.product, (req, res) => {
+app.get(routes.productsManagement.getOne, (req, res) => {
 	productsController.getOne(req.params.productId, res);
 });
 
 // Получение комментарий
-app.get(routes.commentsManagement.comments, (req, res) => {
+app.get(routes.commentsManagement.get, (req, res) => {
 	commentsController.get(req.params.productId, res);
 });
 
@@ -78,12 +78,12 @@ app.post(routes.auth.logout, (req, res) => {
 });
 
 // Получение пользователей
-app.get(routes.usersManagement.users, hasRole([ROLES.ADMIN]), (req, res) => {
+app.get(routes.usersManagement.get, hasRole([ROLES.ADMIN]), (req, res) => {
 	usersController.get(res);
 });
 
 // Получение ролей
-app.get(routes.usersManagement.roles, hasRole([ROLES.ADMIN]), (req, res) => {
+app.get(routes.rolesManagement.get, hasRole([ROLES.ADMIN]), (req, res) => {
 	rolesController.get(res);
 });
 
@@ -110,12 +110,56 @@ app.post(
 	}
 );
 
+// Редактирование категории
+app.patch(
+	routes.categoriesManagement.update,
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	(req, res) => {
+		categoriesController.update(
+			req.params.categoryId,
+			{ title: req.body.title },
+			res
+		);
+	}
+);
+
+// Удаление категории
+app.delete(
+	routes.categoriesManagement.delete,
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	(req, res) => {
+		categoriesController.delete(req.params.categoryId, res);
+	}
+);
+
 // Добавление подкатегорий
 app.post(
 	routes.subcategoriesManagement.create,
 	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
 	(req, res) => {
 		subcategoriesController.create(req.params.categoryId, req.body.title, res);
+	}
+);
+
+// Редактирование подкатегории
+app.patch(
+	routes.subcategoriesManagement.update,
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	(req, res) => {
+		subcategoriesController.update(
+			req.params.subcategoryId,
+			{ title: req.body.title },
+			res
+		);
+	}
+);
+
+// Удаление подкатегории
+app.delete(
+	routes.subcategoriesManagement.delete,
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	(req, res) => {
+		subcategoriesController.delete(req.params.subcategoryId, res);
 	}
 );
 

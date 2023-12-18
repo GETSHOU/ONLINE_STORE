@@ -1,7 +1,11 @@
 export * from "./Form/Form";
 export * from "./Form/components/FormGroup/FormGroup";
+
 export * from "./Modal/Modal";
 export * from "./ModalAuth/ModalAuth";
+export * from "./ModalConfirm/ModalConfirm";
+export * from "./ModalEditCategory/ModalEditCategory";
+
 export * from "./Error/Error";
 export * from "./Header/Header";
 export * from "./Footer/Footer";
@@ -22,7 +26,5 @@ export * from "./ProductDetails/ProductDetails";
 export * from "./PrivateProvider/PrivateProvider";
 export * from "./EditCategoryCard/EditCategoryCard";
 export * from "./SortingProductList/SortingProductList";
-export * from "./ConditionalRenderingModal/ConditionalRenderingModal";
-export * from "./PrivateCategoriesManagement/PrivateCategoriesManagement";
-
 export * from "./CategoryCreatorForm/CategoryCreatorForm";
+export * from "./PrivateCategoriesManagement/PrivateCategoriesManagement";

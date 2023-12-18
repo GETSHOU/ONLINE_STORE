@@ -15,7 +15,7 @@ import {
 	CategoriesManagement,
 	SubcategoriesManagement,
 } from "./react/pages";
-import { Error, PrivateNavMenu, ConditionalRenderingModal } from "./react/components";
+import { Error, PrivateNavMenu } from "./react/components";
 import styles from "./App.module.scss";
 
 export const App = () => {
@@ -44,7 +44,6 @@ export const App = () => {
 			}
 		>
 			{isAllowedRoles && <PrivateNavMenu />}
-			<ConditionalRenderingModal />
 			<Routes>
 				{/*Интернет-магазин*/}
 				<Route path="/" element={<MainPage />}>

@@ -1,0 +1,36 @@
+@use '../../../styles/variables.scss' as * ;
+
+.modalEdit {
+	display: flex;
+	flex-direction: column;
+	width: 300px;
+
+	&Content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		min-height: 50px;
+		margin-bottom: 20px;
+		font-size: 1.2rem;
+		font-weight: 500;
+	}
+
+	&Input {
+		height: 3.5rem;
+		padding: 1rem;
+		border: 1px solid $border-input-color;
+		border-radius: 5px;
+		transition: $transition-hover;
+
+		&:focus {
+			border-color: $main-theme-color;
+		}
+	}
+
+	&Actions {
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+}

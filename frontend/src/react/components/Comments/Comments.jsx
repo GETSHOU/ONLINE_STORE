@@ -28,6 +28,7 @@ export const Comments = ({ comments, productId }) => {
 				if (!content) {
 					return;
 				}
+
 				dispatch(createComment(response.data));
 				setIsDisabled(true);
 			})
