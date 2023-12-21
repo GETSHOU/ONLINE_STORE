@@ -33,4 +33,10 @@
 			}
 		}
 	}
+
+	&Title {
+		&:hover {
+			background-color: $main-color;
+		}
+	}
 }

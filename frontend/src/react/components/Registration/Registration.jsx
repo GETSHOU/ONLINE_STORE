@@ -59,6 +59,13 @@ export const Registration = () => {
 	const passwordErrorMessage = errors.password?.message;
 	const passcheckErrorMessage = errors.passcheck?.message;
 
+	const checkFieldErrors =
+		!!serverErrorForm ||
+		!!emailErrorMessage ||
+		!!nameErrorMessage ||
+		!!passwordErrorMessage ||
+		!!passcheckErrorMessage;
+
 	return (
 		<Form
 			onSubmit={handleSubmit(onSubmit)}
@@ -69,9 +76,9 @@ export const Registration = () => {
 				type="text"
 				name="email"
 				labelname="Почта"
+				fieldError={emailErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				error={emailErrorMessage}
 				{...register("email", {
 					onChange: () => {
 						setServerErrorForm(null);
@@ -83,37 +90,33 @@ export const Registration = () => {
 				type="text"
 				name="name"
 				labelname="Имя"
+				fieldError={nameErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				error={nameErrorMessage}
 				{...register("name")}
 			/>
 			<FormGroup
 				type="password"
 				name="password"
 				labelname="Пароль"
+				fieldError={passwordErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				error={passwordErrorMessage}
 				{...register("password")}
 			/>
 			<FormGroup
 				type="password"
 				name="passcheck"
 				labelname="Повторите пароль"
+				fieldError={passcheckErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				error={passcheckErrorMessage}
 				{...register("passcheck")}
 			/>
 			<FormGroup
-				isButton={true}
 				buttonText="Регистрация"
-				serverErrorForm={serverErrorForm}
-				nameErrorMessage={nameErrorMessage}
-				emailErrorMessage={emailErrorMessage}
-				passwordErrorMessage={passwordErrorMessage}
-				passcheckErrorMessage={passcheckErrorMessage}
+				isFormButton={true}
+				checkFieldErrors={checkFieldErrors}
 			/>
 		</Form>
 	);

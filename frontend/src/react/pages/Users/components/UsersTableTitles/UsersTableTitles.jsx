@@ -1,6 +1,6 @@
-import styles from "./TableTitles.module.scss";
+import styles from "./UsersTableTitles.module.scss";
 
-export const TableTitles = () => {
+export const UsersTableTitles = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.tableCell}>

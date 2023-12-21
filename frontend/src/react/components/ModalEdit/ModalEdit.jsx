@@ -1,7 +1,7 @@
 import { Button } from "../Button/Button";
-import styles from "./ModalEditCategory.module.scss";
+import styles from "./ModalEdit.module.scss";
 
-export const ModalEditCategory = ({ handleEdit, newTitle, onChange, isDisabled }) => {
+export const ModalEdit = ({ onChange, handleEdit, isDisabled, newValueToUpdate }) => {
 	return (
 		<div className={styles.modalEdit}>
 			<div className={styles.modalEditContent}>
@@ -9,7 +9,7 @@ export const ModalEditCategory = ({ handleEdit, newTitle, onChange, isDisabled }
 					className={styles.modalEditInput}
 					type="text"
 					name="name"
-					value={newTitle}
+					value={newValueToUpdate}
 					onChange={onChange}
 				/>
 			</div>
@@ -18,7 +18,7 @@ export const ModalEditCategory = ({ handleEdit, newTitle, onChange, isDisabled }
 					type="button"
 					text="Изменить"
 					onClick={handleEdit}
-					disabled={isDisabled}
+					isDisabled={isDisabled}
 				/>
 			</div>
 		</div>

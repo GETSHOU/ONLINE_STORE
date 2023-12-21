@@ -7,8 +7,8 @@ const cors = require("cors");
 
 const {
 	authController,
-	rolesController,
 	usersController,
+	rolesController,
 	productsController,
 	commentsController,
 	categoriesController,
@@ -171,6 +171,7 @@ app.post(
 		productsController.create(
 			req.params.subcategoryId,
 			{
+				publicId: req.body.publicId,
 				title: req.body.title,
 				vendor: req.body.vendor,
 				vendorCode: req.body.vendorCode,
@@ -180,6 +181,24 @@ app.post(
 			},
 			res
 		);
+	}
+);
+
+// Редактирование товара
+app.patch(
+	routes.productsManagement.update,
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	(req, res) => {
+		productsController.update(req.params.productId, req.body, res);
+	}
+);
+
+// Удаление товара
+app.delete(
+	routes.productsManagement.delete,
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	(req, res) => {
+		productsController.delete(req.params.productId, res);
 	}
 );
 

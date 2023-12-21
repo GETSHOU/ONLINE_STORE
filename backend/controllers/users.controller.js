@@ -11,7 +11,6 @@ const usersController = {
 			res.send({ error: e.message });
 		}
 	},
-
 	update: async (userId, roleId, res) => {
 		const updatedUser = await User.findByIdAndUpdate(
 			userId,
@@ -25,7 +24,6 @@ const usersController = {
 
 		return updatedUser;
 	},
-
 	delete: async (userId, res) => {
 		try {
 			await User.deleteOne({ _id: userId });

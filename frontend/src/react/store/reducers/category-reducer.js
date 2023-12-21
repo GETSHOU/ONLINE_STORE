@@ -18,6 +18,8 @@ export const categoryReducer = (state = initialCategoryState, action) => {
 				...state,
 				...action.payload,
 			};
+		case ACTION_TYPE.DELETE_CATEGORY:
+			return initialCategoryState;
 		default:
 			return state;
 	}

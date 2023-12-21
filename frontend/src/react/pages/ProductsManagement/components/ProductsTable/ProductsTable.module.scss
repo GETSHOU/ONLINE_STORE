@@ -1,0 +1,44 @@
+@use '../../../../../styles/variables.scss' as *;
+
+.table {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-top: 10px;
+	padding: 7px;
+	background-color: $secondary-color;
+	border-radius: 5px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&Header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 7px;
+		background-color: $main-theme-color;
+		border-radius: 5px;
+	}
+
+	&Title {
+		font-size: 1.3rem;
+		font-weight: 500;
+		color: $secondary-color;
+	}
+
+	&Actions {
+		display: flex;
+		align-items: center;
+	}
+
+	&Body {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		margin-top: 10px;
+	}
+}

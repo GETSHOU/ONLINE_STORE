@@ -14,7 +14,7 @@ export const ProductContent = ({ product }) => {
 				</div>
 				<div className={`${styles.productInnerWrapper} ${styles.specs}`}>
 					<div className={styles.productSpecsRow}>
-						<p className={styles.productTextId}>ID: _NONE_</p>
+						<p className={styles.productTextId}>ID: {product.publicId}</p>
 					</div>
 					<div className={styles.productSpecsRow}>
 						<h4 className={styles.productSpecsTitle}>Характеристики</h4>

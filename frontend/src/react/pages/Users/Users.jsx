@@ -5,7 +5,7 @@ import { userRoleSelector } from "../../store/selectors";
 import { checkAccess, request } from "../../../utils";
 import { ROLES } from "../../../constants";
 import { PrivateProvider, PrivateContent } from "../../components";
-import { Table } from "./components/Table/Table";
+import { UsersTable } from "./components/UsersTable/UsersTable";
 
 export const Users = () => {
 	const [users, setUsers] = useState([]);
@@ -28,7 +28,7 @@ export const Users = () => {
 
 		setIsLoading(true);
 
-		Promise.all([request("/api/users"), request("/api/users/roles")])
+		Promise.all([request("/api/users"), request("/api/roles")])
 			.then(([usersResponse, rolesResponse]) => {
 				if (usersResponse.error || rolesResponse.error) {
 					setServerError(usersResponse.error || rolesResponse.error);
@@ -63,7 +63,7 @@ export const Users = () => {
 				{!isLoading
 					? !dataNotExist && (
 							<>
-								<Table
+								<UsersTable
 									users={users}
 									roles={roles}
 									dataIsLoaded={dataIsLoaded}

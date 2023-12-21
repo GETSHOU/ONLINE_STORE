@@ -53,21 +53,22 @@ export const Authorization = () => {
 	const emailErrorMessage = errors.email?.message;
 	const passwordErrorMessage = errors.password?.message;
 
+	const checkFieldErrors =
+		!!serverErrorForm || !!emailErrorMessage || !!passwordErrorMessage;
+
 	return (
 		<Form
 			onSubmit={handleSubmit(onSubmit)}
 			showErrorForm={showErrorForm}
 			serverErrorForm={serverErrorForm}
-			emailErrorMessage={emailErrorMessage}
-			passwordErrorMessage={passwordErrorMessage}
 		>
 			<FormGroup
 				type="text"
 				name="email"
 				labelname="Почта"
+				fieldError={emailErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				error={emailErrorMessage}
 				{...register("email", {
 					onChange: () => {
 						setServerErrorForm(null);
@@ -79,17 +80,15 @@ export const Authorization = () => {
 				type="password"
 				name="password"
 				labelname="Пароль"
+				fieldError={passwordErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				error={passwordErrorMessage}
 				{...register("password")}
 			/>
 			<FormGroup
-				isButton={true}
 				buttonText="Войти"
-				serverErrorForm={serverErrorForm}
-				emailErrorMessage={emailErrorMessage}
-				passwordErrorMessage={passwordErrorMessage}
+				isFormButton={true}
+				checkFieldErrors={checkFieldErrors}
 			/>
 		</Form>
 	);

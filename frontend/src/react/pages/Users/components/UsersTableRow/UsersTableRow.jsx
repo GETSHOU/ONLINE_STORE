@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { formatServerDate } from "../../../../../utils";
 import { Actions } from "../Actions/Actions";
-import { FormSelect } from "../FormSelect/FormSelect";
-import styles from "./TableRow.module.scss";
+import { FormSelect } from "../../../../components";
+import styles from "./UsersTableRow.module.scss";
 
-export const TableRow = ({
+export const UsersTableRow = ({
 	name,
 	email,
 	roles,
@@ -17,6 +17,7 @@ export const TableRow = ({
 	const [selectedRoleId, setSelectedRoleId] = useState(roleId);
 
 	const roleOnChange = selectedOption => setSelectedRoleId(Number(selectedOption.value));
+	const selectedRole = roles.find(role => role.id === selectedRoleId);
 
 	return (
 		<div className={styles.tableRow}>
@@ -25,9 +26,10 @@ export const TableRow = ({
 			<div className={styles.tableCell}>{formatServerDate(registeredAt)}</div>
 			<div className={styles.tableCell}>
 				<FormSelect
-					roles={roles}
-					roleOnChange={roleOnChange}
-					selectedRoleId={selectedRoleId}
+					data={roles}
+					name="roles"
+					onChange={roleOnChange}
+					selectedItem={selectedRole}
 				/>
 			</div>
 			<div className={styles.tableCell}>

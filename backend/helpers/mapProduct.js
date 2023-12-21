@@ -3,6 +3,7 @@ const mapComment = require("./mapComment");
 
 module.exports = function (product) {
 	return {
+		publicId: product.publicId,
 		id: product._id,
 		parent: product.parent.title,
 		title: product.title,

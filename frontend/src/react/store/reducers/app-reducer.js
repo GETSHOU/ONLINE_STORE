@@ -26,7 +26,7 @@ export const appReducer = (state = initialAppState, action) => {
 					...state.modal,
 					data: {
 						...state.modal.data,
-						newTitle: action.payload,
+						newValueToUpdate: action.payload,
 					},
 				},
 			};

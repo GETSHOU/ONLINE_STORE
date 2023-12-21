@@ -7,26 +7,27 @@ import {
 	closeModal,
 	createCategory,
 	updateCategory,
+	deleteCategory,
 	updateModalInputValue,
 } from "../../store/actions";
 import { modalDataSelector, modalTypeSelector } from "../../store/selectors";
 import { categoryFormSchema } from "../../scheme";
 import { request } from "../../../utils";
+import { MODAL_TYPES, ROLES } from "../../../constants";
+import { WithModal } from "../../hoc";
 import {
 	Form,
 	FormGroup,
+	ModalEdit,
 	ModalConfirm,
 	PrivateContent,
 	PrivateProvider,
-	ModalEditCategory,
 	CategoryCreatorForm,
 	PrivateCategoriesManagement,
 } from "../../components";
-import { MODAL_TYPES, ROLES } from "../../../constants";
-import { WithModal } from "../../hoc";
 
+const ModalWindowEdit = WithModal(ModalEdit);
 const ModalWindowConfirm = WithModal(ModalConfirm);
-const ModalWindowEditCategory = WithModal(ModalEditCategory);
 
 export const CategoriesManagement = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +44,7 @@ export const CategoriesManagement = () => {
 	const isCategoriesPage = !!useMatch(`/categories-m`);
 
 	const currentModal = useSelector(modalTypeSelector);
-	const { id, title, newTitle } = useSelector(modalDataSelector);
+	const { id, valueToUpdate, newValueToUpdate } = useSelector(modalDataSelector);
 
 	const {
 		register,
@@ -90,10 +91,10 @@ export const CategoriesManagement = () => {
 	}, [navigate, shouldUpdateCategories]);
 
 	useEffect(() => {
-		if (newTitle === title) {
+		if (newValueToUpdate === valueToUpdate) {
 			setIsDisabled(true);
 		}
-	}, [newTitle, title]);
+	}, [newValueToUpdate, valueToUpdate]);
 
 	const onSubmit = ({ title }) => {
 		setShouldUpdateCategories(true);
@@ -123,13 +124,14 @@ export const CategoriesManagement = () => {
 		request(`/api/categories/${id}/delete`, "DELETE")
 			.catch(e => console.log(e.message))
 			.finally(() => {
+				dispatch(deleteCategory(id));
 				setShouldUpdateCategories(false);
 			});
 
 		dispatch(closeModal());
 	};
 
-	const onChangeValueTitle = ({ target }) => {
+	const onChangeValue = ({ target }) => {
 		dispatch(updateModalInputValue(target.value));
 
 		if (target.value.trim().length !== 0) {
@@ -138,22 +140,22 @@ export const CategoriesManagement = () => {
 			setIsDisabled(true);
 		}
 
-		if (target.value.trim() === title) {
+		if (target.value.trim() === valueToUpdate) {
 			setIsDisabled(true);
 		}
 	};
 
-	const handleEdit = (id, newTitle) => {
-		const trimmedNewTitle = newTitle.trim();
+	const handleEdit = (id, newValueToUpdate) => {
+		const trimmedNewValueToUpdate = newValueToUpdate.trim();
 
-		if (trimmedNewTitle === title) {
+		if (trimmedNewValueToUpdate === valueToUpdate) {
 			return;
 		}
 
 		setShouldUpdateCategories(true);
 
 		request(isCategoriesPage && `/api/categories/${id}/update`, "PATCH", {
-			title: trimmedNewTitle,
+			title: trimmedNewValueToUpdate,
 		})
 			.then(response => {
 				dispatch(updateCategory(response.data));
@@ -161,6 +163,7 @@ export const CategoriesManagement = () => {
 			.catch(e => console.log(e.message))
 			.finally(() => {
 				setShouldUpdateCategories(false);
+				setIsDisabled(true);
 			});
 
 		dispatch(closeModal());
@@ -174,7 +177,6 @@ export const CategoriesManagement = () => {
 						onSubmit={handleSubmit(onSubmit)}
 						showErrorForm={showErrorForm}
 						serverErrorForm={serverErrorForm}
-						titleErrorMessage={titleErrorMessage}
 					>
 						<FormGroup
 							type="text"
@@ -191,13 +193,14 @@ export const CategoriesManagement = () => {
 							})}
 						/>
 						<FormGroup
-							isButton={true}
 							buttonText="Создать категорию"
+							isFormButton={true}
 							serverErrorForm={serverErrorForm}
 							titleErrorMessage={titleErrorMessage}
 						/>
 					</Form>
 				</CategoryCreatorForm>
+
 				{!dataNotExist && (
 					<>
 						<PrivateCategoriesManagement
@@ -210,15 +213,18 @@ export const CategoriesManagement = () => {
 
 				{/* Рендер модального окна */}
 				{currentModal === MODAL_TYPES.CONFIRM ? (
-					<ModalWindowConfirm handleApply={() => handleDelete(id)} />
+					<ModalWindowConfirm
+						message="Удалить категорию?"
+						handleApply={() => handleDelete(id)}
+					/>
 				) : (
-					currentModal === MODAL_TYPES.EDIT_CATEGORY && (
-						<ModalWindowEditCategory
-							newTitle={newTitle}
-							onChange={onChangeValueTitle}
-							handleEdit={() => handleEdit(id, newTitle)}
+					currentModal === MODAL_TYPES.FORM_UPDATE && (
+						<ModalWindowEdit
+							onChange={onChangeValue}
+							handleEdit={() => handleEdit(id, newValueToUpdate)}
 							isDisabled={isDisabled}
 							modalTitle="Редактирование"
+							newValueToUpdate={newValueToUpdate}
 						/>
 					)
 				)}

@@ -1,10 +1,8 @@
 import { useState } from "react";
 import Select from "react-select";
 
-export const FormSelect = ({ roles, roleOnChange, selectedRoleId }) => {
+export const FormSelect = ({ data, name, onChange, selectedItem }) => {
 	const [isSearchable, setIsSearchable] = useState(true);
-
-	const selectedRole = roles.find(role => role.id === selectedRoleId);
 
 	return (
 		<Select
@@ -28,17 +26,17 @@ export const FormSelect = ({ roles, roleOnChange, selectedRoleId }) => {
 					};
 				},
 			}}
-			isSearchable={!isSearchable}
-			name="roles"
-			value={selectedRole}
-			onChange={roleOnChange}
-			options={roles.map(({ id: userRoleId, name: roleName }) => ({
-				value: userRoleId,
-				label: roleName,
+			name={name}
+			value={selectedItem}
+			options={data.map(({ id, name }) => ({
+				value: id,
+				label: name,
 			}))}
+			onChange={onChange}
 			components={{
-				SingleValue: () => <div className="selectedRole">{selectedRole.name}</div>,
+				SingleValue: () => <div className="selectedItem">{selectedItem.name}</div>,
 			}}
+			isSearchable={!isSearchable}
 		/>
 	);
 };

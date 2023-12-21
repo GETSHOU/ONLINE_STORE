@@ -1,6 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 
 const initialProductState = {
+	publicId: "",
 	id: "",
 	title: "",
 	vendor: "",
@@ -14,6 +15,18 @@ const initialProductState = {
 
 export const productReducer = (state = initialProductState, action) => {
 	switch (action.type) {
+		case ACTION_TYPE.CREATE_PRODUCT:
+			return {
+				...state,
+				...action.payload,
+			};
+		case ACTION_TYPE.UPDATE_PRODUCT:
+			return {
+				...state,
+				...action.payload,
+			};
+		case ACTION_TYPE.DELETE_PRODUCT:
+			return initialProductState;
 		case ACTION_TYPE.CREATE_COMMENT:
 			return {
 				...state,

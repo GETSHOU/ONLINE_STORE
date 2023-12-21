@@ -52,18 +52,21 @@ export const Products = () => {
 							{!isLoading
 								? !dataNotExist && (
 										<>
-											{products.map(({ id, title, specs, price, previewImageUrl }) => {
-												return (
-													<ProductCard
-														key={id}
-														productId={id}
-														title={title}
-														specs={specs}
-														price={price}
-														previewImageUrl={previewImageUrl}
-													/>
-												);
-											})}
+											{products.map(
+												({ publicId, id, title, specs, price, previewImageUrl }) => {
+													return (
+														<ProductCard
+															key={id}
+															publicId={publicId}
+															productId={id}
+															title={title}
+															specs={specs}
+															price={price}
+															previewImageUrl={previewImageUrl}
+														/>
+													);
+												},
+											)}
 										</>
 								  )
 								: null}

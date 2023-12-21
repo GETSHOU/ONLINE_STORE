@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const { generatePublicId } = require("../utils");
 
 const ProductSchema = mongoose.Schema({
 	parent: {
@@ -40,6 +41,10 @@ const ProductSchema = mongoose.Schema({
 			ref: "Comment",
 		},
 	],
+	publicId: {
+		type: String,
+		default: generatePublicId,
+	},
 });
 
 const Product = mongoose.model("Product", ProductSchema);

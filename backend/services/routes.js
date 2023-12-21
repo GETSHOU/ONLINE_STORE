@@ -12,7 +12,7 @@ const routes = {
 		delete: `${baseUrl}users/:userId/delete`,
 	},
 	rolesManagement: {
-		get: `${baseUrl}users/roles`,
+		get: `${baseUrl}roles`,
 	},
 	categoriesManagement: {
 		get: `${baseUrl}categories`,
@@ -30,8 +30,11 @@ const routes = {
 		getAll: `${baseUrl}subcategories/:subcategoryId/products`,
 		getOne: `${baseUrl}products/:productId`,
 		create: `${baseUrl}subcategories/:subcategoryId/products/create`,
-		update: `${baseUrl}subcategories/:subcategoryId/products/:productId/update`,
-		delete: `${baseUrl}subcategories/:subcategoryId/products/:productId/delete`,
+		update: `${baseUrl}products/:productId/update`,
+		delete: `${baseUrl}products/:productId/delete`,
+	},
+	vendorsManagement: {
+		get: `${baseUrl}vendors`,
 	},
 	commentsManagement: {
 		get: `${baseUrl}products/:productId/comments`,

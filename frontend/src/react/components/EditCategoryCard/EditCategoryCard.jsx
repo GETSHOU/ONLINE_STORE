@@ -6,13 +6,7 @@ import { openModal } from "../../store/actions";
 import { MODAL_TYPES } from "../../../constants";
 import styles from "./EditCategoryCard.module.scss";
 
-export const EditCategoryCard = ({
-	id,
-	title,
-	cardLinkText,
-	isCategoriesPage,
-	isSubcategoriesPage,
-}) => {
+export const EditCategoryCard = ({ id, title, cardLinkText, isSubcategoriesPage }) => {
 	const linkToProductsPage = `/subcategories-m/${id}/products-m`;
 	const linkToSubcategoriesPage = `/categories-m/${id}/subcategories-m`;
 
@@ -21,11 +15,11 @@ export const EditCategoryCard = ({
 	const handleOpenEditModal = (id, title) => {
 		dispatch(
 			openModal({
-				type: MODAL_TYPES.EDIT_CATEGORY,
+				type: MODAL_TYPES.FORM_UPDATE,
 				data: {
 					id,
-					title,
-					newTitle: title,
+					valueToUpdate: title,
+					newValueToUpdate: title,
 				},
 			}),
 		);

@@ -2,14 +2,14 @@ const { ROLES } = require("../constants/roles");
 
 function getRoles() {
 	return [
-		{ id: ROLES.ADMIN, name: "Админ" },
+		{ id: ROLES.ADMIN, name: "Администратор" },
 		{ id: ROLES.MODERATOR, name: "Модератор" },
 		{ id: ROLES.USER, name: "Пользователь" },
 	];
 }
 
 const rolesController = {
-	get: async (res) => {
+	get: (res) => {
 		try {
 			const roles = getRoles();
 

@@ -2,20 +2,12 @@ import { forwardRef } from "react";
 import { Button } from "../../../Button/Button";
 import styles from "./FormGroup.module.scss";
 
-export const FormGroup = forwardRef(({ error, isButton, ...props }, ref) => {
-	const {
-		buttonText,
-		serverErrorForm,
-		nameErrorMessage,
-		emailErrorMessage,
-		titleErrorMessage,
-		passwordErrorMessage,
-		passcheckErrorMessage,
-	} = props;
+export const FormGroup = forwardRef(({ fieldError, ...props }, ref) => {
+	const { buttonText, isFormButton, checkFieldErrors } = props;
 
 	return (
 		<>
-			{!isButton ? (
+			{!isFormButton ? (
 				<div className={styles.formGroup}>
 					<div className={styles.formGroupField}>
 						<input
@@ -27,23 +19,12 @@ export const FormGroup = forwardRef(({ error, isButton, ...props }, ref) => {
 						<label className={styles.formGroupLabel}>{props.labelname}</label>
 					</div>
 					<div className={styles.formGroupError}>
-						{error && <span className="error">{error}</span>}
+						{fieldError && <span className="error">{fieldError}</span>}
 					</div>
 				</div>
 			) : (
 				<div className={styles.formGroup}>
-					<Button
-						type={"submit"}
-						text={buttonText}
-						disabled={
-							!!serverErrorForm ||
-							!!nameErrorMessage ||
-							!!emailErrorMessage ||
-							!!titleErrorMessage ||
-							!!passwordErrorMessage ||
-							!!passcheckErrorMessage
-						}
-					/>
+					<Button type={"submit"} text={buttonText} isDisabled={checkFieldErrors} />
 				</div>
 			)}
 		</>

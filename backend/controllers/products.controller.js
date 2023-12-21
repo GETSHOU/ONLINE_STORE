@@ -3,6 +3,29 @@ const Subcategory = require("../models/Subcategory.model");
 const { mapProduct } = require("../helpers");
 
 const productsController = {
+	getAll: async (subcategoryId, res) => {
+		try {
+			const products = await Product.find({ parent: subcategoryId }).populate(
+				"parent"
+			);
+
+			res.send({ data: products.map(mapProduct) });
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
+	getOne: async (productId, res) => {
+		try {
+			const product = await Product.findById(productId).populate({
+				path: "comments",
+				populate: "author",
+			});
+
+			res.send({ data: mapProduct(product) });
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
 	create: async (subcategoryId, product, res) => {
 		try {
 			const newProduct = await Product.create({
@@ -23,25 +46,24 @@ const productsController = {
 			res.send({ error: e.message });
 		}
 	},
-	getAll: async (subcategoryId, res) => {
-		try {
-			const products = await Product.find({ parent: subcategoryId }).populate(
-				"parent"
-			);
+	update: async (productId, valueToUpdate, res) => {
+		const updatedProduct = await Product.findByIdAndUpdate(
+			productId,
+			{ $set: valueToUpdate },
+			{
+				returnDocument: "after",
+			}
+		);
 
-			res.send({ data: products.map(mapProduct) });
-		} catch (e) {
-			res.send({ error: e.message });
-		}
+		res.send({ data: mapProduct(updatedProduct) });
+
+		return updatedProduct;
 	},
-	getOne: async (productId, res) => {
+	delete: async (productId, res) => {
 		try {
-			const product = await Product.findById(productId).populate({
-				path: "comments",
-				populate: "author",
-			});
+			await Product.deleteOne({ _id: productId });
 
-			res.send({ data: mapProduct(product) });
+			res.send({ error: null });
 		} catch (e) {
 			res.send({ error: e.message });
 		}

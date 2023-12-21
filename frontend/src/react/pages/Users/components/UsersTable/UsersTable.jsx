@@ -1,9 +1,9 @@
-import { ROLES } from "../../../../../constants/";
-import { TableTitles } from "../TableTitles/TableTitles";
-import { TableRow } from "../TableRow/TableRow";
-import styles from "./Table.module.scss";
+import { ROLES } from "../../../../../constants";
+import { UsersTableTitles } from "../UsersTableTitles/UsersTableTitles";
+import { UsersTableRow } from "../UsersTableRow/UsersTableRow";
+import styles from "./UsersTable.module.scss";
 
-export const Table = ({
+export const UsersTable = ({
 	users,
 	roles,
 	dataIsLoaded,
@@ -13,9 +13,9 @@ export const Table = ({
 	return (
 		<div className={styles.tableWrapper}>
 			<div className={styles.table}>
-				{dataIsLoaded && <TableTitles />}
+				{dataIsLoaded && <UsersTableTitles />}
 				{users.map(({ id, roleId, email, name, registeredAt }) => (
-					<TableRow
+					<UsersTableRow
 						key={id}
 						name={name}
 						email={email}

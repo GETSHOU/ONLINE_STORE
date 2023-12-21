@@ -1,10 +1,11 @@
 export * from "./Form/Form";
 export * from "./Form/components/FormGroup/FormGroup";
+export * from "./Form/components/FormSelect/FormSelect";
 
 export * from "./Modal/Modal";
 export * from "./ModalAuth/ModalAuth";
+export * from "./ModalEdit/ModalEdit";
 export * from "./ModalConfirm/ModalConfirm";
-export * from "./ModalEditCategory/ModalEditCategory";
 
 export * from "./Error/Error";
 export * from "./Header/Header";
