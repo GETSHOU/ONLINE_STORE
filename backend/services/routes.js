@@ -41,6 +41,13 @@ const routes = {
 		create: `${baseUrl}products/:productId/comments/create`,
 		delete: `${baseUrl}products/:productId/comments/:commentId/delete`,
 	},
+	basketManagement: {
+		get: `${baseUrl}basket/:userId/get`,
+		add: `${baseUrl}basket/:userId/product/:productId/add`,
+		increase: `${baseUrl}basket/:userId/product/:productId/increase`,
+		decrease: `${baseUrl}basket/:userId/product/:productId/decrease`,
+		delete: `${baseUrl}basket/:userId/product/:productId/delete`,
+	},
 };
 
 module.exports = routes;
