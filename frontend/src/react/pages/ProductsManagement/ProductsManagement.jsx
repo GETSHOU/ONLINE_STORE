@@ -53,11 +53,11 @@ export const ProductsManagement = () => {
 	} = useForm({
 		defaultValues: {
 			title: "",
-			previewImageUrl: "",
-			vendor: "",
-			vendorCode: "",
 			specs: "",
 			price: "",
+			vendor: "",
+			vendorCode: "",
+			previewImageUrl: "",
 		},
 		resolver: yupResolver(productFormSchema),
 		mode: "all",
@@ -108,16 +108,15 @@ export const ProductsManagement = () => {
 	}, [params.id, shouldUpdateProducts]);
 
 	const onSubmit = ({ title, previewImageUrl, vendor, vendorCode, specs, price }) => {
-		console.log(params.id);
 		setShouldUpdateProducts(true);
 
 		request(`/api/subcategories/${params.id}/products/create`, "POST", {
 			title,
-			previewImage: previewImageUrl,
-			vendor,
-			vendorCode,
 			specs,
 			price,
+			vendor,
+			vendorCode,
+			previewImageUrl,
 		})
 			.then(response => {
 				if (response.error) {

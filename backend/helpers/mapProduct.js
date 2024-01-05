@@ -3,17 +3,17 @@ const mapComment = require("./mapComment");
 
 module.exports = function (product) {
 	return {
-		publicId: product.publicId,
 		id: product._id,
-		parent: product.parent.title,
 		title: product.title,
-		vendor: product.vendor,
-		vendorCode: product.vendorCode,
 		specs: product.specs,
 		price: product.price,
-		previewImageUrl: product.previewImage,
+		vendor: product.vendor,
+		parent: product.parent.title,
 		comments: product.comments.map((comment) =>
 			mongoose.isObjectIdOrHexString(comment) ? comment : mapComment(comment)
 		),
+		publicId: product._publicId,
+		vendorCode: product.vendor_code,
+		previewImageUrl: product.preview_image_url,
 	};
 };

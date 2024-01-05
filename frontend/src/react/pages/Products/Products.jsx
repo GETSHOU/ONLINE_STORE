@@ -40,9 +40,9 @@ export const Products = () => {
 	return (
 		<div className={styles.products}>
 			<div className={styles.content}>
-				<div className={`${styles.contentInnerWrapper} ${styles.filter}`}>
+				{/* <div className={`${styles.contentInnerWrapper} ${styles.filter}`}>
 					<ProductFilter />
-				</div>
+				</div> */}
 				<div className={`${styles.contentInnerWrapper} ${styles.content}`}>
 					<div className={styles.contentHeader}>
 						<SortingProductList />
@@ -52,21 +52,9 @@ export const Products = () => {
 							{!isLoading
 								? !dataNotExist && (
 										<>
-											{products.map(
-												({ publicId, id, title, specs, price, previewImageUrl }) => {
-													return (
-														<ProductCard
-															key={id}
-															publicId={publicId}
-															productId={id}
-															title={title}
-															specs={specs}
-															price={price}
-															previewImageUrl={previewImageUrl}
-														/>
-													);
-												},
-											)}
+											{products.map(product => {
+												return <ProductCard key={product.id} product={product} />;
+											})}
 										</>
 								  )
 								: null}

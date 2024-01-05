@@ -3,24 +3,26 @@ import { ProductDetails } from "../../../../components";
 import styles from "./ProductContent.module.scss";
 
 export const ProductContent = ({ product }) => {
+	const { title, specs, publicId, previewImageUrl } = product;
+
 	return (
 		<div className={styles.product}>
 			<div className={styles.productHeader}>
-				<h1 className={styles.productTitle}>{product.title}</h1>
+				<h1 className={styles.productTitle}>{title}</h1>
 			</div>
 			<div className={styles.productBody}>
 				<div className={`${styles.productInnerWrapper} ${styles.image}`}>
-					<img src={product.previewImageUrl} alt="product_image" />
+					<img src={previewImageUrl} alt="product_image" />
 				</div>
 				<div className={`${styles.productInnerWrapper} ${styles.specs}`}>
 					<div className={styles.productSpecsRow}>
-						<p className={styles.productTextId}>ID: {product.publicId}</p>
+						<p className={styles.productTextId}>ID: {publicId}</p>
 					</div>
 					<div className={styles.productSpecsRow}>
 						<h4 className={styles.productSpecsTitle}>Характеристики</h4>
 					</div>
 					<ul className={styles.productSpecsList}>
-						{product.specs}
+						{specs}
 						{/* <ProductSpec title="Производитель:" description="ASUS" />
 						<ProductSpec
 							title="Код производителя:"
@@ -31,7 +33,7 @@ export const ProductContent = ({ product }) => {
 					</ul>
 				</div>
 				<div className={`${styles.productInnerWrapper} ${styles.productDetails}`}>
-					<ProductDetails price={product.price} />
+					<ProductDetails product={product} />
 				</div>
 			</div>
 		</div>

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { setProduct, setProductIsLoading } from "../../store/actions";
-import { productIsLoadingSelector, productSelector } from "../../store/selectors";
+import { setProduct } from "../../store/actions";
+import { productSelector } from "../../store/selectors";
 import { request } from "../../../utils";
 import { ProductContent } from "./components/ProductContent/ProductContent";
 import { Comments } from "../../components";
 import styles from "./Product.module.scss";
 
 export const Product = () => {
-	const isLoading = useSelector(productIsLoadingSelector);
+	const [isLoading, setIsLoading] = useState(false);
 	const [dataNotExist, setDataNotExist] = useState(false);
 
 	const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const Product = () => {
 	const params = useParams();
 
 	useEffect(() => {
-		dispatch(setProductIsLoading(true));
+		setIsLoading(true);
 
 		request(`/api/products/${params.id}`)
 			.then(response => {
@@ -34,7 +34,7 @@ export const Product = () => {
 				}
 			})
 			.finally(() => {
-				dispatch(setProductIsLoading(false));
+				setIsLoading(false);
 			});
 	}, [dispatch, params.id]);
 

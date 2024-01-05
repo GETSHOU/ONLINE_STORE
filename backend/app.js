@@ -171,13 +171,13 @@ app.post(
 		productsController.create(
 			req.params.subcategoryId,
 			{
-				publicId: req.body.publicId,
 				title: req.body.title,
-				vendor: req.body.vendor,
-				vendorCode: req.body.vendorCode,
 				specs: req.body.specs,
 				price: req.body.price,
-				previewImage: req.body.previewImage,
+				vendor: req.body.vendor,
+				_publicId: req.body.publicId,
+				vendor_code: req.body.vendorCode,
+				preview_image_url: req.body.previewImageUrl,
 			},
 			res
 		);

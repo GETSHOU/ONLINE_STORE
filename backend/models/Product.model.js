@@ -3,19 +3,7 @@ const validator = require("validator");
 const { generatePublicId } = require("../utils");
 
 const ProductSchema = mongoose.Schema({
-	parent: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Subcategory",
-	},
 	title: {
-		type: String,
-		required: true,
-	},
-	vendor: {
-		type: String,
-		required: true,
-	},
-	vendorCode: {
 		type: String,
 		required: true,
 	},
@@ -27,13 +15,13 @@ const ProductSchema = mongoose.Schema({
 		type: Number,
 		required: true,
 	},
-	previewImage: {
+	vendor: {
 		type: String,
 		required: true,
-		validate: {
-			validator: validator.isURL,
-			message: "URL-адрес изображения невалиден",
-		},
+	},
+	parent: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Subcategory",
 	},
 	comments: [
 		{
@@ -41,9 +29,21 @@ const ProductSchema = mongoose.Schema({
 			ref: "Comment",
 		},
 	],
-	publicId: {
+	_publicId: {
 		type: String,
 		default: generatePublicId,
+	},
+	vendor_code: {
+		type: String,
+		required: true,
+	},
+	preview_image_url: {
+		type: String,
+		required: true,
+		validate: {
+			validator: validator.isURL,
+			message: "URL-адрес изображения невалиден",
+		},
 	},
 });
 

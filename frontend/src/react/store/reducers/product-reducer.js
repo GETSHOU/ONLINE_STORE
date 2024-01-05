@@ -1,16 +1,15 @@
 import { ACTION_TYPE } from "../../../constants";
 
 const initialProductState = {
-	publicId: "",
 	id: "",
 	title: "",
-	vendor: "",
-	vendorCode: "",
 	specs: "",
 	price: "",
-	previewImageUrl: "",
+	vendor: "",
 	comments: [],
-	isLoading: false,
+	publicId: "",
+	vendorCode: "",
+	previewImageUrl: "",
 };
 
 export const productReducer = (state = initialProductState, action) => {
@@ -21,6 +20,11 @@ export const productReducer = (state = initialProductState, action) => {
 				...action.payload,
 			};
 		case ACTION_TYPE.UPDATE_PRODUCT:
+			return {
+				...state,
+				...action.payload,
+			};
+		case ACTION_TYPE.SET_PRODUCT:
 			return {
 				...state,
 				...action.payload,
@@ -36,11 +40,6 @@ export const productReducer = (state = initialProductState, action) => {
 			return {
 				...state,
 				comments: state.comments.filter(comment => comment.id !== action.payload),
-			};
-		case ACTION_TYPE.SET_PRODUCT:
-			return {
-				...state,
-				...action.payload,
 			};
 		default:
 			return state;
