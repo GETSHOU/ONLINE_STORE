@@ -17,7 +17,6 @@ const {
 const { authenticated, hasRole } = require("./middlewares");
 const { ROLES } = require("./constants/roles");
 const routes = require("./services/routes");
-const basketController = require("./controllers/basket.controller");
 
 const devPort = 3000;
 const port = 3005;
@@ -223,31 +222,6 @@ app.delete(
 		commentsController.delete(req.params.productId, req.params.commentId, res);
 	}
 );
-
-// Получение всех товаров из корзины
-app.get(routes.basketManagement.get, (req, res) => {
-	basketController.get(req.params.userId, res);
-});
-
-// Добавление товара в корзину
-app.post(routes.basketManagement.add, (req, res) => {
-	basketController.add(req.params.userId, req.params.productId, res);
-});
-
-// Удаление товара из корзины
-app.delete(routes.basketManagement.delete, (req, res) => {
-	basketController.delete(req.params.userId, req.params.productId, res);
-});
-
-// Увеличение количества товара в корзине на единицу
-app.patch(routes.basketManagement.increase, (req, res) => {
-	basketController.increase(req.params.userId, req.params.productId, res);
-});
-
-// Уменьшение количества товара в корзине на единицу
-app.delete(routes.basketManagement.decrease, (req, res) => {
-	basketController.decrease(req.params.userId, req.params.productId, res);
-});
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING).then(() => {
 	app.listen(port, () => {

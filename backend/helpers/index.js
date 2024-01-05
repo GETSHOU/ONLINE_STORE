@@ -1,13 +1,15 @@
 const mapUser = require("./mapUser");
-const mapCategory = require("./mapCategory");
-const mapSubcategory = require("./mapSubcategory");
+const mapOrder = require("./mapOrder");
 const mapProduct = require("./mapProduct");
 const mapComment = require("./mapComment");
+const mapCategory = require("./mapCategory");
+const mapSubcategory = require("./mapSubcategory");
 
 module.exports = {
 	mapUser,
-	mapCategory,
-	mapSubcategory,
+	mapOrder,
 	mapProduct,
 	mapComment,
+	mapCategory,
+	mapSubcategory,
 };

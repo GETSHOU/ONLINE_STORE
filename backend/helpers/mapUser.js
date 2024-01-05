@@ -1,20 +1,15 @@
 const mongoose = require("mongoose");
-const mapProduct = require("./mapProduct");
+const mapOrder = require("./mapOrder");
 
 module.exports = function (user) {
 	return {
-		id: user.id,
-		email: user.email,
+		id: user._id,
 		name: user.name,
+		email: user.email,
 		roleId: user.role,
-		basket: user.basket.map((item) => {
-			return {
-				product: mongoose.isObjectIdOrHexString(item.product)
-					? item.product
-					: mapProduct(item.product),
-				productCount: item.product_count,
-			};
-		}),
+		orders: user.orders.map((order) =>
+			mongoose.isObjectIdOrHexString(order) ? order : mapOrder(order)
+		),
 		registeredAt: user.createdAt,
 	};
 };

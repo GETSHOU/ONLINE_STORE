@@ -10,7 +10,7 @@ import {
 	userNameSelector,
 	modalTypeSelector,
 } from "../../../../store/selectors";
-import { checkAccess } from "../../../../../utils";
+import { checkAccess, getTotalCountProducts } from "../../../../../utils";
 import { MODAL_TYPES, ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
 import { WithModal, WithModalAuth } from "../../../../hoc";
 import { Authorization } from "../../../Authorization/Authorization";
@@ -25,6 +25,7 @@ export const ControlPanel = () => {
 	const currentModal = useSelector(modalTypeSelector);
 	const currentUserName = useSelector(userNameSelector);
 	const [userName, setUserName] = useState(currentUserName);
+
 	const sessionState = !!sessionStorage.getItem(SESSION_STORAGE_NAMES.USER_DATA);
 
 	const isAllowedRoles = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
@@ -58,10 +59,15 @@ export const ControlPanel = () => {
 					<BiSolidUser className="icon iconControl" />
 					<span className={styles.controlItem}>{userName}</span>
 				</div>
-				<Link to="/basket" className={styles.control}>
-					<IoMdCart className="icon iconControl" />
-					<span className={styles.controlItem}>Корзина</span>
-				</Link>
+				{sessionState && (
+					<Link to="/basket" className={styles.control}>
+						<IoMdCart className="icon iconControl" />
+						<span className={styles.controlItem}>Корзина</span>
+						<span className={styles.controlCountProducts}>
+							{/* {getTotalCountProducts(basket) > 99 ? "99+" : getTotalCountProducts(basket)} */}
+						</span>
+					</Link>
+				)}
 				{!sessionState ? (
 					<button className={styles.control} onClick={handleOpenAuthModal}>
 						<RiLoginBoxFill className="icon iconControl" />

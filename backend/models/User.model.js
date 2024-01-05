@@ -20,16 +20,10 @@ const UserSchema = mongoose.Schema(
 			type: Number,
 			default: ROLES.USER,
 		},
-		basket: [
+		orders: [
 			{
-				product: {
-					type: mongoose.Schema.Types.ObjectId,
-					ref: "Product",
-				},
-				product_count: {
-					type: Number,
-					default: 0,
-				},
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Order",
 			},
 		],
 	},

@@ -7,6 +7,7 @@ const initialUserState = {
 		email: null,
 		roleId: ROLES.GUEST,
 		basket: [],
+		orders: [],
 	},
 	isLoggedIn: false,
 };
