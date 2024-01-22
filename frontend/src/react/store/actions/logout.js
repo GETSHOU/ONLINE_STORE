@@ -6,7 +6,10 @@ export const logout = () => {
 		request("/api/logout", "POST").then(() => {
 			sessionStorage.removeItem("userData");
 
-			dispatch({ type: ACTION_TYPE.LOGOUT });
+			const currentBasketDataJSON = localStorage.getItem("basket");
+			const basketFromStorage = JSON.parse(currentBasketDataJSON);
+
+			dispatch({ type: ACTION_TYPE.LOGOUT, payload: basketFromStorage });
 		});
 	};
 };

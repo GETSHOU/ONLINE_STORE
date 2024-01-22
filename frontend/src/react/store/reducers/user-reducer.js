@@ -27,7 +27,13 @@ export const userReducer = (state = initialUserState, action) => {
 				isLoggedIn: !state.isLoggedIn,
 			};
 		case ACTION_TYPE.LOGOUT:
-			return initialUserState;
+			return {
+				...initialUserState,
+				userData: {
+					...initialUserState.userData,
+					basket: [...action.payload],
+				},
+			};
 		case ACTION_TYPE.ADD_PRODUCT_IN_BASKET:
 			return {
 				...state,
