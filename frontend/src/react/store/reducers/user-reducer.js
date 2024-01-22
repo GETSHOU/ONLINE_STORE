@@ -1,12 +1,15 @@
 import { ROLES, ACTION_TYPE } from "../../../constants";
 
+const currentBasketDataJSON = localStorage.getItem("basket");
+const basketFromStorage = JSON.parse(currentBasketDataJSON);
+
 const initialUserState = {
 	userData: {
 		id: null,
 		name: "Гость",
 		email: null,
 		roleId: ROLES.GUEST,
-		basket: [],
+		basket: basketFromStorage,
 		orders: [],
 	},
 	isLoggedIn: false,
@@ -38,7 +41,25 @@ export const userReducer = (state = initialUserState, action) => {
 				...state,
 				userData: {
 					...state.userData,
-					basket: state.userData.basket.filter(product => product.id !== action.payload),
+					basket: state.userData.basket.filter(
+						({ product }) => product.id !== action.payload,
+					),
+				},
+			};
+		case ACTION_TYPE.CHANGE_NUMBER_OF_PRODUCTS:
+			return {
+				...state,
+				userData: {
+					...state.userData,
+					basket: state.userData.basket.map(item => {
+						if (item.product.id === action.payload.productId) {
+							return {
+								...item,
+								productCount: action.payload.productCount || item.productCount,
+							};
+						}
+						return item;
+					}),
 				},
 			};
 		default:

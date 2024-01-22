@@ -6,12 +6,13 @@ import { BiSolidUser } from "react-icons/bi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
 import { logout, openModal } from "../../../../store/actions";
 import {
+	basketSelector,
 	userRoleSelector,
 	userNameSelector,
 	modalTypeSelector,
 } from "../../../../store/selectors";
 import { checkAccess, getTotalCountProducts } from "../../../../../utils";
-import { MODAL_TYPES, ROLES, SESSION_STORAGE_NAMES } from "../../../../../constants";
+import { MODAL_TYPES, ROLES } from "../../../../../constants";
 import { WithModal, WithModalAuth } from "../../../../hoc";
 import { Authorization } from "../../../Authorization/Authorization";
 import { Registration } from "../../../Registration/Registration";
@@ -21,12 +22,13 @@ const ModalWindowAuth = WithModal(WithModalAuth(Authorization));
 const ModalWindowReg = WithModal(WithModalAuth(Registration));
 
 export const ControlPanel = () => {
+	const basket = useSelector(basketSelector);
 	const roleId = useSelector(userRoleSelector);
 	const currentModal = useSelector(modalTypeSelector);
 	const currentUserName = useSelector(userNameSelector);
 	const [userName, setUserName] = useState(currentUserName);
 
-	const sessionState = !!sessionStorage.getItem(SESSION_STORAGE_NAMES.USER_DATA);
+	const sessionState = !!sessionStorage.getItem("userData");
 
 	const isAllowedRoles = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
@@ -59,15 +61,15 @@ export const ControlPanel = () => {
 					<BiSolidUser className="icon iconControl" />
 					<span className={styles.controlItem}>{userName}</span>
 				</div>
-				{sessionState && (
-					<Link to="/basket" className={styles.control}>
-						<IoMdCart className="icon iconControl" />
-						<span className={styles.controlItem}>Корзина</span>
+				<Link to="/basket" className={styles.control}>
+					<IoMdCart className="icon iconControl" />
+					<span className={styles.controlItem}>Корзина</span>
+					{getTotalCountProducts(basket) !== 0 ? (
 						<span className={styles.controlCountProducts}>
-							{/* {getTotalCountProducts(basket) > 99 ? "99+" : getTotalCountProducts(basket)} */}
+							{getTotalCountProducts(basket) > 99 ? "99+" : getTotalCountProducts(basket)}
 						</span>
-					</Link>
-				)}
+					) : null}
+				</Link>
 				{!sessionState ? (
 					<button className={styles.control} onClick={handleOpenAuthModal}>
 						<RiLoginBoxFill className="icon iconControl" />

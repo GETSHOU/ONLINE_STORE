@@ -7,7 +7,6 @@ import { closeModal, setUser } from "../../store/actions";
 import { modalTypeSelector } from "../../store/selectors";
 import { regFormSchema } from "../../scheme";
 import { request } from "../../../utils";
-import { SESSION_STORAGE_NAMES } from "../../../constants";
 import { Form } from "../Form/Form";
 import { FormGroup } from "../Form/components/FormGroup/FormGroup";
 
@@ -47,7 +46,7 @@ export const Registration = () => {
 
 				dispatch(setUser(user));
 
-				sessionStorage.setItem(SESSION_STORAGE_NAMES.USER_DATA, JSON.stringify(user));
+				sessionStorage.setItem("userData", JSON.stringify(user));
 
 				dispatch(closeModal());
 			},

@@ -1,21 +1,22 @@
 import { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/actions";
-import { SESSION_STORAGE_NAMES } from "../../../constants";
 
 export const AuthProvider = ({ children }) => {
 	const dispatch = useDispatch();
 	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 
 	useLayoutEffect(() => {
-		const currentUserDataJSON = sessionStorage.getItem(SESSION_STORAGE_NAMES.USER_DATA);
+		const currentUserDataJSON = sessionStorage.getItem("userData");
 
-		if (!currentUserDataJSON) return;
+		if (!currentUserDataJSON) {
+			return;
+		} else {
+			const currentUserData = JSON.parse(currentUserDataJSON);
 
-		const currentUserData = JSON.parse(currentUserDataJSON);
-
-		if (!userIsLoggedIn) {
-			dispatch(setUser(currentUserData));
+			if (!userIsLoggedIn) {
+				dispatch(setUser(currentUserData));
+			}
 		}
 	}, [dispatch, userIsLoggedIn]);
 
