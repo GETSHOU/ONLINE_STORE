@@ -3,6 +3,7 @@ import { basketSelector } from "../../store/selectors";
 import { BasketItem } from "./components/BasketItem/BasketItem";
 import { PaymentDetails } from "./components/PaymentDetails/PaymentDetails";
 import { EmptyBasket } from "./components/EmptyBasket/EmptyBasket";
+import { PageTitle } from "../../components";
 import styles from "./Basket.module.scss";
 
 export const Basket = () => {
@@ -10,6 +11,7 @@ export const Basket = () => {
 
 	return (
 		<div className={styles.wrapper}>
+			<PageTitle title="Корзина" />
 			{Array.isArray(basket) ? (
 				<>
 					{basket.length !== 0 ? (

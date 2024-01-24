@@ -8,17 +8,23 @@ import thunk from "redux-thunk";
 import {
 	appReducer,
 	userReducer,
+	catalogReducer,
 	productReducer,
 	categoryReducer,
+	productsReducer,
 	subcategoryReducer,
+	subcategoriesReducer,
 } from "./reducers";
 
 const reducer = combineReducers({
 	app: appReducer,
 	user: userReducer,
 	product: productReducer,
+	catalog: catalogReducer,
 	category: categoryReducer,
+	products: productsReducer,
 	subcategory: subcategoryReducer,
+	subcategories: subcategoriesReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

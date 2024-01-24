@@ -1,0 +1,58 @@
+@use '../../../../../styles/variables.scss' as *;
+@use '../../../../../styles/mixins.scss' as *;
+
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	margin: 0 10px;
+	background-color: $very-light-grey;
+	border-radius: 5px;
+	user-select: none;
+	transition: $transition-hover;
+
+	&:after {
+		@include centeredY() {
+			position: absolute;
+		};
+
+		overflow: hidden;
+		content: '';
+		display: block;
+		height: 6px;
+		width: 6px;
+		right: -13px;
+		background-color: $main-color;
+		border-radius: 50%;
+
+	}
+
+	&:last-child {
+		&:after {
+			display: none;
+		}
+	}
+
+	&Name {
+		padding: 7px;
+		font-weight: 500;
+		cursor: pointer;
+		transition: $transition-hover;
+	}
+
+	&Active, &:hover {
+		background-color: $main-theme-color;
+
+		.itemName {
+			color: $secondary-color;
+		}
+	}
+
+	&Active {
+		.itemName {
+			color: $secondary-color;
+			cursor: default;
+		}
+	}
+}

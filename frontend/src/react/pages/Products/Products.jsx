@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { request } from "../../../utils";
-import { SortingProductList } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { setSubcategoryTitle } from "../../store/actions";
+import { subcategoryTitleSelector } from "../../store/selectors";
+import { getCardTitle, request } from "../../../utils";
+import { PageTitle, SortingProductList } from "../../components";
 import { ProductFilter } from "./components/ProductFilter/ProductFilter";
 import { ProductCard } from "./components/ProductCard/ProductCard";
 import styles from "./Products.module.scss";
@@ -13,6 +16,9 @@ export const Products = () => {
 
 	const params = useParams();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const productTitle = useSelector(subcategoryTitleSelector);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -29,6 +35,7 @@ export const Products = () => {
 
 					setDataNotExist(false);
 					setProducts(response.data);
+					dispatch(setSubcategoryTitle(getCardTitle(response.data)));
 				}
 			})
 			.catch(e => console.log(e.message))
@@ -39,6 +46,7 @@ export const Products = () => {
 
 	return (
 		<div className={styles.products}>
+			<PageTitle title={productTitle} />
 			<div className={styles.content}>
 				{/* <div className={`${styles.contentInnerWrapper} ${styles.filter}`}>
 					<ProductFilter />

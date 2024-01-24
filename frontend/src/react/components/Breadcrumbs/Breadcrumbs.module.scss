@@ -1,0 +1,11 @@
+.nav {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 20px -10px;
+
+	&List {
+		display: flex;
+		align-items: center;
+	}
+}

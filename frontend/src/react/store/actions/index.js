@@ -27,3 +27,10 @@ export * from "./add-product-in-basket";
 export * from "./delete-product-from-basket";
 
 export * from "./change-number-of-products";
+
+export * from "./set-catalog";
+export * from "./set-subcategories";
+
+export * from "./set-catalog-title";
+export * from "./set-category-title";
+export * from "./set-subcategory-title";

@@ -5,7 +5,7 @@ import { setProduct } from "../../store/actions";
 import { productSelector } from "../../store/selectors";
 import { request } from "../../../utils";
 import { ProductContent } from "./components/ProductContent/ProductContent";
-import { Comments } from "../../components";
+import { Comments, PageTitle } from "../../components";
 import styles from "./Product.module.scss";
 
 export const Product = () => {
@@ -39,17 +39,16 @@ export const Product = () => {
 	}, [dispatch, params.id]);
 
 	return (
-		<>
+		<div className={styles.wrapper}>
 			{!isLoading
 				? !dataNotExist && (
 						<>
-							<div className={styles.wrapper}>
-								<ProductContent product={product} />
-								<Comments comments={product.comments} productId={product.id} />
-							</div>
+							<PageTitle title={product.title} />
+							<ProductContent product={product} />
+							<Comments comments={product.comments} productId={product.id} />
 						</>
 				  )
 				: null}
-		</>
+		</div>
 	);
 };

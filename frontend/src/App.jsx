@@ -48,8 +48,8 @@ export const App = () => {
 				{/*Интернет-магазин*/}
 				<Route path="/" element={<MainPage />}>
 					<Route path="categories" element={<Categories />} />
-					<Route path="categories/:id/subcategories" element={<Subcategories />} />
-					<Route path="subcategories/:id/products" element={<Products />} />
+					<Route path="categories/:id" element={<Subcategories />} />
+					<Route path="subcategories/:id" element={<Products />} />
 					<Route path="products/:id" element={<Product />} />
 					<Route path="basket" element={<Basket />} />
 
@@ -86,4 +86,4 @@ export const App = () => {
 // TODO_2: Добавить "хлебные крошки" в админке
 // TODO_3: Добавить "хлебные крошки" в магазине
 // TODO_4: Проверить, как загружаются данные с сервера (в том числе и при перезагрузке страницы) и реализовать лоадер
-// TODO_5:
+// TODO_5: Разобраться, что делать с количеством товаров на карточках категорий

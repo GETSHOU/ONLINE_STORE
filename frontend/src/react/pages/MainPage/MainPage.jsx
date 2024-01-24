@@ -4,12 +4,8 @@ import { userRoleSelector } from "../../store/selectors";
 import { checkAccess } from "../../../utils";
 import { ROLES } from "../../../constants";
 import { WithContainer } from "../../hoc";
-import { Footer, Header } from "../../components";
+import { Footer, Header, Breadcrumbs } from "../../components";
 import styles from "./MainPage.module.scss";
-
-const Breadcrumbs = () => {
-	return <div style={{ margin: "20px 0" }}>BREADCRUMBS</div>;
-};
 
 const BreadcrumbsWithContainer = WithContainer(Breadcrumbs);
 const MainContentWithContainer = WithContainer(Outlet);

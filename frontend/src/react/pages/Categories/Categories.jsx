@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCatalog } from "../../store/actions";
+import { catalogSelector, catalogTitleSelector } from "../../store/selectors";
 import { request } from "../../../utils";
-import { CategoryCard } from "../../components";
+import { CategoryCard, PageTitle } from "../../components";
 import styles from "./Categories.module.scss";
 
 export const Categories = () => {
-	const [categories, setCategories] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [dataNotExist, setDataNotExist] = useState(false);
+
+	const categories = useSelector(catalogSelector);
+	const catalogTitle = useSelector(catalogTitleSelector);
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
@@ -25,7 +31,7 @@ export const Categories = () => {
 					}
 
 					setDataNotExist(false);
-					setCategories(response.data);
+					dispatch(setCatalog(response.data));
 				}
 			})
 			.catch(e => console.log(e.message))
@@ -36,6 +42,7 @@ export const Categories = () => {
 
 	return (
 		<div className={styles.wrapper}>
+			<PageTitle title={catalogTitle} />
 			<div className={styles.cards}>
 				{!isLoading
 					? !dataNotExist && (

@@ -15,6 +15,7 @@ export * from "./Overlay/Overlay";
 export * from "./Comments/Comments";
 export * from "./Container/Container";
 export * from "./PageTitle/PageTitle";
+export * from "./Breadcrumbs/Breadcrumbs";
 export * from "./ProductInfo/ProductInfo";
 export * from "./AuthProvider/AuthProvider";
 export * from "./CreateButton/CreateButton";

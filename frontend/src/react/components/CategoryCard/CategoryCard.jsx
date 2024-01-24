@@ -1,9 +1,13 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { catalogTitleSelector } from "../../store/selectors";
 import styles from "./CategoryCard.module.scss";
 
 export const CategoryCard = ({ id, parentTitle, categoryTitle, isSubcategoriesPage }) => {
-	const linkToProductsPage = `/subcategories/${id}/products`;
-	const linkToSubcategoriesPage = `/categories/${id}/subcategories`;
+	const catalogTitle = useSelector(catalogTitleSelector);
+
+	const linkToProductsPage = `/subcategories/${id}`;
+	const linkToSubcategoriesPage = `/categories/${id}`;
 
 	return (
 		<div className={styles.card}>
@@ -12,7 +16,7 @@ export const CategoryCard = ({ id, parentTitle, categoryTitle, isSubcategoriesPa
 				className={styles.cardLink}
 			>
 				<h4 className={styles.cardSection}>
-					{!!parentTitle ? parentTitle : "Каталог товаров"}
+					{!!parentTitle ? parentTitle : catalogTitle}
 				</h4>
 				<div className={styles.cardBody}>
 					<h3 className={styles.cardTitle}>{categoryTitle}</h3>

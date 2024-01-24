@@ -3,13 +3,10 @@ import { ProductDetails } from "../../../../components";
 import styles from "./ProductContent.module.scss";
 
 export const ProductContent = ({ product }) => {
-	const { title, specs, publicId, previewImageUrl } = product;
+	const { specs, publicId, previewImageUrl } = product;
 
 	return (
 		<div className={styles.product}>
-			<div className={styles.productHeader}>
-				<h1 className={styles.productTitle}>{title}</h1>
-			</div>
 			<div className={styles.productBody}>
 				<div className={`${styles.productInnerWrapper} ${styles.image}`}>
 					<img src={previewImageUrl} alt="product_image" />
