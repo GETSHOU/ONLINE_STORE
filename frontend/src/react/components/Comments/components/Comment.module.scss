@@ -46,16 +46,16 @@
 	}
 
 	&Text {
-		// overflow: hidden;
 		line-height: 1.5rem;
-		resize: none;
 	}
 
 	&TextEditing {
+		line-height: 1.5rem;
 		padding: 5px 8px;
 		background-color: $secondary-color;
 		border-radius: 5px;
 		box-shadow: inset 1px 1px 5px 0 rgba(0,0,0,0.08);
+		resize: none;
 	}
 
 	&Footer {
@@ -74,8 +74,4 @@
 			margin-right: 0;
 		}
 	}
-}
-
-p {
-	white-space: pre-line;
 }

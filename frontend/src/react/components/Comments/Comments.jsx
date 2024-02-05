@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdSend } from "react-icons/io";
 import { createCommentAsync, openModal } from "../../store/actions";
-import { getCommentsCount, request } from "../../../utils";
+import { getCommentsCount } from "../../../utils";
 import { MODAL_TYPES } from "../../../constants";
 import { Comment } from "./components/Comment";
 import { CommentSkeleton } from "../Skeleton/CommentSkeleton/CommentSkeleton";
@@ -12,8 +12,8 @@ import styles from "./Comments.module.scss";
 
 export const Comments = ({ comments, productId, productLoadingStatus }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [newComment, setNewComment] = useState("");
 	const [isDisabled, setIsDisabled] = useState(true);
+	const [newComment, setNewComment] = useState("");
 
 	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 	const dispatch = useDispatch();
@@ -62,7 +62,7 @@ export const Comments = ({ comments, productId, productLoadingStatus }) => {
 							placeholder={isLoading ? "" : "Написать комментарий..."}
 							value={newComment}
 							onChange={onChangeText}
-							rows="6"
+							rows={5}
 							readOnly={isLoading && true}
 						/>
 						<button

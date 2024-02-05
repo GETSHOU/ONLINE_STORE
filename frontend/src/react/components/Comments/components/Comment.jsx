@@ -19,7 +19,6 @@ export const Comment = ({
 	authorName,
 	publishedAt,
 	authorRoleId,
-	createdRows,
 }) => {
 	const [isEdit, setIsEdit] = useState(false);
 	const [isDisabled, setIsDisabled] = useState(false);
@@ -130,20 +129,18 @@ export const Comment = ({
 				)}
 			</header>
 			<div className={styles.commentBody}>
-				{/* <textarea
-					ref={inputRef}
-					type="text"
-					// style={{ height: textAreaRows * 1.8 + "rem" }}
-					value={valueEdit}
-					readOnly={!isEdit}
-					className={
-						!isEdit
-							? `${styles.commentText}`
-							: `${styles.commentText} ${styles.commentTextEditing}`
-					}
-					onChange={handleChange}
-				/> */}
-				<p>{valueEdit}</p>
+				{!isEdit ? (
+					<span className={styles.commentText}>{valueEdit}</span>
+				) : (
+					<textarea
+						ref={inputRef}
+						type="text"
+						rows={5}
+						value={valueEdit}
+						className={styles.commentTextEditing}
+						onChange={handleChange}
+					/>
+				)}
 			</div>
 			<footer className={styles.commentFooter}>
 				<span className={styles.commentDate}>

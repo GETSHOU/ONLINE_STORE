@@ -52,11 +52,6 @@ export const App = () => {
 					<Route path="subcategories/:id" element={<Products />} />
 					<Route path="products/:id" element={<Product />} />
 					<Route path="basket" element={<Basket />} />
-
-					{/*Ошибки*/}
-					<Route path="categories-not-exist" element={<div>Категорий нет</div>} />
-					<Route path="subcategories-not-exist" element={<div>Подкатегорий нет</div>} />
-					<Route path="products-not-exist" element={<div>Товаров нет</div>} />
 				</Route>
 
 				{/*Админ-панель*/}
