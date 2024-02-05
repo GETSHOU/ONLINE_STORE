@@ -39,6 +39,7 @@ const routes = {
 	commentsManagement: {
 		get: `${baseUrl}products/:productId/comments`,
 		create: `${baseUrl}products/:productId/comments/create`,
+		update: `${baseUrl}comments/:commentId/update`,
 		delete: `${baseUrl}products/:productId/comments/:commentId/delete`,
 	},
 };

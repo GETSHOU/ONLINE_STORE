@@ -8,10 +8,10 @@ import thunk from "redux-thunk";
 import {
 	appReducer,
 	userReducer,
-	catalogReducer,
 	productReducer,
 	categoryReducer,
 	productsReducer,
+	categoriesReducer,
 	subcategoryReducer,
 	subcategoriesReducer,
 } from "./reducers";
@@ -20,9 +20,9 @@ const reducer = combineReducers({
 	app: appReducer,
 	user: userReducer,
 	product: productReducer,
-	catalog: catalogReducer,
-	category: categoryReducer,
 	products: productsReducer,
+	category: categoryReducer,
+	categories: categoriesReducer,
 	subcategory: subcategoryReducer,
 	subcategories: subcategoriesReducer,
 });

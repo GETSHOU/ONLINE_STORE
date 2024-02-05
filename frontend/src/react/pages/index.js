@@ -2,7 +2,7 @@ export * from "./Users/Users";
 export * from "./Basket/Basket";
 export * from "./Product/Product";
 export * from "./Products/Products";
-export * from "./MainPage/MainPage";
+export * from "./HomePage/HomePage";
 export * from "./Categories/Categories";
 export * from "./Subcategories/Subcategories";
 export * from "./ProductsManagement/ProductsManagement";

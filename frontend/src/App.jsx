@@ -8,7 +8,7 @@ import {
 	Basket,
 	Product,
 	Products,
-	MainPage,
+	HomePage,
 	Categories,
 	Subcategories,
 	ProductsManagement,
@@ -46,7 +46,7 @@ export const App = () => {
 			{isAllowedRoles && <PrivateNavMenu />}
 			<Routes>
 				{/*Интернет-магазин*/}
-				<Route path="/" element={<MainPage />}>
+				<Route path="/" element={<HomePage />}>
 					<Route path="categories" element={<Categories />} />
 					<Route path="categories/:id" element={<Subcategories />} />
 					<Route path="subcategories/:id" element={<Products />} />
@@ -81,9 +81,12 @@ export const App = () => {
 	);
 };
 
+// TODO_MAIN: Сделать редактирование комментария
+
 // TODO_0: ЧТО НУЖНО ДОРАБОТАТЬ
 // TODO_1: Проверить все запросы на сервер на клиенте. В catch, вместо console.log, возвращать ошибку пользователю
 // TODO_2: Добавить "хлебные крошки" в админке
 // TODO_3: Добавить "хлебные крошки" в магазине
-// TODO_4: Проверить, как загружаются данные с сервера (в том числе и при перезагрузке страницы) и реализовать лоадер
-// TODO_5: Разобраться, что делать с количеством товаров на карточках категорий
+// TODO_4: Разобраться, что делать с количеством товаров на карточках категорий
+
+// TODO_TEST: для проверки serverError можно не запускать сервер

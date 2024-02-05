@@ -2,14 +2,12 @@
 @use "../../../styles/mixins" as *;
 
 .card {
-	overflow: hidden;
-	display: flex;
-	height: 13rem;
-	width: 100%;
-	border-radius: 5px;
-	box-shadow: 0 2px 7px 0 rgb(70, 70, 70, .2);
-	background-color: #f0f0f0;
-	cursor: pointer;
+	@include category-card() {
+		overflow: hidden;
+		background-color: #f0f0f0;
+		box-shadow: $main-box-shadow;
+		cursor: pointer;
+	}
 
 	&Link {
 		display: flex;

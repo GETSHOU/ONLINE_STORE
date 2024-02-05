@@ -9,7 +9,7 @@ const initialUserState = {
 		name: "Гость",
 		email: null,
 		roleId: ROLES.GUEST,
-		basket: basketFromStorage,
+		basket: basketFromStorage || [],
 		orders: [],
 	},
 	isLoggedIn: false,

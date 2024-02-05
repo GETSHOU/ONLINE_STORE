@@ -29,6 +29,14 @@
 	&Actions {
 		display: flex;
 		align-items: center;
+
+		& > * {
+			margin-right: 10px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
 	}
 
 	&Body {
@@ -38,7 +46,16 @@
 	}
 
 	&Text {
-		line-height: 1.3rem;
+		// overflow: hidden;
+		line-height: 1.5rem;
+		resize: none;
+	}
+
+	&TextEditing {
+		padding: 5px 8px;
+		background-color: $secondary-color;
+		border-radius: 5px;
+		box-shadow: inset 1px 1px 5px 0 rgba(0,0,0,0.08);
 	}
 
 	&Footer {
@@ -48,8 +65,17 @@
 	}
 
 	&Date {
+		margin-right: 15px;
 		color: $main-grey;
 		font-size: 0.9rem;
 		font-weight: 500;
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
+}
+
+p {
+	white-space: pre-line;
 }

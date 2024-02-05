@@ -8,9 +8,24 @@ export * from "./user-is-logged-in-selector";
 
 export * from "./basket-selector";
 
-export * from "./catalog-selector";
-export * from "./subcategories-selector";
+// новые селекторы
+export * from "./categories-selector";
+export * from "./categories-error-selector";
+export * from "./categories-title-selector";
+export * from "./categories-loading-status-selector";
 
-export * from "./catalog-title-selector";
-export * from "./category-title-selector";
-export * from "./subcategory-title-selector";
+export * from "./subcategories-selector";
+export * from "./subcategories-error-selector";
+export * from "./subcategories-title-selector";
+export * from "./subcategories-loading-status-selector";
+
+export * from "./products-selector";
+export * from "./products-error-selector";
+export * from "./products-title-selector";
+export * from "./products-loading-status-selector";
+
+export * from "./product-selector";
+export * from "./product-error-selector";
+export * from "./product-loading-status-selector";
+
+export * from "./comment-error-selector";

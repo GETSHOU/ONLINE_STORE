@@ -15,7 +15,20 @@
 
 	&Text {
 		font-size: 1.5rem;
+		line-height: 1.5rem;
 		font-weight: bold;
+	}
+
+	&Skeleton {
+		flex: 1;
 	}
 }
 
+.actions {
+	flex-direction: column;
+
+	&Notice {
+		margin-top: 15px;
+		font-weight: 500;
+	}
+}

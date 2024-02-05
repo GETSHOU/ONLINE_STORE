@@ -3,13 +3,13 @@ import { BUTTON_SIZE } from "../../../constants";
 import styles from "./Button.module.scss";
 
 export const Button = ({
-	buttonLink,
 	type,
 	text,
 	icon,
 	size,
 	onClick,
 	isDisabled,
+	buttonLink,
 	...props
 }) => {
 	const baseClassName = styles.button;

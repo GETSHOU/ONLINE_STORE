@@ -11,8 +11,8 @@
 		flex: 0 0 auto;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		height: 70px;
+		justify-content: center;
+		height: 50px;
 		width: 100%;
 		border-top: 1px solid $very-light-grey;
 		border-bottom: 1px solid $very-light-grey;
@@ -20,14 +20,14 @@
 }
 
 .title {
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 	font-weight: 500;
 }
 
 .comments {
 	display: flex;
 	flex-direction: column;
-	width: 980px;
+	width: #{$comment-block-size}px;
 
 	&List {
 		display: flex;
@@ -62,7 +62,7 @@
 			font-weight: bold;
 			border-color: $border-color;
 			background-color: $border-color;
-			cursor: initial;
+			cursor: default;
 
 			&:hover, &:focus {
 				border-color: $border-color;
@@ -81,7 +81,7 @@
 	}
 
 	&:disabled {
-		cursor: initial;
+		cursor: default;
 		background-color: $disabled;
 
 		&:hover {
@@ -90,5 +90,33 @@
 	}
 }
 
+.notification {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
 
+	&__text {
+		display: flex;
+		align-items: center;
+	}
+
+	&__button {
+		display: flex;
+		align-items: center;
+	}
+
+	&__buttonText {
+		font-weight: 500;
+		color: $main-theme-color;
+		transition: $transition-hover;
+
+		&:hover {
+			color: $main-color;
+		}
+	}
+
+	&__text, &__buttonText {
+		font-size: 1.2rem;
+	}
+}
 

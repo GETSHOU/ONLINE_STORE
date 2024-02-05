@@ -5,12 +5,12 @@ import { checkAccess } from "../../../utils";
 import { ROLES } from "../../../constants";
 import { WithContainer } from "../../hoc";
 import { Footer, Header, Breadcrumbs } from "../../components";
-import styles from "./MainPage.module.scss";
+import styles from "./HomePage.module.scss";
 
 const BreadcrumbsWithContainer = WithContainer(Breadcrumbs);
 const MainContentWithContainer = WithContainer(Outlet);
 
-export const MainPage = () => {
+export const HomePage = () => {
 	const roleId = useSelector(userRoleSelector);
 	const isAllowedRoles = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
@@ -19,7 +19,7 @@ export const MainPage = () => {
 			<div className={styles.wrapperInner}>
 				<Header isAllowedRoles={isAllowedRoles} />
 				<main className={styles.wrapperMain}>
-					<BreadcrumbsWithContainer isAllowedRoles={isAllowedRoles} />
+					{/* <BreadcrumbsWithContainer isAllowedRoles={isAllowedRoles} /> */}
 					<MainContentWithContainer isAllowedRoles={isAllowedRoles} />
 				</main>
 			</div>

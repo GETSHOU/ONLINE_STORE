@@ -64,11 +64,11 @@ export const ControlPanel = () => {
 				<Link to="/basket" className={styles.control}>
 					<IoMdCart className="icon iconControl" />
 					<span className={styles.controlItem}>Корзина</span>
-					{getTotalCountProducts(basket) !== 0 ? (
+					{getTotalCountProducts(basket) !== 0 && (
 						<span className={styles.controlCountProducts}>
 							{getTotalCountProducts(basket) > 99 ? "99+" : getTotalCountProducts(basket)}
 						</span>
-					) : null}
+					)}
 				</Link>
 				{!sessionState ? (
 					<button className={styles.control} onClick={handleOpenAuthModal}>
@@ -89,14 +89,14 @@ export const ControlPanel = () => {
 			{currentModal === MODAL_TYPES.AUTHORIZATION ? (
 				<ModalWindowAuth
 					modalTitle="Авторизация"
-					toggleText="Регистрация"
+					toggleText="Зарегистрироваться"
 					toggleModal={handleOpenRegModal}
 				/>
 			) : (
 				currentModal === MODAL_TYPES.REGISTRATION && (
 					<ModalWindowReg
 						modalTitle="Регистрация"
-						toggleText="У вас уже есть аккаунт?"
+						toggleText="Войти"
 						toggleModal={handleOpenAuthModal}
 					/>
 				)

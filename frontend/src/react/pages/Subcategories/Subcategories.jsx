@@ -1,69 +1,50 @@
-import { useEffect, useState } from "react";
-import { useMatch, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useMatch, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryTitle, setSubcategories } from "../../store/actions";
-import { categoryTitleSelector, subcategoriesSelector } from "../../store/selectors";
-import { getCardTitle, request } from "../../../utils";
-import { CategoryCard, PageTitle } from "../../components";
+import { getSubcategoriesAsync } from "../../store/actions";
+import {
+	subcategoriesSelector,
+	subcategoriesErrorSelector,
+	subcategoriesTitleSelector,
+	subcategoriesLoadingStatusSelector,
+} from "../../store/selectors";
+import { PageTitle, CategoryCard, CategoryCardSkeleton } from "../../components";
 import styles from "./Subcategories.module.scss";
 
 export const Subcategories = () => {
+	const serverError = useSelector(subcategoriesErrorSelector);
+	const loadingStatus = useSelector(subcategoriesLoadingStatusSelector);
 	const subcategories = useSelector(subcategoriesSelector);
-	const [isLoading, setIsLoading] = useState(false);
-	const [dataNotExist, setDataNotExist] = useState(false);
+	const subcategoriesTitle = useSelector(subcategoriesTitleSelector);
 
 	const params = useParams();
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const isSubcategoriesPage = !!useMatch(`/categories/:id`);
-	const categoryTitle = useSelector(categoryTitleSelector);
 
 	useEffect(() => {
-		setIsLoading(true);
-
-		request(`/api/categories/${params.id}/subcategories`)
-			.then(response => {
-				if (!isLoading) {
-					if (response.data.length === 0) {
-						setDataNotExist(true);
-						navigate("/subcategories-not-exist", { replace: true });
-
-						return;
-					}
-
-					setDataNotExist(false);
-					dispatch(setSubcategories(response.data));
-					dispatch(setCategoryTitle(getCardTitle(response.data)));
-				}
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				setIsLoading(false);
-			});
-	}, [dispatch, navigate, params.id]);
+		dispatch(getSubcategoriesAsync(params.id));
+	}, [dispatch, params.id]);
 
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={categoryTitle} />
+			<PageTitle title={subcategoriesTitle} loadingStatus={loadingStatus} />
 			<div className={styles.cards}>
-				{!isLoading
-					? !dataNotExist && (
-							<>
-								{subcategories.map(({ id, parent, title }) => {
-									return (
-										<CategoryCard
-											key={id}
-											id={id}
-											parentTitle={parent}
-											categoryTitle={title}
-											isSubcategoriesPage={isSubcategoriesPage}
-										/>
-									);
-								})}
-							</>
-					  )
-					: null}
+				{!loadingStatus ? (
+					<>
+						{subcategories.map(({ id, parent, title }) => (
+							<CategoryCard
+								key={id}
+								id={id}
+								parentTitle={parent}
+								categoryTitle={title}
+								isSubcategoriesPage={isSubcategoriesPage}
+							/>
+						))}
+					</>
+				) : (
+					<CategoryCardSkeleton inline={true} categories={3} />
+				)}
 			</div>
 		</div>
 	);

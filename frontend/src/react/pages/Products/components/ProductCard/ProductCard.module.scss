@@ -1,14 +1,12 @@
 @use "../../../../../styles/variables.scss" as *;
+@use "../../../../../styles/mixins.scss" as *;
 
 .card {
-	display: flex;
-	width: 100%;
-	padding: 20px 0;
-	border-bottom: 1px solid $very-light-grey;
+	@include product-card() {
+		padding: #{$product-card-pading}px 0;
+	}
 
-	// &:first-child {
-	// 	border-top: 1px solid $very-light-grey;;
-	// }
+	border-bottom: 1px solid $very-light-grey;
 
 	&:last-child {
 		border-bottom: none;

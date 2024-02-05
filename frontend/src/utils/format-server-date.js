@@ -12,5 +12,6 @@ export const formatServerDate = dateFromServer => {
 	const timezoneOffset = -date.getTimezoneOffset() / 60;
 	const timezone = String(timezoneOffset).padStart(2, "0");
 
-	return `${day}.${month}.${year}, ${hours}:${mins}:${secs}, +${timezone}:00`;
+	// return `${day}.${month}.${year}, ${hours}:${mins}:${secs}, +${timezone}:00`;
+	return `${day}.${month}.${year}, ${hours}:${mins}:${secs}`;
 };

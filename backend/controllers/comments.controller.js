@@ -31,6 +31,25 @@ const commentsController = {
 			res.send({ error: e.message });
 		}
 	},
+	update: async (commentId, comment, res) => {
+		try {
+			const updatedComment = await Comment.findByIdAndUpdate(
+				commentId,
+				comment,
+				{
+					returnDocument: "after",
+				}
+			);
+
+			await updatedComment.populate("author");
+
+			res.send({ data: mapComment(updatedComment) });
+
+			return updatedComment;
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
 	delete: async (productId, commentId, res) => {
 		try {
 			await Comment.deleteOne({ _id: commentId });

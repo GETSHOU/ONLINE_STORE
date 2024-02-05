@@ -1,0 +1,9 @@
+@use '../../../../styles/variables.scss' as * ;
+@use '../../../../styles/mixins.scss' as * ;
+
+.productInfoImageSkeleton {
+	@include product-info-image() {
+		height: #{calc($product-info-left-block-size - ($product-info-block-padding * 2 + $product-info-block-border-size * 2))}px;
+		width: #{calc($product-info-left-block-size - ($product-info-block-padding * 2 + $product-info-block-border-size * 2))}px;
+	};
+}

@@ -1,12 +1,3 @@
-export * from "./Form/Form";
-export * from "./Form/components/FormGroup/FormGroup";
-export * from "./Form/components/FormSelect/FormSelect";
-
-export * from "./Modal/Modal";
-export * from "./ModalAuth/ModalAuth";
-export * from "./ModalEdit/ModalEdit";
-export * from "./ModalConfirm/ModalConfirm";
-
 export * from "./Error/Error";
 export * from "./Header/Header";
 export * from "./Footer/Footer";
@@ -30,3 +21,21 @@ export * from "./EditCategoryCard/EditCategoryCard";
 export * from "./SortingProductList/SortingProductList";
 export * from "./CategoryCreatorForm/CategoryCreatorForm";
 export * from "./PrivateCategoriesManagement/PrivateCategoriesManagement";
+
+// Форма
+export * from "./Form/Form";
+export * from "./Form/components/FormGroup/FormGroup";
+export * from "./Form/components/FormSelect/FormSelect";
+
+// Модальные окна
+export * from "./Modal/Modal";
+export * from "./ModalAuth/ModalAuth";
+export * from "./ModalEdit/ModalEdit";
+export * from "./ModalConfirm/ModalConfirm";
+
+// Скелетоны
+export * from "./Skeleton/CommentSkeleton/CommentSkeleton";
+export * from "./Skeleton/PageTitleSkeleton/PageTitleSkeleton";
+export * from "./Skeleton/ProductCardSkeleton/ProductCardSkeleton";
+export * from "./Skeleton/CategoryCardSkeleton/CategoryCardSkeleton";
+export * from "./Skeleton/ProductInfoImageSkeleton/ProductInfoImageSkeleton";

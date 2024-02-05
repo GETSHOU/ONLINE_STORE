@@ -214,6 +214,17 @@ app.post(routes.commentsManagement.create, (req, res) => {
 	);
 });
 
+// Изменение комментария
+app.patch(routes.commentsManagement.update, (req, res) => {
+	commentsController.update(
+		req.params.commentId,
+		{
+			content: req.body.content,
+		},
+		res
+	);
+});
+
 // Удаление комментария
 app.delete(
 	routes.commentsManagement.delete,

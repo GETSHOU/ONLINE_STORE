@@ -1,46 +1,107 @@
 import { ACTION_TYPE } from "../../../constants";
 
 const initialProductState = {
-	id: "",
-	title: "",
-	specs: "",
-	price: "",
-	vendor: "",
-	comments: [],
-	publicId: "",
-	vendorCode: "",
-	previewImageUrl: "",
+	product: {
+		id: "",
+		title: "",
+		specs: "",
+		price: "",
+		vendor: "",
+		comments: [],
+		publicId: "",
+		vendorCode: "",
+		previewImageUrl: "",
+	},
+	options: {
+		loadingStatus: false,
+	},
+	productError: "",
+	commentError: "",
 };
 
 export const productReducer = (state = initialProductState, action) => {
 	switch (action.type) {
+		case ACTION_TYPE.SET_PRODUCT:
+			return {
+				...state,
+				product: action.payload,
+			};
+		case ACTION_TYPE.SET_PRODUCT_ERROR:
+			return {
+				...state,
+				productError: action.payload,
+			};
+		case ACTION_TYPE.SET_PRODUCT_LOADING_STATUS:
+			return {
+				...state,
+				options: {
+					...state.options,
+					loadingStatus: action.payload,
+				},
+			};
 		case ACTION_TYPE.CREATE_PRODUCT:
 			return {
 				...state,
-				...action.payload,
+				product: action.payload,
 			};
 		case ACTION_TYPE.UPDATE_PRODUCT:
 			return {
 				...state,
-				...action.payload,
+				product: action.payload,
 			};
-		case ACTION_TYPE.SET_PRODUCT:
-			return {
-				...state,
-				...action.payload,
-			};
+
 		case ACTION_TYPE.DELETE_PRODUCT:
 			return initialProductState;
 		case ACTION_TYPE.CREATE_COMMENT:
 			return {
 				...state,
-				comments: [...state.comments, action.payload],
+				product: {
+					...state.product,
+					comments: [...state.product.comments, action.payload],
+				},
+			};
+		case ACTION_TYPE.UPDATE_COMMENT:
+			return {
+				...state,
+				product: {
+					...state.product,
+					comments: state.product.comments.map(comment => {
+						if (comment.id === action.payload.id) {
+							return {
+								...comment,
+								...action.payload.content,
+							};
+						}
+						return { ...comment };
+					}),
+				},
 			};
 		case ACTION_TYPE.DELETE_COMMENT:
 			return {
 				...state,
-				comments: state.comments.filter(comment => comment.id !== action.payload),
+				product: {
+					...state.product,
+					comments: state.product.comments.filter(
+						comment => comment.id !== action.payload,
+					),
+				},
 			};
+		case ACTION_TYPE.CREATE_COMMENT_ERROR:
+			return {
+				...state,
+				commentError: action.payload,
+			};
+		case ACTION_TYPE.UPDATE_COMMENT_ERROR:
+			return {
+				...state,
+				commentError: action.payload,
+			};
+		case ACTION_TYPE.DELETE_COMMENT_ERROR:
+			return {
+				...state,
+				commentError: action.payload,
+			};
+
 		default:
 			return state;
 	}

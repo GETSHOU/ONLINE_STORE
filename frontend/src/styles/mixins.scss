@@ -46,3 +46,22 @@
 	}
 }
 
+@mixin category-card() {
+	display: flex;
+	height: 13rem;
+	width: 100%;
+	border-radius: 5px;
+	@content;
+}
+
+@mixin product-card() {
+	display: flex;
+	width: 100%;
+	@content;
+}
+
+@mixin product-info-image() {
+	border-radius: 10px;
+	@content;
+}
+

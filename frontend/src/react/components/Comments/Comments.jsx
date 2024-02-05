@@ -1,41 +1,32 @@
+import Skeleton from "react-loading-skeleton";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdSend } from "react-icons/io";
-import { createComment } from "../../store/actions";
+import { createCommentAsync, openModal } from "../../store/actions";
 import { getCommentsCount, request } from "../../../utils";
+import { MODAL_TYPES } from "../../../constants";
 import { Comment } from "./components/Comment";
+import { CommentSkeleton } from "../Skeleton/CommentSkeleton/CommentSkeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./Comments.module.scss";
 
-export const Comments = ({ comments, productId }) => {
-	const [newComment, setNewComment] = useState("");
+export const Comments = ({ comments, productId, productLoadingStatus }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const [newComment, setNewComment] = useState("");
 	const [isDisabled, setIsDisabled] = useState(true);
 
+	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 	const dispatch = useDispatch();
 
-	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
-
 	const handleCreateComment = (productId, content) => {
-		const trimmedContent = content.trim();
-
 		setIsLoading(true);
+		setIsDisabled(true);
 		setNewComment("");
 
-		request(`/api/products/${productId}/comments/create`, "POST", {
-			content: trimmedContent,
-		})
-			.then(response => {
-				if (!content) {
-					return;
-				}
-
-				dispatch(createComment(response.data));
-				setIsDisabled(true);
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				setIsLoading(false);
-			});
+		dispatch(createCommentAsync(productId, content.trim())).finally(() => {
+			setIsLoading(false);
+			setIsDisabled(false);
+		});
 	};
 
 	const onChangeText = ({ target }) => {
@@ -48,13 +39,22 @@ export const Comments = ({ comments, productId }) => {
 		}
 	};
 
+	const handleOpenAuthModal = () =>
+		dispatch(openModal({ type: MODAL_TYPES.AUTHORIZATION }));
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.wrapperTitle}>
-				<h2 className={styles.title}>{getCommentsCount(comments.length)}</h2>
+				{!productLoadingStatus ? (
+					<h2 className={styles.title}>
+						{comments.length > 0 ? getCommentsCount(comments.length) : "Комментариев нет"}
+					</h2>
+				) : (
+					<Skeleton inline={true} height={"1.3rem"} width={250} />
+				)}
 			</div>
 			<div className={styles.comments}>
-				{userIsLoggedIn && (
+				{userIsLoggedIn ? (
 					<div className={styles.commentsField}>
 						<textarea
 							className={styles.commentsTextarea}
@@ -73,21 +73,40 @@ export const Comments = ({ comments, productId }) => {
 							<IoMdSend className="icon iconSendingComment" />
 						</button>
 					</div>
+				) : (
+					<div className={styles.notification}>
+						<div className={styles.notification__text}>
+							<button
+								className={styles.notification__button}
+								onClick={handleOpenAuthModal}
+							>
+								<span className={styles.notification__buttonText}>Авторизуйтесь</span>
+							</button>
+							, чтобы писать комментарии!
+						</div>
+					</div>
 				)}
 				<div className={styles.commentsList}>
-					{comments.map(({ id, authorName, authorRoleId, content, publishedAt }) => {
-						return (
-							<Comment
-								key={id}
-								productId={productId}
-								commentId={id}
-								authorName={authorName}
-								authorRoleId={authorRoleId}
-								content={content}
-								publishedAt={publishedAt}
-							/>
-						);
-					})}
+					{!productLoadingStatus ? (
+						comments.map(
+							({ id, content, updatedAt, authorName, publishedAt, authorRoleId }) => {
+								return (
+									<Comment
+										key={id}
+										content={content}
+										productId={productId}
+										commentId={id}
+										updatedAt={updatedAt}
+										authorName={authorName}
+										publishedAt={publishedAt}
+										authorRoleId={authorRoleId}
+									/>
+								);
+							},
+						)
+					) : (
+						<CommentSkeleton inline={true} />
+					)}
 				</div>
 			</div>
 		</div>

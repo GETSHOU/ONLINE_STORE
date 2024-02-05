@@ -4,11 +4,6 @@ export * from "./set-user";
 export * from "./open-modal";
 export * from "./close-modal";
 
-export * from "./set-product";
-
-export * from "./create-comment";
-export * from "./delete-comment";
-
 export * from "./create-product";
 export * from "./create-category";
 export * from "./create-subcategory";
@@ -28,9 +23,12 @@ export * from "./delete-product-from-basket";
 
 export * from "./change-number-of-products";
 
-export * from "./set-catalog";
-export * from "./set-subcategories";
+// Новые экшены
+export * from "./get-product-async";
+export * from "./get-products-async";
+export * from "./get-categories-async";
+export * from "./get-subcategories-async";
 
-export * from "./set-catalog-title";
-export * from "./set-category-title";
-export * from "./set-subcategory-title";
+export * from "./create-comment-async";
+export * from "./update-comment-async";
+export * from "./delete-comment-async";

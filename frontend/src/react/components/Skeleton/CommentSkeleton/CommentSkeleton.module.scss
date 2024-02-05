@@ -1,0 +1,66 @@
+@use '../../../../styles/variables.scss' as * ;
+@use '../../../../styles/mixins.scss' as * ;
+
+.comment {
+	display: flex;
+	flex-direction: column;
+	width: #{$comment-block-size}px;
+	margin-top: 20px;
+	border-radius: 10px;
+	background-color: $white;
+	box-shadow: $main-box-shadow;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		margin-bottom: 10px;
+		padding: 10px 20px 0;
+	}
+
+	&__headerLeft {
+		display: flex;
+		align-items: center;
+		margin-right: 10px;
+	}
+
+	&__headerRight {
+		display: flex;
+		align-items: center;
+	}
+
+	&__content {
+		display: flex;
+		margin-bottom: 10px;
+		padding: 0 20px;
+	}
+
+	&__footer {
+		display: flex;
+		margin-bottom: 10px;
+		padding: 0 20px;
+	}
+}
+
+.skeleton {
+	&__headerLeft {
+		height: 40px;
+		width: #{calc(($comment-block-size - $comment-block-padding * 2) - $comment-action-size * 2) - 10 - 10}px;
+	}
+
+	&__headerRight {
+		height: #{$comment-action-size}px;
+		width: #{$comment-action-size}px;
+	}
+
+	&__content {
+		height: 60px;
+		width: #{calc($comment-block-size - $comment-block-padding * 2)}px;
+	}
+
+	&__footer {
+		height: 30px;
+		width: #{calc($comment-block-size / 3)}px;
+	}
+}

@@ -1,37 +1,60 @@
-import { ProductDetails } from "../../../../components";
+import { ProductDetails, ProductInfoImageSkeleton } from "../../../../components";
 // import { ProductSpec } from "../ProductSpec/ProductSpec";
 import styles from "./ProductContent.module.scss";
 
-export const ProductContent = ({ product }) => {
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
+export const ProductContent = ({ product, loadingStatus }) => {
 	const { specs, publicId, previewImageUrl } = product;
 
 	return (
 		<div className={styles.product}>
-			<div className={styles.productBody}>
-				<div className={`${styles.productInnerWrapper} ${styles.image}`}>
+			<div className={`${styles.product__info} ${styles.product__left}`}>
+				{!loadingStatus ? (
 					<img src={previewImageUrl} alt="product_image" />
-				</div>
-				<div className={`${styles.productInnerWrapper} ${styles.specs}`}>
-					<div className={styles.productSpecsRow}>
-						<p className={styles.productTextId}>ID: {publicId}</p>
+				) : (
+					<ProductInfoImageSkeleton inline={true} />
+				)}
+			</div>
+			<div className={`${styles.product__info} ${styles.product__center}`}>
+				<div className={styles.specs}>
+					<div className={styles.specs__row}>
+						<p className={styles.specs__top}>
+							ID:{" "}
+							{!loadingStatus ? (
+								publicId
+							) : (
+								<Skeleton
+									style={{ marginLeft: "10px" }}
+									width={"10rem"}
+									height={"1.2rem"}
+									inline={true}
+								/>
+							)}
+						</p>
 					</div>
-					<div className={styles.productSpecsRow}>
-						<h4 className={styles.productSpecsTitle}>Характеристики</h4>
+					<div className={styles.specs__row}>
+						<h4 className={styles.specs__center}>Характеристики</h4>
 					</div>
-					<ul className={styles.productSpecsList}>
-						{specs}
-						{/* <ProductSpec title="Производитель:" description="ASUS" />
-						<ProductSpec
-							title="Код производителя:"
-							description="ROG-STRIX-RTX4070TI-O12G-GAMING"
-						/>
-						<ProductSpec title="Производитель видеопроцессора:" description="NVIDIA" />
-						<ProductSpec title="Серия:" description="GeForce RTX 4070TI" /> */}
-					</ul>
+					<div className={styles.specs__row}>
+						<ul className={styles.specs__bottom}>
+							{!loadingStatus ? (
+								specs
+							) : (
+								<Skeleton
+									style={{ marginBottom: "15px" }}
+									count={3}
+									width={"100%"}
+									height={20}
+								/>
+							)}
+						</ul>
+					</div>
 				</div>
-				<div className={`${styles.productInnerWrapper} ${styles.productDetails}`}>
-					<ProductDetails product={product} />
-				</div>
+			</div>
+			<div className={`${styles.product__info} ${styles.product__right}`}>
+				<ProductDetails product={product} loadingStatus={loadingStatus} />
 			</div>
 		</div>
 	);

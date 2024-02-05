@@ -2,14 +2,13 @@
 
 .product {
 	display: flex;
-	align-items: center;
 	width: 100%;
 
 	&Image {
 		display: flex;
 		align-items: center;
-		width: 120px;
-		height: 120px;
+		width: #{$product-image-size}px;
+		height: #{$product-image-size}px;
 		margin-right: 20px;
 		background-color: $white;
 	}

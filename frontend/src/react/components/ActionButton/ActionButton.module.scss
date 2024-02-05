@@ -19,7 +19,7 @@
 
 	&:disabled {
 		background-color: $very-light-grey;
-		cursor: initial;
+		cursor: default;
 
 		& > * {
 			color: $main-grey;

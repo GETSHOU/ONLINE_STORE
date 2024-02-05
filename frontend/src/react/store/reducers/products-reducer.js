@@ -3,6 +3,10 @@ import { ACTION_TYPE } from "../../../constants";
 const initialProductsState = {
 	title: "",
 	products: [],
+	options: {
+		loadingStatus: false,
+	},
+	error: "",
 };
 
 export const productsReducer = (state = initialProductsState, action) => {
@@ -12,10 +16,23 @@ export const productsReducer = (state = initialProductsState, action) => {
 				...state,
 				products: action.payload,
 			};
-		case ACTION_TYPE.SET_SUBCATEGORY_TITLE:
+		case ACTION_TYPE.SET_PRODUCTS_TITLE:
 			return {
 				...state,
 				title: action.payload,
+			};
+		case ACTION_TYPE.SET_PRODUCTS_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.SET_PRODUCTS_LOADING_STATUS:
+			return {
+				...state,
+				options: {
+					...state.options,
+					loadingStatus: action.payload,
+				},
 			};
 		default:
 			return state;

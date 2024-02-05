@@ -1,52 +1,34 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setSubcategoryTitle } from "../../store/actions";
-import { subcategoryTitleSelector } from "../../store/selectors";
-import { getCardTitle, request } from "../../../utils";
-import { PageTitle, SortingProductList } from "../../components";
-import { ProductFilter } from "./components/ProductFilter/ProductFilter";
+import { getProductsAsync } from "../../store/actions";
+import {
+	productsSelector,
+	productsErrorSelector,
+	productsTitleSelector,
+	productsLoadingStatusSelector,
+} from "../../store/selectors";
+import { PageTitle, SortingProductList, ProductCardSkeleton } from "../../components";
 import { ProductCard } from "./components/ProductCard/ProductCard";
+import { ProductFilter } from "./components/ProductFilter/ProductFilter";
 import styles from "./Products.module.scss";
 
 export const Products = () => {
-	const [products, setProducts] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [dataNotExist, setDataNotExist] = useState(false);
+	const products = useSelector(productsSelector);
+	const serverError = useSelector(productsErrorSelector);
+	const productsTitle = useSelector(productsTitleSelector);
+	const loadingStatus = useSelector(productsLoadingStatusSelector);
 
 	const params = useParams();
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const productTitle = useSelector(subcategoryTitleSelector);
-
 	useEffect(() => {
-		setIsLoading(true);
-
-		request(`/api/subcategories/${params.id}/products`)
-			.then(response => {
-				if (!isLoading) {
-					if (response.data.length === 0) {
-						setDataNotExist(true);
-						navigate("/products-not-exist", { replace: true });
-
-						return;
-					}
-
-					setDataNotExist(false);
-					setProducts(response.data);
-					dispatch(setSubcategoryTitle(getCardTitle(response.data)));
-				}
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				setIsLoading(false);
-			});
-	}, [navigate, params.id]);
+		dispatch(getProductsAsync(params.id));
+	}, [dispatch, params.id]);
 
 	return (
 		<div className={styles.products}>
-			<PageTitle title={productTitle} />
+			<PageTitle title={productsTitle} loadingStatus={loadingStatus} />
 			<div className={styles.content}>
 				{/* <div className={`${styles.contentInnerWrapper} ${styles.filter}`}>
 					<ProductFilter />
@@ -57,15 +39,15 @@ export const Products = () => {
 					</div>
 					<div className={styles.contenMain}>
 						<ul className={styles.list}>
-							{!isLoading
-								? !dataNotExist && (
-										<>
-											{products.map(product => {
-												return <ProductCard key={product.id} product={product} />;
-											})}
-										</>
-								  )
-								: null}
+							{!loadingStatus ? (
+								<>
+									{products.map(product => {
+										return <ProductCard key={product.id} product={product} />;
+									})}
+								</>
+							) : (
+								<ProductCardSkeleton inline={false} products={3} />
+							)}
 						</ul>
 					</div>
 				</div>

@@ -25,4 +25,16 @@ $container-width: $page-min-width;
 
 $disabled: $main-grey;
 
+$main-box-shadow: 0 2px 6px 0 rgb(70, 70, 70, .15);
 
+// Страница товара
+$product-info-left-block-size: 400;
+$product-info-block-padding: 20;
+$product-info-block-border-size: 1;
+$comment-block-size: 980;
+$comment-block-padding: 20;
+$comment-action-size: 40;
+
+// Список товаров
+$product-image-size: 120;
+$product-card-pading: 20;
