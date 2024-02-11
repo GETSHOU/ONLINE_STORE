@@ -1,0 +1,30 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.card {
+	display: flex;
+	width: 100%;
+	padding: #{$product-card-pading}px 0;
+	border-bottom: 1px solid $very-light-grey;
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&__left {
+		display: flex;
+		width: 100%;
+		margin-right: 20px;
+	}
+
+	&__right {
+		flex: 0 0 180px;
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}
+
+
+
+

@@ -1,14 +1,18 @@
-import { PageTitleSkeleton } from "../Skeleton/PageTitleSkeleton/PageTitleSkeleton";
+import { PageTitleSkeleton } from "./components/PageTitleSkeleton/PageTitleSkeleton";
 import styles from "./PageTitle.module.scss";
 
-export const PageTitle = ({ title, loadingStatus }) => {
+export const PageTitle = ({ title, serverError, loadingStatus }) => {
 	return (
-		<div className={styles.wrapper}>
+		<>
 			{!loadingStatus ? (
-				<h1 className={styles.title}>{title}</h1>
+				!serverError && (
+					<div className={styles.pageTitle}>
+						<h1 className={styles.pageTitle__title}>{title}</h1>
+					</div>
+				)
 			) : (
-				<PageTitleSkeleton inline={true} height={"1.6rem"} />
+				<PageTitleSkeleton inline={true} height={"1.6rem"} width={"500px"} />
 			)}
-		</div>
+		</>
 	);
 };

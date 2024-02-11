@@ -96,6 +96,16 @@
 	&Confirm {
 		font-size: 1.4rem;
 	}
+
+	&ToastifyError {
+		font-size: 1.7rem;
+		color: $secondary-color;
+	}
+
+	&ToastifyClose {
+		font-size: 1.6rem;
+		color: $secondary-color;
+	}
 }
 
 

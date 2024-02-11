@@ -1,1 +1,1 @@
-export const productErrorSelector = ({ product }) => product.productError;
+export const productErrorSelector = ({ product }) => product.error;

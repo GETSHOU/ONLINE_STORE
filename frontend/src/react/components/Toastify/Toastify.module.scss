@@ -1,0 +1,104 @@
+// common colors
+$toastify-error-bg-color: #E23E32;
+$toastify-success-bg-color: #04AF0B;
+$toastify-content-color: #f9f9f9;
+// shadows
+$toastify-wrapper-shadow: 0 0 10px 2px rgb(0, 0, 0, .5);
+// transition
+$toastify-transition-hover-color: #1c1c1c;
+$toastify-transition-hover: all .2s ease;
+// animation
+$toastify-animation-bg-color: #f9f9f9;
+
+//mixins
+@mixin toastifyPositionTopCenter() {
+  left: 50%;
+  transform: translateX(-50%);
+	@content;
+}
+
+.toastify {
+	overflow: hidden;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	width: 500px;
+	border-radius: 10px;
+	box-shadow: $toastify-wrapper-shadow;
+	transition: all .5s ease;
+
+	&.topCenter {
+		@include toastifyPositionTopCenter() {
+			top: 55px;
+		};
+	}
+
+	&.error {
+		background-color: $toastify-error-bg-color;
+	}
+	&.success {
+		background-color: $toastify-success-bg-color;
+	}
+
+	&__top {
+		display: flex;
+		flex: 1;
+		width: 100%;
+		padding: 10px;
+	}
+
+	&__bottom {
+		height: 7px;
+		background-color: rgba(255,255,255, .5);
+	}
+
+	&__left {
+		display: flex;
+		align-items: center;
+		flex: 1;
+		height: 100%;
+		margin-right: 10px;
+	}
+
+	&__right {
+		display: flex;
+		height: 100%;
+	}
+
+	&__icon {
+		margin-right: 10px;
+	}
+
+	&__message {
+		overflow-wrap: break-word;
+		line-height: 1.2rem;
+		font-size: 0.9rem;
+		color: $toastify-content-color;
+	}
+
+	&__button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: $toastify-transition-hover;
+
+		&:hover > * {
+			color: $toastify-transition-hover-color;
+		}
+	}
+
+	&__animation {
+		height: 100%;
+		background-color: $toastify-animation-bg-color;
+
+		animation-name: toastifyStatusAnimate;
+		animation-duration: 3s;
+		animation-fill-mode: both;
+		animation-timing-function: linear;
+
+		@keyframes toastifyStatusAnimate {
+			0%   {width: 100%;}
+			100% {width: 0;}
+		}
+	}
+}

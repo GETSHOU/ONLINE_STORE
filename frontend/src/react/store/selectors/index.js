@@ -27,5 +27,3 @@ export * from "./products-loading-status-selector";
 export * from "./product-selector";
 export * from "./product-error-selector";
 export * from "./product-loading-status-selector";
-
-export * from "./comment-error-selector";

@@ -6,20 +6,20 @@ $dark-theme-color: #202124;
 $main-grey: #828282;
 $light-grey: #c7c7c7;
 $very-light-grey: #e7e7e7;
-$red: #d60000;
+$red-main: #d60000;
 $white: #ffffff;
 
 $placeholder-color: $main-grey;
 $border-input-color: $light-grey;
-$form-error: $red;
 $border-color: $very-light-grey;
+
+$form-error: $red-main;
 
 $main-font-family: 'Montserrat';
 
 $transition-hover: all .2s ease;
 
 $width-admin-panel: 20px;
-
 $page-min-width: 1440px;
 $container-width: $page-min-width;
 
@@ -38,3 +38,4 @@ $comment-action-size: 40;
 // Список товаров
 $product-image-size: 120;
 $product-card-pading: 20;
+

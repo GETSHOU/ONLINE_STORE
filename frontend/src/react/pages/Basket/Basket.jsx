@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { basketSelector } from "../../store/selectors";
-import { BasketItem } from "./components/BasketItem/BasketItem";
-import { PaymentDetails } from "./components/PaymentDetails/PaymentDetails";
-import { EmptyBasket } from "./components/EmptyBasket/EmptyBasket";
 import { PageTitle } from "../../components";
+import { BasketCard } from "./components/BasketCard/BasketCard";
+import { EmptyBasket } from "./components/EmptyBasket/EmptyBasket";
+import { PaymentDetails } from "./components/PaymentDetails/PaymentDetails";
 import styles from "./Basket.module.scss";
 
 export const Basket = () => {
@@ -19,7 +19,7 @@ export const Basket = () => {
 							<ul className={styles.list}>
 								{basket.map(({ product, productCount }) => {
 									return (
-										<BasketItem
+										<BasketCard
 											key={product.id}
 											title={product.title}
 											specs={product.specs}

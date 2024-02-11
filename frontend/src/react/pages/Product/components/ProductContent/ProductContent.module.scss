@@ -14,13 +14,11 @@
 		}
 
 		&.product__left {
-			@include product-info-image() {
-				flex: 0 0  #{$product-info-left-block-size}px;
-				height: #{$product-info-left-block-size}px;
-			};
-
+			flex: 0 0  #{$product-info-left-block-size}px;
+			height: #{$product-info-left-block-size}px;
 			padding: #{$product-info-block-padding}px;
 			border: #{$product-info-block-border-size}px solid $very-light-grey;
+			border-radius: 10px;
 		}
 
 		&.product__center {
@@ -33,6 +31,12 @@
 			padding: 20px;
 			border: 1px solid $very-light-grey;
 		}
+	}
+
+	&__imageSkeleton {
+		height: #{calc($product-info-left-block-size - ($product-info-block-padding * 2 + $product-info-block-border-size * 2))}px;
+		width: #{calc($product-info-left-block-size - ($product-info-block-padding * 2 + $product-info-block-border-size * 2))}px;
+		border-radius: 10px;
 	}
 }
 

@@ -1,7 +1,7 @@
 @use "../../../styles/variables.scss" as *;
 @use "../../../styles/mixins.scss" as *;
 
-.wrapper {
+.pageTitle {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -10,14 +10,9 @@
 	margin-bottom: 20px;
 	border-top: 1px solid $very-light-grey;
 	border-bottom: 1px solid $very-light-grey;
-}
 
-.title {
-	font-size: 1.6rem;
-	font-weight: 500;
-}
-
-.actions {
-	display: flex;
-	align-items: center;
+	&__title {
+		font-size: 1.6rem;
+		font-weight: 500;
+	}
 }

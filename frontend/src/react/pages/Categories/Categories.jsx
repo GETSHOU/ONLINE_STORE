@@ -7,7 +7,8 @@ import {
 	categoriesTitleSelector,
 	categoriesLoadingStatusSelector,
 } from "../../store/selectors";
-import { PageTitle, CategoryCard, CategoryCardSkeleton } from "../../components";
+import { PageTitle, CategoryCard } from "../../components";
+import { CategoryCardSkeleton } from "../../components/CategoryCard/components/CategoryCardSkeleton/CategoryCardSkeleton";
 import styles from "./Categories.module.scss";
 
 export const Categories = () => {
@@ -24,19 +25,24 @@ export const Categories = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={catalogTitle} loadingStatus={loadingStatus} />
-			<div className={styles.cards}>
-				{!loadingStatus ? (
-					<>
+			<PageTitle
+				title={catalogTitle}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
+			/>
+			{!loadingStatus ? (
+				!serverError && (
+					<div className={styles.cards}>
 						{categories.map(({ id, title }) => (
 							<CategoryCard key={id} id={id} categoryTitle={title} />
 						))}
-					</>
-				) : (
+					</div>
+				)
+			) : (
+				<div className={styles.cards}>
 					<CategoryCardSkeleton inline={true} categories={3} />
-				)}
-			</div>
-			{serverError}
+				</div>
+			)}
 		</div>
 	);
 };

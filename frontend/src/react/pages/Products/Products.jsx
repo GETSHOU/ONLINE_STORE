@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Skeleton from "react-loading-skeleton";
 import { getProductsAsync } from "../../store/actions";
 import {
 	productsSelector,
@@ -9,8 +10,10 @@ import {
 	productsLoadingStatusSelector,
 } from "../../store/selectors";
 import { PageTitle, SortingProductList, ProductCardSkeleton } from "../../components";
-import { ProductCard } from "./components/ProductCard/ProductCard";
+import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { ProductFilter } from "./components/ProductFilter/ProductFilter";
+
+import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./Products.module.scss";
 
 export const Products = () => {
@@ -28,27 +31,37 @@ export const Products = () => {
 
 	return (
 		<div className={styles.products}>
-			<PageTitle title={productsTitle} loadingStatus={loadingStatus} />
+			<PageTitle
+				title={productsTitle}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
+			/>
 			<div className={styles.content}>
 				{/* <div className={`${styles.contentInnerWrapper} ${styles.filter}`}>
 					<ProductFilter />
 				</div> */}
 				<div className={`${styles.contentInnerWrapper} ${styles.content}`}>
 					<div className={styles.contentHeader}>
-						<SortingProductList />
+						{!loadingStatus ? (
+							!serverError && <SortingProductList />
+						) : (
+							<Skeleton height={"20px"} width={"400px"} inline={true} />
+						)}
 					</div>
 					<div className={styles.contenMain}>
-						<ul className={styles.list}>
-							{!loadingStatus ? (
-								<>
+						{!loadingStatus ? (
+							!serverError && (
+								<ul className={styles.list}>
 									{products.map(product => {
 										return <ProductCard key={product.id} product={product} />;
 									})}
-								</>
-							) : (
+								</ul>
+							)
+						) : (
+							<ul className={styles.list}>
 								<ProductCardSkeleton inline={false} products={3} />
-							)}
-						</ul>
+							</ul>
+						)}
 					</div>
 				</div>
 			</div>

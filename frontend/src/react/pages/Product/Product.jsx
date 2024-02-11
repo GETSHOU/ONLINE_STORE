@@ -7,8 +7,8 @@ import {
 	productErrorSelector,
 	productLoadingStatusSelector,
 } from "../../store/selectors";
-import { ProductContent } from "./components/ProductContent/ProductContent";
 import { Comments, PageTitle } from "../../components";
+import { ProductContent } from "./components/ProductContent/ProductContent";
 import styles from "./Product.module.scss";
 
 export const Product = () => {
@@ -25,12 +25,21 @@ export const Product = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={product.title} loadingStatus={loadingStatus} />
-			<ProductContent product={product} loadingStatus={loadingStatus} />
+			<PageTitle
+				title={product.title}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
+			/>
+			<ProductContent
+				product={product}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
+			/>
 			<Comments
 				comments={product.comments}
 				productId={product.id}
-				productLoadingStatus={loadingStatus}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
 			/>
 		</div>
 	);

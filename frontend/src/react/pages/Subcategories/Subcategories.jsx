@@ -8,7 +8,8 @@ import {
 	subcategoriesTitleSelector,
 	subcategoriesLoadingStatusSelector,
 } from "../../store/selectors";
-import { PageTitle, CategoryCard, CategoryCardSkeleton } from "../../components";
+import { PageTitle, CategoryCard } from "../../components";
+import { CategoryCardSkeleton } from "../../components/CategoryCard/components/CategoryCardSkeleton/CategoryCardSkeleton";
 import styles from "./Subcategories.module.scss";
 
 export const Subcategories = () => {
@@ -28,10 +29,14 @@ export const Subcategories = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<PageTitle title={subcategoriesTitle} loadingStatus={loadingStatus} />
-			<div className={styles.cards}>
-				{!loadingStatus ? (
-					<>
+			<PageTitle
+				title={subcategoriesTitle}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
+			/>
+			{!loadingStatus ? (
+				!serverError && (
+					<div className={styles.cards}>
 						{subcategories.map(({ id, parent, title }) => (
 							<CategoryCard
 								key={id}
@@ -41,11 +46,13 @@ export const Subcategories = () => {
 								isSubcategoriesPage={isSubcategoriesPage}
 							/>
 						))}
-					</>
-				) : (
+					</div>
+				)
+			) : (
+				<div className={styles.cards}>
 					<CategoryCardSkeleton inline={true} categories={3} />
-				)}
-			</div>
+				</div>
+			)}
 		</div>
 	);
 };
