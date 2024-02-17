@@ -4,7 +4,12 @@ import { updateModalInputValue } from "../../store/actions";
 import { Button } from "../Button/Button";
 import styles from "./ModalEdit.module.scss";
 
-export const ModalEdit = ({ handleEdit, valueToUpdate, newValueToUpdate }) => {
+export const ModalEdit = ({
+	handleEdit,
+	valueToUpdate,
+	newValueToUpdate,
+	editButtonIsDisabled,
+}) => {
 	const [isDisabled, setIsDisabled] = useState(true);
 
 	const dispatch = useDispatch();
@@ -45,7 +50,7 @@ export const ModalEdit = ({ handleEdit, valueToUpdate, newValueToUpdate }) => {
 					type="button"
 					text="Изменить"
 					onClick={handleEdit}
-					isDisabled={isDisabled}
+					isDisabled={isDisabled || editButtonIsDisabled}
 				/>
 			</div>
 		</div>

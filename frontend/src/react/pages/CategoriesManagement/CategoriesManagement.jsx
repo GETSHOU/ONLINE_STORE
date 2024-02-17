@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -36,6 +36,9 @@ const ModalWindowEdit = WithModal(ModalEdit);
 const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const CategoriesManagement = () => {
+	const [editButtonIsDisabled, setEditButtonIsDisabled] = useState(false);
+	const [confirmButtonIsDisabled, setConfirmButtonIsDisabled] = useState(false);
+
 	const formError = useSelector(formErrorCreateCategorySelector);
 	const categories = useSelector(categoriesSelector);
 	const serverError = useSelector(categoriesErrorSelector);
@@ -79,10 +82,18 @@ export const CategoriesManagement = () => {
 			return;
 		}
 
-		dispatch(updateCategoryAsync(id, trimmedNewValueToUpdate));
+		setEditButtonIsDisabled(true);
+
+		dispatch(updateCategoryAsync(id, trimmedNewValueToUpdate)).finally(() =>
+			setEditButtonIsDisabled(false),
+		);
 	};
 
-	const handleDelete = id => dispatch(deleteCategoryAsync(id));
+	const handleDelete = id => {
+		setConfirmButtonIsDisabled(true);
+
+		dispatch(deleteCategoryAsync(id)).finally(() => setConfirmButtonIsDisabled(false));
+	};
 
 	return (
 		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]}>
@@ -129,6 +140,7 @@ export const CategoriesManagement = () => {
 				<ModalWindowConfirm
 					message={"Удалить подкатегорию?"}
 					handleApply={() => handleDelete(id)}
+					confirmButtonIsDisabled={confirmButtonIsDisabled}
 				/>
 			) : (
 				currentModal === MODAL_TYPES.FORM_UPDATE && (
@@ -137,6 +149,7 @@ export const CategoriesManagement = () => {
 						modalTitle="Редактирование"
 						valueToUpdate={valueToUpdate}
 						newValueToUpdate={newValueToUpdate}
+						editButtonIsDisabled={editButtonIsDisabled}
 					/>
 				)
 			)}
