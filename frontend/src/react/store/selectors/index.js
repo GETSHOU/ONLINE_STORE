@@ -36,3 +36,9 @@ export * from "./subcategories-title-selector";
 export * from "./subcategories-loading-status-selector";
 // Basket
 export * from "./basket-selector";
+// Form Errors
+export * from "./form-error-reg-selector";
+export * from "./form-error-auth-selector";
+export * from "./form-error-create-product-selector";
+export * from "./form-error-create-category-selector";
+export * from "./form-error-create-subcategory-selector";

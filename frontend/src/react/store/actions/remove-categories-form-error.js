@@ -2,6 +2,6 @@ import { ACTION_TYPE } from "../../../constants";
 
 export const removeCategoriesFormError = () => {
 	return {
-		type: ACTION_TYPE.REMOVE_CATEGORIES_FORM_ERROR,
+		type: ACTION_TYPE.REMOVE_CATEGORY_FORM_ERROR,
 	};
 };

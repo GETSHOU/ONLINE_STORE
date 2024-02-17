@@ -15,5 +15,5 @@ export const createCategoryAsync = category => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.CREATE_CATEGORY_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE.CREATE_CATEGORY_FORM_ERROR, payload: e.message });
 		});

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-	closeModal,
 	getCategoriesAsync,
 	createCategoryAsync,
 	updateCategoryAsync,
@@ -17,6 +16,7 @@ import {
 	categoriesTitleSelector,
 	categoriesErrorSelector,
 	categoriesLoadingStatusSelector,
+	formErrorCreateCategorySelector,
 } from "../../store/selectors";
 import { categoryFormSchema } from "../../scheme";
 import { MODAL_TYPES, ROLES } from "../../../constants";
@@ -36,6 +36,7 @@ const ModalWindowEdit = WithModal(ModalEdit);
 const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const CategoriesManagement = () => {
+	const formError = useSelector(formErrorCreateCategorySelector);
 	const categories = useSelector(categoriesSelector);
 	const serverError = useSelector(categoriesErrorSelector);
 	const catalogTitle = useSelector(categoriesTitleSelector);
@@ -64,12 +65,11 @@ export const CategoriesManagement = () => {
 
 	const titleErrorMessage = errors.title?.message;
 
-	const checkFieldErrors = !!serverError || !!titleErrorMessage;
+	const checkFieldErrors = !!formError || !!titleErrorMessage;
 
 	const onSubmit = ({ title }) => {
-		dispatch(createCategoryAsync(title)).finally(() => {
-			reset();
-		});
+		dispatch(createCategoryAsync(title));
+		reset();
 	};
 
 	const handleEdit = (id, newValueToUpdate) => {
@@ -79,13 +79,10 @@ export const CategoriesManagement = () => {
 			return;
 		}
 
-		dispatch(updateCategoryAsync(id, trimmedNewValueToUpdate)).finally(() =>
-			dispatch(closeModal()),
-		);
+		dispatch(updateCategoryAsync(id, trimmedNewValueToUpdate));
 	};
 
-	const handleDelete = id =>
-		dispatch(deleteCategoryAsync(id)).finally(() => dispatch(closeModal()));
+	const handleDelete = id => dispatch(deleteCategoryAsync(id));
 
 	return (
 		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]}>
@@ -96,7 +93,7 @@ export const CategoriesManagement = () => {
 				loadingStatus={loadingStatus}
 			>
 				<CategoryCreatorForm>
-					<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
+					<Form onSubmit={handleSubmit(onSubmit)} formError={formError}>
 						<FormGroup
 							type="text"
 							name="title"
@@ -106,7 +103,7 @@ export const CategoriesManagement = () => {
 							error={titleErrorMessage}
 							{...register("title", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeCategoriesFormError());
 									}
 								},

@@ -6,12 +6,17 @@ import {
 	registrationUserAsync,
 	removeRegistrationUserFormError,
 } from "../../store/actions";
-import { modalTypeSelector, userErrorSelector } from "../../store/selectors";
+import {
+	modalTypeSelector,
+	userErrorSelector,
+	formErrorRegSelector,
+} from "../../store/selectors";
 import { regFormSchema } from "../../scheme";
 import { Form } from "../Form/Form";
 import { FormGroup } from "../Form/components/FormGroup/FormGroup";
 
 export const Registration = () => {
+	const formError = useSelector(formErrorRegSelector);
 	const serverError = useSelector(userErrorSelector);
 	const currentModal = useSelector(modalTypeSelector);
 
@@ -41,7 +46,7 @@ export const Registration = () => {
 	const passcheckErrorMessage = errors.passcheck?.message;
 
 	const checkFieldErrors =
-		!!serverError ||
+		!!formError ||
 		!!emailErrorMessage ||
 		!!nameErrorMessage ||
 		!!passwordErrorMessage ||
@@ -51,7 +56,7 @@ export const Registration = () => {
 		dispatch(registrationUserAsync({ email, name, password }));
 
 	return (
-		<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
+		<Form onSubmit={handleSubmit(onSubmit)} formError={formError}>
 			<FormGroup
 				type="text"
 				name="email"
@@ -61,7 +66,7 @@ export const Registration = () => {
 				autoComplete="on"
 				{...register("email", {
 					onChange: () => {
-						if (serverError) {
+						if (formError) {
 							dispatch(removeRegistrationUserFormError());
 						}
 					},
@@ -76,7 +81,7 @@ export const Registration = () => {
 				autoComplete="on"
 				{...register("name", {
 					onChange: () => {
-						if (serverError) {
+						if (formError) {
 							dispatch(removeRegistrationUserFormError());
 						}
 					},
@@ -91,7 +96,7 @@ export const Registration = () => {
 				autoComplete="on"
 				{...register("password", {
 					onChange: () => {
-						if (serverError) {
+						if (formError) {
 							dispatch(removeRegistrationUserFormError());
 						}
 					},
@@ -106,7 +111,7 @@ export const Registration = () => {
 				autoComplete="on"
 				{...register("passcheck", {
 					onChange: () => {
-						if (serverError) {
+						if (formError) {
 							dispatch(removeRegistrationUserFormError());
 						}
 					},

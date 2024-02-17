@@ -7,6 +7,7 @@ const initialSubcategoriesState = {
 		loadingStatus: false,
 	},
 	error: null,
+	errorForm: null,
 };
 
 export const subcategoriesReducer = (state = initialSubcategoriesState, action) => {
@@ -59,10 +60,15 @@ export const subcategoriesReducer = (state = initialSubcategoriesState, action) 
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.CREATE_SUBCATEGORY_ERROR:
+		case ACTION_TYPE.CREATE_SUBCATEGORY_FORM_ERROR:
 			return {
 				...state,
-				error: action.payload,
+				errorForm: action.payload,
+			};
+		case ACTION_TYPE.REMOVE_SUBCATEGORY_FORM_ERROR:
+			return {
+				...state,
+				errorForm: initialSubcategoriesState.errorForm,
 			};
 		case ACTION_TYPE.UPDATE_SUBCATEGORY_ERROR:
 			return {
@@ -73,11 +79,6 @@ export const subcategoriesReducer = (state = initialSubcategoriesState, action) 
 			return {
 				...state,
 				error: action.payload,
-			};
-		case ACTION_TYPE.REMOVE_SUBCATEGORIES_FORM_ERROR:
-			return {
-				...state,
-				error: null,
 			};
 		default:
 			return state;

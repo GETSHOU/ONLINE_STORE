@@ -15,5 +15,5 @@ export const createSubcategoryAsync = (categoryId, subcategory) => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.CREATE_SUBCATEGORY_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE.CREATE_SUBCATEGORY_FORM_ERROR, payload: e.message });
 		});

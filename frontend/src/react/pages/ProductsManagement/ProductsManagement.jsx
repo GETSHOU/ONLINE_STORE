@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-	closeModal,
 	getProductsAsync,
 	createProductAsync,
 	updateProductAsync,
@@ -18,6 +17,7 @@ import {
 	productsTitleSelector,
 	productsErrorSelector,
 	productsLoadingStatusSelector,
+	formErrorCreateProductSelector,
 } from "../../store/selectors";
 import { productFormSchema } from "../../scheme";
 import { MODAL_TYPES, ROLES } from "../../../constants";
@@ -38,6 +38,7 @@ const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const ProductsManagement = () => {
 	const products = useSelector(productsSelector);
+	const formError = useSelector(formErrorCreateProductSelector);
 	const serverError = useSelector(productsErrorSelector);
 	const loadingStatus = useSelector(productsLoadingStatusSelector);
 	const productsTitle = useSelector(productsTitleSelector);
@@ -78,7 +79,7 @@ export const ProductsManagement = () => {
 	const previewImageUrlErrorMessage = errors.previewImageUrl?.message;
 
 	const checkFieldErrors =
-		!!serverError ||
+		!!formError ||
 		!!titleErrorMessage ||
 		!!specsErrorMessage ||
 		!!priceErrorMessage ||
@@ -96,9 +97,8 @@ export const ProductsManagement = () => {
 				specs,
 				price,
 			}),
-		).finally(() => {
-			reset();
-		});
+		);
+		reset();
 	};
 
 	const handleEdit = (id, field, newValueToUpdate) => {
@@ -108,13 +108,10 @@ export const ProductsManagement = () => {
 			return;
 		}
 
-		dispatch(updateProductAsync(id, { [field]: trimmedNewValueToUpdate })).finally(() =>
-			dispatch(closeModal()),
-		);
+		dispatch(updateProductAsync(id, { [field]: trimmedNewValueToUpdate }));
 	};
 
-	const handleDelete = id =>
-		dispatch(deleteProductAsync(id)).finally(() => dispatch(closeModal()));
+	const handleDelete = id => dispatch(deleteProductAsync(id));
 
 	return (
 		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]}>
@@ -125,7 +122,7 @@ export const ProductsManagement = () => {
 				loadingStatus={loadingStatus}
 			>
 				<ProductCreatorForm>
-					<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
+					<Form onSubmit={handleSubmit(onSubmit)} formError={formError}>
 						<FormGroup
 							type="text"
 							name="title"
@@ -135,7 +132,7 @@ export const ProductsManagement = () => {
 							autoComplete="on"
 							{...register("title", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeProductFormError());
 									}
 								},
@@ -150,7 +147,7 @@ export const ProductsManagement = () => {
 							autoComplete="on"
 							{...register("previewImageUrl", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeProductFormError());
 									}
 								},
@@ -165,7 +162,7 @@ export const ProductsManagement = () => {
 							autoComplete="on"
 							{...register("vendor", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeProductFormError());
 									}
 								},
@@ -180,7 +177,7 @@ export const ProductsManagement = () => {
 							autoComplete="on"
 							{...register("vendorCode", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeProductFormError());
 									}
 								},
@@ -195,7 +192,7 @@ export const ProductsManagement = () => {
 							autoComplete="on"
 							{...register("specs", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeProductFormError());
 									}
 								},
@@ -210,7 +207,7 @@ export const ProductsManagement = () => {
 							autoComplete="on"
 							{...register("price", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeProductFormError());
 									}
 								},

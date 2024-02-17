@@ -1,12 +1,12 @@
 import styles from "./Form.module.scss";
 
-export const Form = ({ children, onSubmit, serverError }) => {
+export const Form = ({ children, onSubmit, formError }) => {
 	return (
 		<form className={styles.form} onSubmit={onSubmit}>
 			<div className={styles.formBody}>{children}</div>
-			{serverError && (
+			{formError && (
 				<div className={styles.formError}>
-					<span className="error">{serverError}</span>
+					<span className="error">{formError}</span>
 				</div>
 			)}
 		</form>

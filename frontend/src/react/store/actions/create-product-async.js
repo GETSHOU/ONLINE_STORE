@@ -15,5 +15,5 @@ export const createProductAsync = (subcategoryId, product) => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.CREATE_PRODUCT_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE.CREATE_PRODUCT_FORM_ERROR, payload: e.message });
 		});

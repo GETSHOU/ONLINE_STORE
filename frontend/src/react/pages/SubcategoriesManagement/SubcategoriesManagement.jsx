@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-	closeModal,
 	getSubcategoriesAsync,
 	createSubcategoryAsync,
 	updateSubcategoryAsync,
@@ -18,6 +17,7 @@ import {
 	subcategoriesTitleSelector,
 	subcategoriesErrorSelector,
 	subcategoriesLoadingStatusSelector,
+	formErrorCreateSubcategorySelector,
 } from "../../store/selectors";
 import { categoryFormSchema } from "../../scheme";
 import { MODAL_TYPES, ROLES } from "../../../constants";
@@ -37,6 +37,7 @@ const ModalWindowEdit = WithModal(ModalEdit);
 const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const SubcategoriesManagement = () => {
+	const formError = useSelector(formErrorCreateSubcategorySelector);
 	const serverError = useSelector(subcategoriesErrorSelector);
 	const currentModal = useSelector(modalTypeSelector);
 	const loadingStatus = useSelector(subcategoriesLoadingStatusSelector);
@@ -67,12 +68,11 @@ export const SubcategoriesManagement = () => {
 
 	const titleErrorMessage = errors.title?.message;
 
-	const checkFieldErrors = !!serverError || !!titleErrorMessage;
+	const checkFieldErrors = !!formError || !!titleErrorMessage;
 
 	const onSubmit = ({ title }) => {
-		dispatch(createSubcategoryAsync(params.id, title)).finally(() => {
-			reset();
-		});
+		dispatch(createSubcategoryAsync(params.id, title));
+		reset();
 	};
 
 	const handleEdit = (id, newValueToUpdate) => {
@@ -82,13 +82,10 @@ export const SubcategoriesManagement = () => {
 			return;
 		}
 
-		dispatch(updateSubcategoryAsync(id, trimmedNewValueToUpdate)).finally(() =>
-			dispatch(closeModal()),
-		);
+		dispatch(updateSubcategoryAsync(id, trimmedNewValueToUpdate));
 	};
 
-	const handleDelete = id =>
-		dispatch(deleteSubcategoryAsync(id)).finally(() => dispatch(closeModal()));
+	const handleDelete = id => dispatch(deleteSubcategoryAsync(id));
 
 	return (
 		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]}>
@@ -99,7 +96,7 @@ export const SubcategoriesManagement = () => {
 				loadingStatus={loadingStatus}
 			>
 				<CategoryCreatorForm>
-					<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
+					<Form onSubmit={handleSubmit(onSubmit)} formError={formError}>
 						<FormGroup
 							type="text"
 							name="title"
@@ -109,7 +106,7 @@ export const SubcategoriesManagement = () => {
 							error={titleErrorMessage}
 							{...register("title", {
 								onChange: () => {
-									if (serverError) {
+									if (formError) {
 										dispatch(removeSubcategoriesFormError());
 									}
 								},

@@ -7,6 +7,7 @@ const initialProductsState = {
 		loadingStatus: false,
 	},
 	error: null,
+	errorForm: null,
 };
 
 export const productsReducer = (state = initialProductsState, action) => {
@@ -57,10 +58,15 @@ export const productsReducer = (state = initialProductsState, action) => {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.CREATE_PRODUCT_ERROR:
+		case ACTION_TYPE.CREATE_PRODUCT_FORM_ERROR:
 			return {
 				...state,
-				error: action.payload,
+				errorForm: action.payload,
+			};
+		case ACTION_TYPE.REMOVE_PRODUCT_FORM_ERROR:
+			return {
+				...state,
+				errorForm: initialProductsState.errorForm,
 			};
 		case ACTION_TYPE.UPDATE_PRODUCT_ERROR:
 			return {
@@ -71,11 +77,6 @@ export const productsReducer = (state = initialProductsState, action) => {
 			return {
 				...state,
 				error: action.payload,
-			};
-		case ACTION_TYPE.REMOVE_PRODUCTS_FORM_ERROR:
-			return {
-				...state,
-				error: null,
 			};
 		default:
 			return state;

@@ -7,6 +7,7 @@ const initialCategoriesState = {
 		loadingStatus: false,
 	},
 	error: null,
+	errorForm: null,
 };
 
 export const categoriesReducer = (state = initialCategoriesState, action) => {
@@ -57,10 +58,15 @@ export const categoriesReducer = (state = initialCategoriesState, action) => {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.CREATE_CATEGORY_ERROR:
+		case ACTION_TYPE.CREATE_CATEGORY_FORM_ERROR:
 			return {
 				...state,
-				error: action.payload,
+				errorForm: action.payload,
+			};
+		case ACTION_TYPE.REMOVE_CATEGORY_FORM_ERROR:
+			return {
+				...state,
+				errorForm: initialCategoriesState.errorForm,
 			};
 		case ACTION_TYPE.UPDATE_CATEGORY_ERROR:
 			return {
@@ -71,11 +77,6 @@ export const categoriesReducer = (state = initialCategoriesState, action) => {
 			return {
 				...state,
 				error: action.payload,
-			};
-		case ACTION_TYPE.REMOVE_CATEGORIES_FORM_ERROR:
-			return {
-				...state,
-				error: null,
 			};
 		default:
 			return state;

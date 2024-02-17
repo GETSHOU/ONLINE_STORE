@@ -1,5 +1,6 @@
 import { ACTION_TYPE } from "../../../constants";
 import { categoriesService } from "../../../services";
+import { closeModal } from "./close-modal";
 
 export const deleteCategoryAsync = categoryId => dispatch =>
 	categoriesService
@@ -13,6 +14,8 @@ export const deleteCategoryAsync = categoryId => dispatch =>
 				type: ACTION_TYPE.DELETE_CATEGORY,
 				payload: categoryId,
 			});
+
+			dispatch(closeModal());
 		})
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.DELETE_CATEGORY_ERROR, payload: e.message });

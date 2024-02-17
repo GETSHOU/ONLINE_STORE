@@ -18,5 +18,5 @@ export const registrationUserAsync = user => dispatch =>
 			dispatch(closeModal());
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.REGISTRATION_USER_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE.REGISTRATION_USER_FORM_ERROR, payload: e.message });
 		});

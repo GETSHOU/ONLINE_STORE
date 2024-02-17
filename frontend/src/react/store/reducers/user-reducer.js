@@ -35,6 +35,11 @@ export const userReducer = (state = initialUserState, action) => {
 					basket: [...action.payload],
 				},
 			};
+		case ACTION_TYPE.LOGOUT_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
 		case ACTION_TYPE.ADD_PRODUCT_IN_BASKET:
 			return {
 				...state,
@@ -68,31 +73,6 @@ export const userReducer = (state = initialUserState, action) => {
 						return item;
 					}),
 				},
-			};
-		case ACTION_TYPE.LOGOUT_ERROR:
-			return {
-				...state,
-				error: action.payload,
-			};
-		case ACTION_TYPE.REGISTRATION_USER_ERROR:
-			return {
-				...state,
-				error: action.payload,
-			};
-		case ACTION_TYPE.REMOVE_REGISTRATION_USER_FORM_ERROR:
-			return {
-				...state,
-				error: null,
-			};
-		case ACTION_TYPE.AUTHORIZATION_USER_ERROR:
-			return {
-				...state,
-				error: action.payload,
-			};
-		case ACTION_TYPE.REMOVE_AUTHORIZATION_USER_FORM_ERROR:
-			return {
-				...state,
-				error: null,
 			};
 		default:
 			return state;

@@ -6,12 +6,17 @@ import {
 	authorizationUserAsync,
 	removeAuthorizationUserFormError,
 } from "../../store/actions";
-import { modalTypeSelector, userErrorSelector } from "../../store/selectors";
+import {
+	modalTypeSelector,
+	userErrorSelector,
+	formErrorAuthSelector,
+} from "../../store/selectors";
 import { authFormSchema } from "../../scheme";
 import { Form } from "../Form/Form";
 import { FormGroup } from "../Form/components/FormGroup/FormGroup";
 
 export const Authorization = () => {
+	const formError = useSelector(formErrorAuthSelector);
 	const serverError = useSelector(userErrorSelector);
 	const currentModal = useSelector(modalTypeSelector);
 
@@ -36,13 +41,13 @@ export const Authorization = () => {
 	const emailErrorMessage = errors.email?.message;
 	const passwordErrorMessage = errors.password?.message;
 
-	const checkFieldErrors = !!serverError || !!emailErrorMessage || !!passwordErrorMessage;
+	const checkFieldErrors = !!formError || !!emailErrorMessage || !!passwordErrorMessage;
 
 	const onSubmit = ({ email, password }) =>
 		dispatch(authorizationUserAsync({ email, password }));
 
 	return (
-		<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
+		<Form onSubmit={handleSubmit(onSubmit)} formError={formError}>
 			<FormGroup
 				type="text"
 				name="email"
@@ -52,7 +57,7 @@ export const Authorization = () => {
 				autoComplete="on"
 				{...register("email", {
 					onChange: () => {
-						if (serverError) {
+						if (formError) {
 							dispatch(removeAuthorizationUserFormError());
 						}
 					},
@@ -67,7 +72,7 @@ export const Authorization = () => {
 				autoComplete="on"
 				{...register("password", {
 					onChange: () => {
-						if (serverError) {
+						if (formError) {
 							dispatch(removeAuthorizationUserFormError());
 						}
 					},

@@ -1,5 +1,6 @@
 import { ACTION_TYPE } from "../../../constants";
 import { subcategoriesService } from "../../../services";
+import { closeModal } from "./close-modal";
 
 export const updateSubcategoryAsync =
 	(subcategoryId, updatedSubcategorytitle) => dispatch =>
@@ -14,6 +15,8 @@ export const updateSubcategoryAsync =
 					type: ACTION_TYPE.UPDATE_SUBCATEGORY,
 					payload: { id: subcategoryId, data: res.data },
 				});
+
+				dispatch(closeModal());
 			})
 			.catch(e => {
 				dispatch({ type: ACTION_TYPE.UPDATE_SUBCATEGORY_ERROR, payload: e.message });
