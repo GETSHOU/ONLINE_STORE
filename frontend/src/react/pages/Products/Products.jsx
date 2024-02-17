@@ -59,7 +59,7 @@ export const Products = () => {
 							)
 						) : (
 							<ul className={styles.list}>
-								<ProductCardSkeleton inline={false} products={3} />
+								<ProductCardSkeleton inline={true} products={3} />
 							</ul>
 						)}
 					</div>

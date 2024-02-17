@@ -14,7 +14,7 @@
 		margin-top: 0;
 	}
 
-	&Header {
+	&__header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -24,21 +24,43 @@
 		border-radius: 5px;
 	}
 
-	&Title {
+	&__title {
 		font-size: 1.3rem;
 		font-weight: 500;
 		color: $secondary-color;
 	}
 
-	&Actions {
+	&__actions {
 		display: flex;
 		align-items: center;
 	}
 
-	&Body {
+	&__body {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
 		margin-top: 10px;
+	}
+
+	&__titleSkeleton {
+		display: flex;
+		height: 40px;
+		width: 400px;
+	}
+
+	&__actionSkeleton {
+		display: flex;
+		height: 40px;
+		width: 40px;
+	}
+
+	&__rowSkeleton {
+		height: 40px;
+		width: 100%;
+		margin-bottom: 10px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 }

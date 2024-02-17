@@ -2,7 +2,7 @@ import { ACTION_TYPE } from "../../../constants";
 import { commentsService } from "../../../services";
 
 export const createCommentAsync = (productId, comment) => dispatch => {
-	return commentsService
+	commentsService
 		.create(productId, comment)
 		.then(res => {
 			if (res.error) {

@@ -17,8 +17,10 @@ export const ProductActions = ({ product, loadingStatus }) => {
 	const currentBasketDataJSON = localStorage.getItem("basket");
 	const basketFromStorage = JSON.parse(currentBasketDataJSON);
 
+	const currentProduct = basketFromStorage.find(data => data.product.id === product.id);
+
 	useLayoutEffect(() => {
-		const currentProduct = basketFromStorage.find(data => data.product.id === product.id);
+		if (basketFromStorage.length === 0) return;
 
 		setIsDisabled(true);
 

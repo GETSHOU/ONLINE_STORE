@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdCart } from "react-icons/io";
 import { BiSolidUser } from "react-icons/bi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
-import { logout, openModal } from "../../../../store/actions";
+import { openModal, logoutAsync } from "../../../../store/actions";
 import {
 	basketSelector,
 	userRoleSelector,
@@ -26,6 +26,7 @@ export const ControlPanel = () => {
 	const roleId = useSelector(userRoleSelector);
 	const currentModal = useSelector(modalTypeSelector);
 	const currentUserName = useSelector(userNameSelector);
+
 	const [userName, setUserName] = useState(currentUserName);
 
 	const sessionState = !!sessionStorage.getItem("userData");
@@ -45,9 +46,7 @@ export const ControlPanel = () => {
 		setUserName(currentUserName);
 	}, [currentUserName, roleId, setUserName, sessionState, userName]);
 
-	const onLogout = () => {
-		dispatch(logout());
-	};
+	const onLogout = () => dispatch(logoutAsync());
 
 	const handleOpenAuthModal = () =>
 		dispatch(openModal({ type: MODAL_TYPES.AUTHORIZATION }));

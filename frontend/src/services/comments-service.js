@@ -1,5 +1,5 @@
 import { request } from "../utils";
-import { BASE_URL } from "./http.service";
+import { BASE_URL } from "./http-service";
 
 export const commentsService = {
 	create: async (productId, commentText) =>

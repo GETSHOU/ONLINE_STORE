@@ -21,8 +21,8 @@ export const Comment = ({
 	authorRoleId,
 }) => {
 	const [isEdit, setIsEdit] = useState(false);
-	const [isDisabled, setIsDisabled] = useState(false);
 	const [valueEdit, setValueEdit] = useState(content);
+	const [isDisabled, setIsDisabled] = useState(false);
 	const [valueEditChanged, setValueEditChanged] = useState(false);
 
 	const roleId = useSelector(userRoleSelector);
@@ -31,29 +31,35 @@ export const Comment = ({
 	const dispatch = useDispatch();
 
 	const handleChange = ({ target }) => {
-		const trimmedUpdatedComment = target.value.trim();
+		setValueEdit(target.value);
 
-		if (content !== trimmedUpdatedComment && trimmedUpdatedComment !== "") {
+		if (target.value.length !== 0) {
 			setValueEditChanged(true);
-
-			if (trimmedUpdatedComment.length === 0) {
-				setValueEditChanged(false);
-			}
 		} else {
 			setValueEditChanged(false);
 		}
 
-		setValueEdit(target.value);
+		if (target.value.trim() === content) {
+			setValueEditChanged(false);
+		}
 	};
 
 	const handleUpdate = (commentId, updatedComment) => {
 		setIsDisabled(true);
 
-		dispatch(updateCommentAsync(commentId, { content: updatedComment })).finally(() => {
-			setValueEditChanged(false);
-			setIsDisabled(false);
-			setIsEdit(false);
-		});
+		const trimmedNewValueToUpdate = updatedComment.trim();
+
+		if (trimmedNewValueToUpdate === content) {
+			return;
+		}
+
+		dispatch(updateCommentAsync(commentId, { content: trimmedNewValueToUpdate })).finally(
+			() => {
+				setValueEditChanged(false);
+				setIsDisabled(false);
+				setIsEdit(false);
+			},
+		);
 	};
 
 	const handleDelete = (productId, commentId) => {
@@ -116,7 +122,7 @@ export const Comment = ({
 								<ActionButton
 									icon={<GiCheckMark className="icon iconConfirm" />}
 									isDisabled={!valueEditChanged || isDisabled}
-									clickFunction={() => handleUpdate(commentId, valueEdit.trim())}
+									clickFunction={() => handleUpdate(commentId, valueEdit)}
 								/>
 								<ActionButton
 									icon={<VscChromeClose className="icon iconCancel" />}

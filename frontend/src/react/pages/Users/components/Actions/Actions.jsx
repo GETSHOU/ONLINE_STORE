@@ -1,18 +1,14 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MdPersonRemove, MdSave } from "react-icons/md";
 import { userRoleSelector } from "../../../../store/selectors";
 import { checkAccess, request } from "../../../../../utils";
 import { ROLES } from "../../../../../constants";
 import styles from "./Actions.module.scss";
+import { deleteUserAsync, updateUserRoleAsync } from "../../../../store/actions";
 
-export const Actions = ({
-	userId,
-	roleId,
-	selectedRoleId,
-	shouldUpdateUserList,
-	setShouldUpdateUserList,
-}) => {
+export const Actions = ({ userId, roleId, selectedRoleId }) => {
+	const [isDisabled, setIsDisabled] = useState(false);
 	const [initialRoleId, setInitialRoleId] = useState(roleId);
 
 	const currentRoleId = useSelector(userRoleSelector);
@@ -20,12 +16,20 @@ export const Actions = ({
 
 	const isSaveButtonDisabled = selectedRoleId === initialRoleId;
 
+	const dispatch = useDispatch();
+
 	const onRoleSave = (userId, newUserRoleId) => {
-		request(`/api/users/${userId}/update`, "PATCH", { roleId: newUserRoleId }).then(
-			() => {
-				setInitialRoleId(newUserRoleId);
-			},
-		);
+		if (!isAdmin) {
+			return;
+		}
+
+		setIsDisabled(true);
+
+		dispatch(updateUserRoleAsync(userId, newUserRoleId))
+			.then(() => setInitialRoleId(newUserRoleId))
+			.finally(() => {
+				setIsDisabled(false);
+			});
 	};
 
 	const onUserRemove = userId => {
@@ -33,19 +37,19 @@ export const Actions = ({
 			return;
 		}
 
-		request(`/api/users/${userId}/delete`, "DELETE").then(() => {
-			setShouldUpdateUserList(!shouldUpdateUserList);
+		setIsDisabled(true);
+
+		dispatch(deleteUserAsync(userId)).finally(() => {
+			setIsDisabled(false);
 		});
 	};
-
-	// TODO: посмотреть можно ли заменить эти кнопки на компонент ActionButton
 
 	return (
 		<div className={styles.actions}>
 			<button
 				className={styles.actionsButton}
 				type="button"
-				disabled={isSaveButtonDisabled}
+				disabled={isSaveButtonDisabled || isDisabled}
 				onClick={() => onRoleSave(userId, selectedRoleId)}
 			>
 				<MdSave className="icon iconAction" />
@@ -53,6 +57,7 @@ export const Actions = ({
 			<button
 				className={styles.actionsButton}
 				type="button"
+				disabled={isDisabled}
 				onClick={() => onUserRemove(userId)}
 			>
 				<MdPersonRemove className="icon iconAction" />

@@ -6,7 +6,7 @@ const initialProductsState = {
 	options: {
 		loadingStatus: false,
 	},
-	error: "",
+	error: null,
 };
 
 export const productsReducer = (state = initialProductsState, action) => {
@@ -21,11 +21,6 @@ export const productsReducer = (state = initialProductsState, action) => {
 				...state,
 				title: action.payload,
 			};
-		case ACTION_TYPE.SET_PRODUCTS_ERROR:
-			return {
-				...state,
-				error: action.payload,
-			};
 		case ACTION_TYPE.SET_PRODUCTS_LOADING_STATUS:
 			return {
 				...state,
@@ -33,6 +28,54 @@ export const productsReducer = (state = initialProductsState, action) => {
 					...state.options,
 					loadingStatus: action.payload,
 				},
+			};
+		case ACTION_TYPE.CREATE_PRODUCT:
+			return {
+				...state,
+				products: [...state.products, action.payload],
+			};
+		case ACTION_TYPE.UPDATE_PRODUCT:
+			return {
+				...state,
+				products: state.products.map(product => {
+					if (product.id === action.payload.id) {
+						return {
+							...product,
+							...action.payload.data,
+						};
+					}
+					return { ...product };
+				}),
+			};
+		case ACTION_TYPE.DELETE_PRODUCT:
+			return {
+				...state,
+				products: state.products.filter(product => product.id !== action.payload),
+			};
+		case ACTION_TYPE.SET_PRODUCTS_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.CREATE_PRODUCT_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.UPDATE_PRODUCT_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.DELETE_PRODUCT_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.REMOVE_PRODUCTS_FORM_ERROR:
+			return {
+				...state,
+				error: null,
 			};
 		default:
 			return state;

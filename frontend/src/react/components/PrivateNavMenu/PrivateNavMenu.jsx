@@ -4,7 +4,7 @@ import { FaUsers } from "react-icons/fa6";
 import { CgWebsite } from "react-icons/cg";
 import { TbLayoutGrid } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
-import { logout } from "../../store/actions";
+import { logout, logoutAsync } from "../../store/actions";
 import { PrivateNavMenuItem } from "./components/PrivateNavMenuItem/PrivateNavMenuItem";
 import styles from "./PrivateNavMenu.module.scss";
 
@@ -13,7 +13,7 @@ export const PrivateNavMenu = () => {
 	const navigate = useNavigate();
 
 	const onLogout = () => {
-		dispatch(logout());
+		dispatch(logoutAsync());
 		navigate("/");
 	};
 

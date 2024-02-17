@@ -63,12 +63,6 @@ export const App = () => {
 				/>
 				<Route path="/subcategories-m/:id/products-m" element={<ProductsManagement />} />
 
-				{/*Ошибки*/}
-				<Route path="/users-m-not-exist" element={<div>Пользователей нет</div>} />
-				<Route path="/categories-m-not-exist" element={<div>Категорий нет</div>} />
-				<Route path="/subcategories-m-not-exist" element={<div>Подкатегорий нет</div>} />
-				<Route path="/products-m-not-exist" element={<div>Товаров нет</div>} />
-
 				{/*Общие Ошибки*/}
 				<Route path="*" element={<Error error={ERRORS.PAGE_NOT_EXIST} />} />
 			</Routes>
@@ -77,17 +71,10 @@ export const App = () => {
 };
 
 // TODO_0: ЧТО НУЖНО ДОРАБОТАТЬ
-
-// TODO_1: Проверить все запросы на сервер на клиенте. В catch, вместо console.log, возвращать ошибку пользователю
-
-// TODO_2: Добавить "хлебные крошки" в админке
-// TODO_3: Добавить "хлебные крошки" в магазине
-
-// TODO_4: Разобраться, что делать с количеством товаров на карточках категорий
-
-// TODO_5: Разделить роуты на разные файлы в Express.js (https://lk.result.school/pl/teach/control/lesson/view?id=321219502&editMode=0)
-
-// TODO_6: Сделать компонент с ошибкой для общих ошибок с сервера
-
-// TODO_7: Переделать ProductCardSkeleton
-// TODO_8: Добавить тени ко всем скелетонам
+// TODO_1: Добавить "хлебные крошки" в админке и в магазине
+// TODO_2: Добавить поиск по товарам в админке и в магазине
+// TODO_3: Разобраться, что делать с количеством товаров на карточках категорий
+// TODO_4: Разделить роуты на разные файлы в Express.js (https://lk.result.school/pl/teach/control/lesson/view?id=321219502&editMode=0)
+// TODO_5: Добавить тени ко всем скелетонам
+// TODO_6: Создать обертку для скелетонов
+// TODO_7: разобраться в работе возврата ошибок с сервера

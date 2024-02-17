@@ -1,32 +1,60 @@
 @use "../../../../../styles/variables.scss" as *;
 
-.tableRow {
+.row {
 	display: flex;
 	width: 100%;
 	align-items: center;
-	height: 60px;
+	height: #{$table-row-height}px;
 	margin-top: 10px;
-	padding: 7px;
+	padding: #{$table-row-padding}px;
 	background-color: $secondary-color;
 	border-radius: 5px;
-}
 
-.tableCell {
-	display: flex;
-	align-items: center;
-	flex: 1;
-	height: 100%;
-	margin-right: 15px;
-	padding: 0 10px;
-	font-weight: 500;
-	background-color: rgba(0,0,0,.1);
-	border-radius: 5px;
+	&__cell {
+		display: flex;
+		align-items: center;
+		flex: 1;
+		height: 100%;
+		margin-right: 15px;
+		padding: 0 10px;
+		font-weight: 500;
+		background-color: rgba(0,0,0,.1);
+		border-radius: 5px;
 
-	&:last-child {
-		flex: 0 0 100px;
-		margin-right: 0;
+		&:last-child {
+			flex: 0 0 100px;
+			margin-right: 0;
+		}
+
+		&.skeleton {
+			padding: 0;
+			background-color: transparent;
+
+			& > .skeleton__container {
+				height: #{calc($table-row-height - $table-row-padding * 2)}px;
+				width: 100%;
+			}
+
+			& > .skeleton__actionContainer {
+				display: flex;
+				flex: 1;
+				height: #{calc($table-row-height - $table-row-padding * 2)}px;
+				width: #{calc($table-row-height - $table-row-padding * 2)}px;
+
+				& > * {
+					&:first-child {
+						margin-right: 15px;
+					}
+				}
+			}
+		}
 	}
+
+
 }
+
+
+
 
 
 

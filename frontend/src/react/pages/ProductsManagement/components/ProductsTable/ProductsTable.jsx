@@ -6,19 +6,35 @@ import { ActionButton } from "../../../../components";
 import { ProductsTableRow } from "../ProductsTableRow/ProductsTableRow";
 import styles from "./ProductsTable.module.scss";
 
-export const ProductsTable = ({ product }) => {
+export const ProductsTable = ({
+	id,
+	title,
+	specs,
+	price,
+	vendor,
+	publicId,
+	vendorCode,
+	previewImageUrl,
+}) => {
 	const dispatch = useDispatch();
 
 	const productFields = Object.keys({
-		title: product.title,
-		specs: product.specs,
-		price: product.price,
-		vendor: product.vendor,
-		vendorCode: product.vendorCode,
-		previewImageUrl: product.previewImageUrl,
+		title,
+		specs,
+		price,
+		vendor,
+		vendorCode,
+		previewImageUrl,
 	});
 
-	const [title, specs, price, vendor, vendorCode, previewImageUrl] = productFields;
+	const [
+		fieldTitle,
+		fieldSpecs,
+		fieldPrice,
+		fieldVendor,
+		fieldVendorCode,
+		fieldPreviewImageUrl,
+	] = productFields;
 
 	const handleOpenConfirmModal = id => {
 		dispatch(
@@ -32,55 +48,57 @@ export const ProductsTable = ({ product }) => {
 	};
 
 	return (
-		<div className={styles.table}>
-			<div className={styles.tableHeader}>
-				<h2 className={styles.tableTitle}>ID: {product.publicId}</h2>
-				<div className={styles.tableActions}>
-					<ActionButton
-						icon={<FaTrashAlt className="icon iconTrash" />}
-						isTableTitle={true}
-						clickFunction={() => handleOpenConfirmModal(product.id)}
+		<>
+			<div className={styles.table}>
+				<div className={styles.table__header}>
+					<h2 className={styles.table__title}>ID: {publicId}</h2>
+					<div className={styles.table__actions}>
+						<ActionButton
+							icon={<FaTrashAlt className="icon iconTrash" />}
+							isTableTitle={true}
+							clickFunction={() => handleOpenConfirmModal(id)}
+						/>
+					</div>
+				</div>
+				<div className={styles.table__body}>
+					<ProductsTableRow
+						title="Название товара"
+						value={title}
+						productId={id}
+						productField={fieldTitle}
+					/>
+					<ProductsTableRow
+						title="Ссылка на изображение"
+						value={previewImageUrl}
+						productId={id}
+						productField={fieldPreviewImageUrl}
+					/>
+					<ProductsTableRow
+						title="Производитель"
+						value={vendor}
+						productId={id}
+						productField={fieldVendor}
+					/>
+					<ProductsTableRow
+						title="Код производителя"
+						value={vendorCode}
+						productId={id}
+						productField={fieldVendorCode}
+					/>
+					<ProductsTableRow
+						title="Характеристики"
+						value={specs}
+						productId={id}
+						productField={fieldSpecs}
+					/>
+					<ProductsTableRow
+						title="Цена товара"
+						value={price}
+						productId={id}
+						productField={fieldPrice}
 					/>
 				</div>
 			</div>
-			<div className={styles.tableBody}>
-				<ProductsTableRow
-					id={product.id}
-					title="Название товара"
-					value={product.title}
-					productField={title}
-				/>
-				<ProductsTableRow
-					id={product.id}
-					title="Ссылка на изображение"
-					value={product.previewImageUrl}
-					productField={previewImageUrl}
-				/>
-				<ProductsTableRow
-					id={product.id}
-					title="Производитель"
-					value={product.vendor}
-					productField={vendor}
-				/>
-				<ProductsTableRow
-					id={product.id}
-					title="Код производителя"
-					value={product.vendorCode}
-					productField={vendorCode}
-				/>
-				<ProductsTableRow
-					id={product.id}
-					title="Характеристики"
-					value={product.specs}
-					productField={specs}
-				/>
-				<ProductsTableRow
-					id={product.id}
-					title="Цена товара"
-					value={product.price}
-					productField={price}
-				/>
-			</div>
-		</div>
+		</>
 	);
 };

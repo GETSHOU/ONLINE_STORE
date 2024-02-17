@@ -1,18 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
 	closeModal,
-	createProduct,
-	updateProduct,
-	deleteProduct,
-	updateModalInputValue,
+	getProductsAsync,
+	createProductAsync,
+	updateProductAsync,
+	deleteProductAsync,
+	removeProductFormError,
 } from "../../store/actions";
-import { modalDataSelector, modalTypeSelector } from "../../store/selectors";
+import {
+	productsSelector,
+	modalDataSelector,
+	modalTypeSelector,
+	productsTitleSelector,
+	productsErrorSelector,
+	productsLoadingStatusSelector,
+} from "../../store/selectors";
 import { productFormSchema } from "../../scheme";
-import { request } from "../../../utils";
 import { MODAL_TYPES, ROLES } from "../../../constants";
 import { WithModal } from "../../hoc";
 import {
@@ -30,20 +37,20 @@ const ModalWindowEdit = WithModal(ModalEdit);
 const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const ProductsManagement = () => {
-	const [products, setProducts] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [isDisabled, setIsDisabled] = useState(true);
-	const [serverError, setServerError] = useState(null);
-	const [dataNotExist, setDataNotExist] = useState(false);
-	const [showErrorForm, setShowErrorForm] = useState(false);
-	const [serverErrorForm, setServerErrorForm] = useState(null);
-	const [shouldUpdateProducts, setShouldUpdateProducts] = useState(false);
+	const products = useSelector(productsSelector);
+	const serverError = useSelector(productsErrorSelector);
+	const loadingStatus = useSelector(productsLoadingStatusSelector);
+	const productsTitle = useSelector(productsTitleSelector);
 
 	const params = useParams();
 	const dispatch = useDispatch();
 
 	const currentModal = useSelector(modalTypeSelector);
 	const { id, field, valueToUpdate, newValueToUpdate } = useSelector(modalDataSelector);
+
+	useEffect(() => {
+		dispatch(getProductsAsync(params.id));
+	}, [dispatch, params.id]);
 
 	const {
 		register,
@@ -71,7 +78,7 @@ export const ProductsManagement = () => {
 	const previewImageUrlErrorMessage = errors.previewImageUrl?.message;
 
 	const checkFieldErrors =
-		!!serverErrorForm ||
+		!!serverError ||
 		!!titleErrorMessage ||
 		!!specsErrorMessage ||
 		!!priceErrorMessage ||
@@ -79,87 +86,19 @@ export const ProductsManagement = () => {
 		!!vendorCodeErrorMessage ||
 		!!previewImageUrlErrorMessage;
 
-	useEffect(() => {
-		// setIsLoading(true);
-
-		request(`/api/subcategories/${params.id}/products`)
-			.then(response => {
-				if (!isLoading) {
-					if (response.data.length === 0) {
-						setDataNotExist(true);
-
-						return;
-					}
-
-					if (response.error) {
-						setServerError(response.error);
-
-						return;
-					}
-
-					setDataNotExist(false);
-					setProducts(response.data);
-				}
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				// setIsLoading(false);
-			});
-	}, [params.id, shouldUpdateProducts]);
-
 	const onSubmit = ({ title, previewImageUrl, vendor, vendorCode, specs, price }) => {
-		setShouldUpdateProducts(true);
-
-		request(`/api/subcategories/${params.id}/products/create`, "POST", {
-			title,
-			specs,
-			price,
-			vendor,
-			vendorCode,
-			previewImageUrl,
-		})
-			.then(response => {
-				if (response.error) {
-					setServerErrorForm(`Ошибка запроса: ${response.error}`);
-					setShowErrorForm(true);
-
-					return;
-				}
-
-				dispatch(createProduct(response.data));
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				setShouldUpdateProducts(false);
-				reset();
-			});
-	};
-
-	const onChangeValue = ({ target }) => {
-		dispatch(updateModalInputValue(target.value));
-
-		if (target.value.trim().length !== 0) {
-			setIsDisabled(false);
-		} else {
-			setIsDisabled(true);
-		}
-
-		if (target.value.trim() === valueToUpdate) {
-			setIsDisabled(true);
-		}
-	};
-
-	const handleDelete = id => {
-		setShouldUpdateProducts(true);
-
-		request(`/api/products/${id}/delete`, "DELETE")
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				dispatch(deleteProduct(id));
-				setShouldUpdateProducts(false);
-			});
-
-		dispatch(closeModal());
+		dispatch(
+			createProductAsync(params.id, {
+				title,
+				previewImageUrl,
+				vendor,
+				vendorCode,
+				specs,
+				price,
+			}),
+		).finally(() => {
+			reset();
+		});
 	};
 
 	const handleEdit = (id, field, newValueToUpdate) => {
@@ -169,30 +108,24 @@ export const ProductsManagement = () => {
 			return;
 		}
 
-		setShouldUpdateProducts(true);
-
-		request(`/api/products/${id}/update`, "PATCH", { [field]: trimmedNewValueToUpdate })
-			.then(response => {
-				dispatch(updateProduct(response.data));
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				setShouldUpdateProducts(false);
-				setIsDisabled(true);
-			});
-
-		dispatch(closeModal());
+		dispatch(updateProductAsync(id, { [field]: trimmedNewValueToUpdate })).finally(() =>
+			dispatch(closeModal()),
+		);
 	};
 
+	const handleDelete = id =>
+		dispatch(deleteProductAsync(id)).finally(() => dispatch(closeModal()));
+
 	return (
-		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]} serverError={serverError}>
-			<PrivateContent pageTitle={"Управление товарами"}>
+		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]}>
+			<PrivateContent
+				subTitle={productsTitle}
+				pageTitle={"Управление товарами"}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
+			>
 				<ProductCreatorForm>
-					<Form
-						onSubmit={handleSubmit(onSubmit)}
-						showErrorForm={showErrorForm}
-						serverErrorForm={serverErrorForm}
-					>
+					<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
 						<FormGroup
 							type="text"
 							name="title"
@@ -200,7 +133,13 @@ export const ProductsManagement = () => {
 							fieldError={titleErrorMessage}
 							placeholder=""
 							autoComplete="on"
-							{...register("title")}
+							{...register("title", {
+								onChange: () => {
+									if (serverError) {
+										dispatch(removeProductFormError());
+									}
+								},
+							})}
 						/>
 						<FormGroup
 							type="text"
@@ -209,7 +148,13 @@ export const ProductsManagement = () => {
 							fieldError={previewImageUrlErrorMessage}
 							placeholder=""
 							autoComplete="on"
-							{...register("previewImageUrl")}
+							{...register("previewImageUrl", {
+								onChange: () => {
+									if (serverError) {
+										dispatch(removeProductFormError());
+									}
+								},
+							})}
 						/>
 						<FormGroup
 							type="text"
@@ -218,7 +163,13 @@ export const ProductsManagement = () => {
 							fieldError={vendorErrorMessage}
 							placeholder=""
 							autoComplete="on"
-							{...register("vendor")}
+							{...register("vendor", {
+								onChange: () => {
+									if (serverError) {
+										dispatch(removeProductFormError());
+									}
+								},
+							})}
 						/>
 						<FormGroup
 							type="text"
@@ -227,7 +178,13 @@ export const ProductsManagement = () => {
 							fieldError={vendorCodeErrorMessage}
 							placeholder=""
 							autoComplete="on"
-							{...register("vendorCode")}
+							{...register("vendorCode", {
+								onChange: () => {
+									if (serverError) {
+										dispatch(removeProductFormError());
+									}
+								},
+							})}
 						/>
 						<FormGroup
 							type="text"
@@ -236,7 +193,13 @@ export const ProductsManagement = () => {
 							fieldError={specsErrorMessage}
 							placeholder=""
 							autoComplete="on"
-							{...register("specs")}
+							{...register("specs", {
+								onChange: () => {
+									if (serverError) {
+										dispatch(removeProductFormError());
+									}
+								},
+							})}
 						/>
 						<FormGroup
 							type="text"
@@ -245,7 +208,13 @@ export const ProductsManagement = () => {
 							fieldError={priceErrorMessage}
 							placeholder=""
 							autoComplete="on"
-							{...register("price")}
+							{...register("price", {
+								onChange: () => {
+									if (serverError) {
+										dispatch(removeProductFormError());
+									}
+								},
+							})}
 						/>
 						<FormGroup
 							buttonText="Создать товар"
@@ -254,31 +223,29 @@ export const ProductsManagement = () => {
 						/>
 					</Form>
 				</ProductCreatorForm>
-
-				{!dataNotExist && (
-					<>
-						<ProductsList products={products} />
-					</>
-				)}
-
-				{/* Рендер модального окна */}
-				{currentModal === MODAL_TYPES.CONFIRM ? (
-					<ModalWindowConfirm
-						message="Удалить товар?"
-						handleApply={() => handleDelete(id)}
-					/>
-				) : (
-					currentModal === MODAL_TYPES.FORM_UPDATE && (
-						<ModalWindowEdit
-							onChange={onChangeValue}
-							handleEdit={() => handleEdit(id, field, newValueToUpdate)}
-							isDisabled={isDisabled}
-							modalTitle="Редактирование"
-							newValueToUpdate={newValueToUpdate}
-						/>
-					)
-				)}
+				<ProductsList
+					products={products}
+					serverError={serverError}
+					loadingStatus={loadingStatus}
+				/>
 			</PrivateContent>
+
+			{/* Рендер модального окна */}
+			{currentModal === MODAL_TYPES.CONFIRM ? (
+				<ModalWindowConfirm
+					message={"Удалить товар?"}
+					handleApply={() => handleDelete(id)}
+				/>
+			) : (
+				currentModal === MODAL_TYPES.FORM_UPDATE && (
+					<ModalWindowEdit
+						handleEdit={() => handleEdit(id, field, newValueToUpdate)}
+						modalTitle="Редактирование"
+						valueToUpdate={valueToUpdate}
+						newValueToUpdate={newValueToUpdate}
+					/>
+				)
+			)}
 		</PrivateProvider>
 	);
 };

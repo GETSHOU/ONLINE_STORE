@@ -6,7 +6,7 @@ const initialSubcategoriesState = {
 	options: {
 		loadingStatus: false,
 	},
-	error: "",
+	error: null,
 };
 
 export const subcategoriesReducer = (state = initialSubcategoriesState, action) => {
@@ -21,11 +21,6 @@ export const subcategoriesReducer = (state = initialSubcategoriesState, action) 
 				...state,
 				title: action.payload,
 			};
-		case ACTION_TYPE.SET_SUBCATEGORIES_ERROR:
-			return {
-				...state,
-				error: action.payload,
-			};
 		case ACTION_TYPE.SET_SUBCATEGORIES_LOADING_STATUS:
 			return {
 				...state,
@@ -33,6 +28,56 @@ export const subcategoriesReducer = (state = initialSubcategoriesState, action) 
 					...state.options,
 					loadingStatus: action.payload,
 				},
+			};
+		case ACTION_TYPE.CREATE_SUBCATEGORY:
+			return {
+				...state,
+				subcategories: [...state.subcategories, action.payload],
+			};
+		case ACTION_TYPE.UPDATE_SUBCATEGORY:
+			return {
+				...state,
+				subcategories: state.subcategories.map(subcategory => {
+					if (subcategory.id === action.payload.id) {
+						return {
+							...subcategory,
+							...action.payload.data,
+						};
+					}
+					return { ...subcategory };
+				}),
+			};
+		case ACTION_TYPE.DELETE_SUBCATEGORY:
+			return {
+				...state,
+				subcategories: state.subcategories.filter(
+					subcategory => subcategory.id !== action.payload,
+				),
+			};
+		case ACTION_TYPE.SET_SUBCATEGORIES_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.CREATE_SUBCATEGORY_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.UPDATE_SUBCATEGORY_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.DELETE_SUBCATEGORY_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.REMOVE_SUBCATEGORIES_FORM_ERROR:
+			return {
+				...state,
+				error: null,
 			};
 		default:
 			return state;

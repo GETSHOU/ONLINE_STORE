@@ -1,21 +1,21 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useResetAuthForm } from "../../hooks";
-import { closeModal, setUser } from "../../store/actions";
-import { modalTypeSelector } from "../../store/selectors";
+import {
+	registrationUserAsync,
+	removeRegistrationUserFormError,
+} from "../../store/actions";
+import { modalTypeSelector, userErrorSelector } from "../../store/selectors";
 import { regFormSchema } from "../../scheme";
-import { request } from "../../../utils";
 import { Form } from "../Form/Form";
 import { FormGroup } from "../Form/components/FormGroup/FormGroup";
 
 export const Registration = () => {
-	const [showErrorForm, setShowErrorForm] = useState(false);
-	const [serverErrorForm, setServerErrorForm] = useState(null);
+	const serverError = useSelector(userErrorSelector);
+	const currentModal = useSelector(modalTypeSelector);
 
 	const dispatch = useDispatch();
-	const currentModal = useSelector(modalTypeSelector);
 
 	const {
 		register,
@@ -35,42 +35,23 @@ export const Registration = () => {
 
 	useResetAuthForm(reset, currentModal);
 
-	const onSubmit = ({ email, name, password }) => {
-		request("/api/register", "POST", { email, name, password }).then(
-			({ error, user }) => {
-				if (error) {
-					setServerErrorForm(`Ошибка запроса: ${error}`);
-					setShowErrorForm(true);
-					return;
-				}
-
-				dispatch(setUser(user));
-
-				sessionStorage.setItem("userData", JSON.stringify(user));
-
-				dispatch(closeModal());
-			},
-		);
-	};
-
 	const emailErrorMessage = errors.email?.message;
 	const nameErrorMessage = errors.name?.message;
 	const passwordErrorMessage = errors.password?.message;
 	const passcheckErrorMessage = errors.passcheck?.message;
 
 	const checkFieldErrors =
-		!!serverErrorForm ||
+		!!serverError ||
 		!!emailErrorMessage ||
 		!!nameErrorMessage ||
 		!!passwordErrorMessage ||
 		!!passcheckErrorMessage;
 
+	const onSubmit = ({ email, name, password }) =>
+		dispatch(registrationUserAsync({ email, name, password }));
+
 	return (
-		<Form
-			onSubmit={handleSubmit(onSubmit)}
-			showErrorForm={showErrorForm}
-			serverErrorForm={serverErrorForm}
-		>
+		<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
 			<FormGroup
 				type="text"
 				name="email"
@@ -80,8 +61,9 @@ export const Registration = () => {
 				autoComplete="on"
 				{...register("email", {
 					onChange: () => {
-						setServerErrorForm(null);
-						setShowErrorForm(false);
+						if (serverError) {
+							dispatch(removeRegistrationUserFormError());
+						}
 					},
 				})}
 			/>
@@ -92,7 +74,13 @@ export const Registration = () => {
 				fieldError={nameErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				{...register("name")}
+				{...register("name", {
+					onChange: () => {
+						if (serverError) {
+							dispatch(removeRegistrationUserFormError());
+						}
+					},
+				})}
 			/>
 			<FormGroup
 				type="password"
@@ -101,7 +89,13 @@ export const Registration = () => {
 				fieldError={passwordErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				{...register("password")}
+				{...register("password", {
+					onChange: () => {
+						if (serverError) {
+							dispatch(removeRegistrationUserFormError());
+						}
+					},
+				})}
 			/>
 			<FormGroup
 				type="password"
@@ -110,7 +104,13 @@ export const Registration = () => {
 				fieldError={passcheckErrorMessage}
 				placeholder=""
 				autoComplete="on"
-				{...register("passcheck")}
+				{...register("passcheck", {
+					onChange: () => {
+						if (serverError) {
+							dispatch(removeRegistrationUserFormError());
+						}
+					},
+				})}
 			/>
 			<FormGroup
 				buttonText="Регистрация"

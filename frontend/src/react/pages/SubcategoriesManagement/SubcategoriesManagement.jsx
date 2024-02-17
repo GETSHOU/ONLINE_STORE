@@ -1,20 +1,26 @@
-import { useEffect, useState } from "react";
-import { useMatch, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useMatch, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
 	closeModal,
-	createSubcategory,
-	updateSubcategory,
-	deleteSubcategory,
-	updateModalInputValue,
+	getSubcategoriesAsync,
+	createSubcategoryAsync,
+	updateSubcategoryAsync,
+	deleteSubcategoryAsync,
+	removeSubcategoriesFormError,
 } from "../../store/actions";
-import { modalDataSelector, modalTypeSelector } from "../../store/selectors";
+import {
+	modalDataSelector,
+	modalTypeSelector,
+	subcategoriesSelector,
+	subcategoriesTitleSelector,
+	subcategoriesErrorSelector,
+	subcategoriesLoadingStatusSelector,
+} from "../../store/selectors";
 import { categoryFormSchema } from "../../scheme";
-import { request } from "../../../utils";
 import { MODAL_TYPES, ROLES } from "../../../constants";
-import { WithModal } from "../../hoc";
 import {
 	Form,
 	FormGroup,
@@ -25,27 +31,26 @@ import {
 	CategoryCreatorForm,
 	PrivateCategoriesManagement,
 } from "../../components";
+import { WithModal } from "../../hoc";
 
 const ModalWindowEdit = WithModal(ModalEdit);
 const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const SubcategoriesManagement = () => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [isDisabled, setIsDisabled] = useState(true);
-	const [serverError, setServerError] = useState(null);
-	const [dataNotExist, setDataNotExist] = useState(false);
-	const [showErrorForm, setShowErrorForm] = useState(false);
-	const [subcategories, setSubcategories] = useState([]);
-	const [serverErrorForm, setServerErrorForm] = useState(null);
-	const [shouldUpdateSubategories, setShouldUpdateSubcategories] = useState(false);
+	const serverError = useSelector(subcategoriesErrorSelector);
+	const currentModal = useSelector(modalTypeSelector);
+	const loadingStatus = useSelector(subcategoriesLoadingStatusSelector);
+	const subcategories = useSelector(subcategoriesSelector);
+	const subcategoriesTitle = useSelector(subcategoriesTitleSelector);
+	const { id, valueToUpdate, newValueToUpdate } = useSelector(modalDataSelector);
 
 	const params = useParams();
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const isSubcategoriesPage = !!useMatch(`/categories-m/:id/subcategories-m`);
 
-	const currentModal = useSelector(modalTypeSelector);
-	const { id, valueToUpdate, newValueToUpdate } = useSelector(modalDataSelector);
+	useEffect(() => {
+		dispatch(getSubcategoriesAsync(params.id));
+	}, [dispatch, params.id]);
 
 	const {
 		register,
@@ -62,87 +67,12 @@ export const SubcategoriesManagement = () => {
 
 	const titleErrorMessage = errors.title?.message;
 
-	useEffect(() => {
-		// setIsLoading(true);
-
-		request(`/api/categories/${params.id}/subcategories`)
-			.then(response => {
-				if (!isLoading) {
-					if (response.data.length === 0) {
-						setDataNotExist(true);
-						// navigate("/subcategories-m-not-exist", { replace: true });
-
-						return;
-					}
-
-					if (response.error) {
-						setServerError(response.error);
-
-						return;
-					}
-
-					setDataNotExist(false);
-					setSubcategories(response.data);
-				}
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				// setIsLoading(false);
-			});
-	}, [navigate, params.id, shouldUpdateSubategories]);
-
-	useEffect(() => {
-		if (newValueToUpdate === valueToUpdate) {
-			setIsDisabled(true);
-		}
-	}, [newValueToUpdate, valueToUpdate]);
+	const checkFieldErrors = !!serverError || !!titleErrorMessage;
 
 	const onSubmit = ({ title }) => {
-		setShouldUpdateSubcategories(true);
-
-		request(`/api/categories/${params.id}/subcategories/create`, "POST", { title })
-			.then(response => {
-				if (response.error) {
-					setServerErrorForm(`Ошибка запроса: ${response.error}`);
-					setShowErrorForm(true);
-
-					return;
-				}
-
-				dispatch(createSubcategory(response.data));
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				setShouldUpdateSubcategories(false);
-				reset();
-			});
-	};
-
-	const handleDelete = id => {
-		setShouldUpdateSubcategories(true);
-
-		request(`/api/subcategories/${id}/delete`, "DELETE")
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				dispatch(deleteSubcategory(id));
-				setShouldUpdateSubcategories(false);
-			});
-
-		dispatch(closeModal());
-	};
-
-	const onChangeValue = ({ target }) => {
-		dispatch(updateModalInputValue(target.value));
-
-		if (target.value.trim().length !== 0) {
-			setIsDisabled(false);
-		} else {
-			setIsDisabled(true);
-		}
-
-		if (target.value.trim() === valueToUpdate) {
-			setIsDisabled(true);
-		}
+		dispatch(createSubcategoryAsync(params.id, title)).finally(() => {
+			reset();
+		});
 	};
 
 	const handleEdit = (id, newValueToUpdate) => {
@@ -152,32 +82,24 @@ export const SubcategoriesManagement = () => {
 			return;
 		}
 
-		setShouldUpdateSubcategories(true);
-
-		request(isSubcategoriesPage && `/api/subcategories/${id}/update`, "PATCH", {
-			title: trimmedNewValueToUpdate,
-		})
-			.then(response => {
-				dispatch(updateSubcategory(response.data));
-			})
-			.catch(e => console.log(e.message))
-			.finally(() => {
-				setShouldUpdateSubcategories(false);
-				setIsDisabled(true);
-			});
-
-		dispatch(closeModal());
+		dispatch(updateSubcategoryAsync(id, trimmedNewValueToUpdate)).finally(() =>
+			dispatch(closeModal()),
+		);
 	};
 
+	const handleDelete = id =>
+		dispatch(deleteSubcategoryAsync(id)).finally(() => dispatch(closeModal()));
+
 	return (
-		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]} serverError={serverError}>
-			<PrivateContent pageTitle={"Управление подкатегориями"}>
+		<PrivateProvider access={[ROLES.ADMIN, ROLES.MODERATOR]}>
+			<PrivateContent
+				subTitle={subcategoriesTitle}
+				pageTitle={"Управление подкатегориями"}
+				serverError={serverError}
+				loadingStatus={loadingStatus}
+			>
 				<CategoryCreatorForm>
-					<Form
-						onSubmit={handleSubmit(onSubmit)}
-						showErrorForm={showErrorForm}
-						serverErrorForm={serverErrorForm}
-					>
+					<Form onSubmit={handleSubmit(onSubmit)} serverError={serverError}>
 						<FormGroup
 							type="text"
 							name="title"
@@ -187,48 +109,44 @@ export const SubcategoriesManagement = () => {
 							error={titleErrorMessage}
 							{...register("title", {
 								onChange: () => {
-									setServerErrorForm(null);
-									setShowErrorForm(false);
+									if (serverError) {
+										dispatch(removeSubcategoriesFormError());
+									}
 								},
 							})}
 						/>
 						<FormGroup
 							buttonText="Создать подкатегорию"
 							isFormButton={true}
-							serverErrorForm={serverErrorForm}
-							titleErrorMessage={titleErrorMessage}
+							checkFieldErrors={checkFieldErrors}
 						/>
 					</Form>
 				</CategoryCreatorForm>
-
-				{!dataNotExist && (
-					<>
-						<PrivateCategoriesManagement
-							data={subcategories}
-							cardLinkText={"Перейти к товарам"}
-							isSubcategoriesPage={isSubcategoriesPage}
-						/>
-					</>
-				)}
-
-				{/* Рендер модального окна */}
-				{currentModal === MODAL_TYPES.CONFIRM ? (
-					<ModalWindowConfirm
-						message="Удалить подкатегорию?"
-						handleApply={() => handleDelete(id)}
-					/>
-				) : (
-					currentModal === MODAL_TYPES.FORM_UPDATE && (
-						<ModalWindowEdit
-							onChange={onChangeValue}
-							handleEdit={() => handleEdit(id, newValueToUpdate)}
-							isDisabled={isDisabled}
-							modalTitle="Редактирование"
-							newValueToUpdate={newValueToUpdate}
-						/>
-					)
-				)}
+				<PrivateCategoriesManagement
+					data={subcategories}
+					serverError={serverError}
+					cardLinkText={"Перейти к товарам"}
+					loadingStatus={loadingStatus}
+					isSubcategoriesPage={isSubcategoriesPage}
+				/>
 			</PrivateContent>
+
+			{/* Рендер модального окна */}
+			{currentModal === MODAL_TYPES.CONFIRM ? (
+				<ModalWindowConfirm
+					message={"Удалить подкатегорию?"}
+					handleApply={() => handleDelete(id)}
+				/>
+			) : (
+				currentModal === MODAL_TYPES.FORM_UPDATE && (
+					<ModalWindowEdit
+						handleEdit={() => handleEdit(id, newValueToUpdate)}
+						modalTitle="Редактирование"
+						valueToUpdate={valueToUpdate}
+						newValueToUpdate={newValueToUpdate}
+					/>
+				)
+			)}
 		</PrivateProvider>
 	);
 };

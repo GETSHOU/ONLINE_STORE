@@ -15,7 +15,7 @@ const initialProductState = {
 	options: {
 		loadingStatus: false,
 	},
-	error: "",
+	error: null,
 };
 
 export const productReducer = (state = initialProductState, action) => {
@@ -25,11 +25,6 @@ export const productReducer = (state = initialProductState, action) => {
 				...state,
 				product: action.payload,
 			};
-		case ACTION_TYPE.SET_PRODUCT_ERROR:
-			return {
-				...state,
-				error: action.payload,
-			};
 		case ACTION_TYPE.SET_PRODUCT_LOADING_STATUS:
 			return {
 				...state,
@@ -38,19 +33,6 @@ export const productReducer = (state = initialProductState, action) => {
 					loadingStatus: action.payload,
 				},
 			};
-		case ACTION_TYPE.CREATE_PRODUCT:
-			return {
-				...state,
-				product: action.payload,
-			};
-		case ACTION_TYPE.UPDATE_PRODUCT:
-			return {
-				...state,
-				product: action.payload,
-			};
-
-		case ACTION_TYPE.DELETE_PRODUCT:
-			return initialProductState;
 		case ACTION_TYPE.CREATE_COMMENT:
 			return {
 				...state,
@@ -85,6 +67,11 @@ export const productReducer = (state = initialProductState, action) => {
 					),
 				},
 			};
+		case ACTION_TYPE.SET_PRODUCT_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
 		case ACTION_TYPE.CREATE_COMMENT_ERROR:
 			return {
 				...state,
@@ -100,7 +87,6 @@ export const productReducer = (state = initialProductState, action) => {
 				...state,
 				error: action.payload,
 			};
-
 		default:
 			return state;
 	}

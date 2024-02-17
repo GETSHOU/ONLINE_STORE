@@ -2,7 +2,7 @@ import { ACTION_TYPE } from "../../../constants";
 import { commentsService } from "../../../services";
 
 export const updateCommentAsync = (commentId, updatedComment) => dispatch => {
-	return commentsService
+	commentsService
 		.update(commentId, updatedComment)
 		.then(res => {
 			if (res.error) {

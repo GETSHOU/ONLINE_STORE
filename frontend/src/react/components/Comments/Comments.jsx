@@ -1,6 +1,7 @@
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../store/actions";
+import { userIsLoggedInSelector } from "../../store/selectors";
 import { getCommentsCount } from "../../../utils";
 import { MODAL_TYPES } from "../../../constants";
 import { Comment } from "./components/Comment/Comment";
@@ -13,7 +14,7 @@ import styles from "./Comments.module.scss";
 
 export const Comments = ({ comments, productId, serverError, loadingStatus }) => {
 	const dispatch = useDispatch();
-	const userIsLoggedIn = useSelector(({ user }) => user.isLoggedIn);
+	const userIsLoggedIn = useSelector(userIsLoggedInSelector);
 
 	const handleOpenAuthModal = () =>
 		dispatch(openModal({ type: MODAL_TYPES.AUTHORIZATION }));

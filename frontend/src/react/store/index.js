@@ -8,22 +8,22 @@ import thunk from "redux-thunk";
 import {
 	appReducer,
 	userReducer,
+	usersReducer,
+	rolesReducer,
 	productReducer,
-	categoryReducer,
 	productsReducer,
 	categoriesReducer,
-	subcategoryReducer,
 	subcategoriesReducer,
 } from "./reducers";
 
 const reducer = combineReducers({
 	app: appReducer,
 	user: userReducer,
+	users: usersReducer,
+	roles: rolesReducer,
 	product: productReducer,
 	products: productsReducer,
-	category: categoryReducer,
 	categories: categoriesReducer,
-	subcategory: subcategoryReducer,
 	subcategories: subcategoriesReducer,
 });
 

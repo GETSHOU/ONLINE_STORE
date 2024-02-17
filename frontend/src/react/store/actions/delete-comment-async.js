@@ -2,7 +2,7 @@ import { ACTION_TYPE } from "../../../constants";
 import { commentsService } from "../../../services";
 
 export const deleteCommentAsync = (productId, commentId) => dispatch => {
-	return commentsService
+	commentsService
 		.delete(productId, commentId)
 		.then(res => {
 			if (res.error) {

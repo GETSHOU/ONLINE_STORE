@@ -6,7 +6,11 @@ export const ProductInfoSkeleton = () => {
 	return (
 		<div className={styles.product}>
 			<div className={styles.product__image}>
-				<Skeleton className={styles.product__imageSkeleton} inline={true} />
+				<Skeleton
+					containerClassName={styles.product__imageSkeleton}
+					height={"100%"}
+					inline={true}
+				/>
 			</div>
 			<div className={styles.product__info}>
 				<Skeleton

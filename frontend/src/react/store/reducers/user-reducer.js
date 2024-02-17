@@ -13,6 +13,7 @@ const initialUserState = {
 		orders: [],
 	},
 	isLoggedIn: false,
+	error: null,
 };
 
 export const userReducer = (state = initialUserState, action) => {
@@ -67,6 +68,26 @@ export const userReducer = (state = initialUserState, action) => {
 						return item;
 					}),
 				},
+			};
+		case ACTION_TYPE.REGISTRATION_USER_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.REMOVE_REGISTRATION_USER_FORM_ERROR:
+			return {
+				...state,
+				error: null,
+			};
+		case ACTION_TYPE.AUTHORIZATION_USER_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.REMOVE_AUTHORIZATION_USER_FORM_ERROR:
+			return {
+				...state,
+				error: null,
 			};
 		default:
 			return state;

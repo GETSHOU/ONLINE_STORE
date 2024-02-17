@@ -38,6 +38,14 @@
 		&:hover > * {
 			color: $main-color;
 		}
+
+		&:disabled {
+			cursor: default;
+
+			& > * {
+				color: $main-grey;
+			}
+		}
 	}
 
 	&Title {
