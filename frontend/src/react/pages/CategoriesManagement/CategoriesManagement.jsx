@@ -37,6 +37,7 @@ const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const CategoriesManagement = () => {
 	const [editButtonIsDisabled, setEditButtonIsDisabled] = useState(false);
+	const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 	const [confirmButtonIsDisabled, setConfirmButtonIsDisabled] = useState(false);
 
 	const formError = useSelector(formErrorCreateCategorySelector);
@@ -63,7 +64,7 @@ export const CategoriesManagement = () => {
 			title: "",
 		},
 		resolver: yupResolver(categoryFormSchema),
-		mode: "onSubmit",
+		mode: "all",
 	});
 
 	const titleErrorMessage = errors.title?.message;
@@ -71,7 +72,10 @@ export const CategoriesManagement = () => {
 	const checkFieldErrors = !!formError || !!titleErrorMessage;
 
 	const onSubmit = ({ title }) => {
-		dispatch(createCategoryAsync(title));
+		setSubmitButtonIsDisabled(true);
+
+		dispatch(createCategoryAsync(title)).finally(() => setSubmitButtonIsDisabled(false));
+
 		reset();
 	};
 
@@ -111,7 +115,7 @@ export const CategoriesManagement = () => {
 							labelname="Название категории"
 							placeholder=""
 							autoComplete="on"
-							error={titleErrorMessage}
+							fieldError={titleErrorMessage}
 							{...register("title", {
 								onChange: () => {
 									if (formError) {
@@ -124,6 +128,7 @@ export const CategoriesManagement = () => {
 							buttonText="Создать категорию"
 							isFormButton={true}
 							checkFieldErrors={checkFieldErrors}
+							submitButtonIsDisabled={submitButtonIsDisabled}
 						/>
 					</Form>
 				</CategoryCreatorForm>

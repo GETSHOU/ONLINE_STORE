@@ -38,6 +38,7 @@ const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const ProductsManagement = () => {
 	const [editButtonIsDisabled, setEditButtonIsDisabled] = useState(false);
+	const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 	const [confirmButtonIsDisabled, setConfirmButtonIsDisabled] = useState(false);
 
 	const products = useSelector(productsSelector);
@@ -91,6 +92,8 @@ export const ProductsManagement = () => {
 		!!previewImageUrlErrorMessage;
 
 	const onSubmit = ({ title, previewImageUrl, vendor, vendorCode, specs, price }) => {
+		setSubmitButtonIsDisabled(true);
+
 		dispatch(
 			createProductAsync(params.id, {
 				title,
@@ -100,7 +103,8 @@ export const ProductsManagement = () => {
 				specs,
 				price,
 			}),
-		);
+		).finally(() => setSubmitButtonIsDisabled(false));
+
 		reset();
 	};
 
@@ -228,6 +232,7 @@ export const ProductsManagement = () => {
 							buttonText="Создать товар"
 							isFormButton={true}
 							checkFieldErrors={checkFieldErrors}
+							submitButtonIsDisabled={submitButtonIsDisabled}
 						/>
 					</Form>
 				</ProductCreatorForm>

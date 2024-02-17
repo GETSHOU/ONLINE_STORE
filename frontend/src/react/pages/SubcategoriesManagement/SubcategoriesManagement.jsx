@@ -38,6 +38,7 @@ const ModalWindowConfirm = WithModal(ModalConfirm);
 
 export const SubcategoriesManagement = () => {
 	const [editButtonIsDisabled, setEditButtonIsDisabled] = useState(false);
+	const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 	const [confirmButtonIsDisabled, setConfirmButtonIsDisabled] = useState(false);
 
 	const formError = useSelector(formErrorCreateSubcategorySelector);
@@ -74,7 +75,12 @@ export const SubcategoriesManagement = () => {
 	const checkFieldErrors = !!formError || !!titleErrorMessage;
 
 	const onSubmit = ({ title }) => {
-		dispatch(createSubcategoryAsync(params.id, title));
+		setSubmitButtonIsDisabled(true);
+
+		dispatch(createSubcategoryAsync(params.id, title)).finally(() =>
+			setSubmitButtonIsDisabled(false),
+		);
+
 		reset();
 	};
 
@@ -114,7 +120,7 @@ export const SubcategoriesManagement = () => {
 							labelname="Название подкатегории"
 							placeholder=""
 							autoComplete="on"
-							error={titleErrorMessage}
+							fieldError={titleErrorMessage}
 							{...register("title", {
 								onChange: () => {
 									if (formError) {
@@ -127,6 +133,7 @@ export const SubcategoriesManagement = () => {
 							buttonText="Создать подкатегорию"
 							isFormButton={true}
 							checkFieldErrors={checkFieldErrors}
+							submitButtonIsDisabled={submitButtonIsDisabled}
 						/>
 					</Form>
 				</CategoryCreatorForm>

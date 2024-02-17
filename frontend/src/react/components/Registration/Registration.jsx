@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,6 +17,8 @@ import { Form } from "../Form/Form";
 import { FormGroup } from "../Form/components/FormGroup/FormGroup";
 
 export const Registration = () => {
+	const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
+
 	const formError = useSelector(formErrorRegSelector);
 	const serverError = useSelector(userErrorSelector);
 	const currentModal = useSelector(modalTypeSelector);
@@ -52,8 +55,13 @@ export const Registration = () => {
 		!!passwordErrorMessage ||
 		!!passcheckErrorMessage;
 
-	const onSubmit = ({ email, name, password }) =>
-		dispatch(registrationUserAsync({ email, name, password }));
+	const onSubmit = ({ email, name, password }) => {
+		setSubmitButtonIsDisabled(true);
+
+		dispatch(registrationUserAsync({ email, name, password })).finally(() =>
+			setSubmitButtonIsDisabled(false),
+		);
+	};
 
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)} formError={formError}>
@@ -121,6 +129,7 @@ export const Registration = () => {
 				buttonText="Регистрация"
 				isFormButton={true}
 				checkFieldErrors={checkFieldErrors}
+				submitButtonIsDisabled={submitButtonIsDisabled}
 			/>
 		</Form>
 	);
