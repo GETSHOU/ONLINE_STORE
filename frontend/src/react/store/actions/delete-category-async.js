@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 import { categoriesService } from "../../../services";
 
-export const deleteCategoryAsync = categoryId => dispatch => {
+export const deleteCategoryAsync = categoryId => dispatch =>
 	categoriesService
 		.delete(categoryId)
 		.then(res => {
@@ -17,4 +17,3 @@ export const deleteCategoryAsync = categoryId => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.DELETE_CATEGORY_ERROR, payload: e.message });
 		});
-};

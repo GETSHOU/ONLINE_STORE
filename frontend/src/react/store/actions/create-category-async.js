@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 import { categoriesService } from "../../../services";
 
-export const createCategoryAsync = category => dispatch => {
+export const createCategoryAsync = category => dispatch =>
 	categoriesService
 		.create(category)
 		.then(res => {
@@ -17,4 +17,3 @@ export const createCategoryAsync = category => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.CREATE_CATEGORY_ERROR, payload: e.message });
 		});
-};

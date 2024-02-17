@@ -5,7 +5,7 @@ import { getParentCategoryTitle } from "../../../utils";
 export const getProductsAsync = id => dispatch => {
 	dispatch({ type: ACTION_TYPE.SET_PRODUCTS_LOADING_STATUS, payload: true });
 
-	productsService
+	return productsService
 		.getAll(id)
 		.then(res => {
 			if (res.error) {

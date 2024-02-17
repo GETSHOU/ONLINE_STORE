@@ -3,7 +3,7 @@ import { authService } from "../../../services";
 import { closeModal } from "./close-modal";
 import { setUser } from "./set-user";
 
-export const authorizationUserAsync = user => dispatch => {
+export const authorizationUserAsync = user => dispatch =>
 	authService
 		.authorization(user)
 		.then(res => {
@@ -20,4 +20,3 @@ export const authorizationUserAsync = user => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.AUTHORIZATION_USER_ERROR, payload: e.message });
 		});
-};

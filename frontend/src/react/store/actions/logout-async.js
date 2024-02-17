@@ -4,7 +4,7 @@ import { authService } from "../../../services";
 const currentBasketDataJSON = localStorage.getItem("basket");
 const basketFromStorage = JSON.parse(currentBasketDataJSON);
 
-export const logoutAsync = () => dispatch => {
+export const logoutAsync = () => dispatch =>
 	authService
 		.logout()
 		.then(res => {
@@ -19,4 +19,3 @@ export const logoutAsync = () => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.LOGOUT_ERROR, payload: e.message });
 		});
-};

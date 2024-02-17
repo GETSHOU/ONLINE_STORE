@@ -2,7 +2,7 @@ import { ACTION_TYPE } from "../../../constants";
 import { subcategoriesService } from "../../../services";
 
 export const updateSubcategoryAsync =
-	(subcategoryId, updatedSubcategorytitle) => dispatch => {
+	(subcategoryId, updatedSubcategorytitle) => dispatch =>
 		subcategoriesService
 			.update(subcategoryId, updatedSubcategorytitle)
 			.then(res => {
@@ -18,4 +18,3 @@ export const updateSubcategoryAsync =
 			.catch(e => {
 				dispatch({ type: ACTION_TYPE.UPDATE_SUBCATEGORY_ERROR, payload: e.message });
 			});
-	};

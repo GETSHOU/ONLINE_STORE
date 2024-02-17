@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 import { commentsService } from "../../../services";
 
-export const updateCommentAsync = (commentId, updatedComment) => dispatch => {
+export const updateCommentAsync = (commentId, updatedComment) => dispatch =>
 	commentsService
 		.update(commentId, updatedComment)
 		.then(res => {
@@ -17,4 +17,3 @@ export const updateCommentAsync = (commentId, updatedComment) => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.UPDATE_COMMENT_ERROR, payload: e.message });
 		});
-};

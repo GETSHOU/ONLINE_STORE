@@ -4,7 +4,7 @@ import { usersService } from "../../../services";
 export const getUsersAsync = () => dispatch => {
 	dispatch({ type: ACTION_TYPE.SET_USERS_LOADING_STATUS, payload: true });
 
-	usersService
+	return usersService
 		.get()
 		.then(res => {
 			if (res.error) {

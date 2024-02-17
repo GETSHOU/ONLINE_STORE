@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 import { subcategoriesService } from "../../../services";
 
-export const deleteSubcategoryAsync = subcategoryId => dispatch => {
+export const deleteSubcategoryAsync = subcategoryId => dispatch =>
 	subcategoriesService
 		.delete(subcategoryId)
 		.then(res => {
@@ -17,4 +17,3 @@ export const deleteSubcategoryAsync = subcategoryId => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.DELETE_SUBCATEGORY_ERROR, payload: e.message });
 		});
-};

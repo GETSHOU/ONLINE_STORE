@@ -4,7 +4,7 @@ import { rolesService } from "../../../services";
 export const getRolesAsync = () => dispatch => {
 	dispatch({ type: ACTION_TYPE.SET_ROLES_LOADING_STATUS, payload: true });
 
-	rolesService
+	return rolesService
 		.get()
 		.then(res => {
 			if (res.error) {

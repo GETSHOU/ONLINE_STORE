@@ -4,7 +4,7 @@ import { categoriesService } from "../../../services";
 export const getCategoriesAsync = () => dispatch => {
 	dispatch({ type: ACTION_TYPE.SET_CATEGORIES_LOADING_STATUS, payload: true });
 
-	categoriesService
+	return categoriesService
 		.get()
 		.then(res => {
 			if (res.error) {

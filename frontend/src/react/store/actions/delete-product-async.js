@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 import { productsService } from "../../../services";
 
-export const deleteProductAsync = productId => dispatch => {
+export const deleteProductAsync = productId => dispatch =>
 	productsService
 		.delete(productId)
 		.then(res => {
@@ -17,4 +17,3 @@ export const deleteProductAsync = productId => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.DELETE_PRODUCT_ERROR, payload: e.message });
 		});
-};

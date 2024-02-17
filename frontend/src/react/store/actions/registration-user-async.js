@@ -3,7 +3,7 @@ import { authService } from "../../../services";
 import { closeModal } from "./close-modal";
 import { setUser } from "./set-user";
 
-export const registrationUserAsync = user => dispatch => {
+export const registrationUserAsync = user => dispatch =>
 	authService
 		.registration(user)
 		.then(res => {
@@ -20,4 +20,3 @@ export const registrationUserAsync = user => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.REGISTRATION_USER_ERROR, payload: e.message });
 		});
-};

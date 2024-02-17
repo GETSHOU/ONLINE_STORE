@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 import { productsService } from "../../../services";
 
-export const createProductAsync = (subcategoryId, product) => dispatch => {
+export const createProductAsync = (subcategoryId, product) => dispatch =>
 	productsService
 		.create(subcategoryId, product)
 		.then(res => {
@@ -17,4 +17,3 @@ export const createProductAsync = (subcategoryId, product) => dispatch => {
 		.catch(e => {
 			dispatch({ type: ACTION_TYPE.CREATE_PRODUCT_ERROR, payload: e.message });
 		});
-};

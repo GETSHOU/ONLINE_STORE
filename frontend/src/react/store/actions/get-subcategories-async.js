@@ -5,7 +5,7 @@ import { getParentCategoryTitle } from "../../../utils";
 export const getSubcategoriesAsync = id => dispatch => {
 	dispatch({ type: ACTION_TYPE.SET_SUBCATEGORIES_LOADING_STATUS, payload: true });
 
-	subcategoriesService
+	return subcategoriesService
 		.get(id)
 		.then(res => {
 			if (res.error) {

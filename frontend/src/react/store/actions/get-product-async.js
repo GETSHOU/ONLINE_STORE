@@ -4,7 +4,7 @@ import { productsService } from "../../../services";
 export const getProductAsync = id => dispatch => {
 	dispatch({ type: ACTION_TYPE.SET_PRODUCT_LOADING_STATUS, payload: true });
 
-	productsService
+	return productsService
 		.getOne(id)
 		.then(res => {
 			if (res.error) {
