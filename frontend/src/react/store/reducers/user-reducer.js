@@ -69,6 +69,11 @@ export const userReducer = (state = initialUserState, action) => {
 					}),
 				},
 			};
+		case ACTION_TYPE.LOGOUT_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
 		case ACTION_TYPE.REGISTRATION_USER_ERROR:
 			return {
 				...state,
