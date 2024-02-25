@@ -8,7 +8,7 @@ export const ProductContent = ({ product, serverError, loadingStatus }) => {
 
 	return (
 		<>
-			{!loadingStatus ? (
+			{loadingStatus ? (
 				!serverError && (
 					<div className={styles.product}>
 						<div className={`${styles.product__info} ${styles.product__left}`}>

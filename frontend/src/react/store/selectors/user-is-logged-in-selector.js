@@ -1,1 +1,1 @@
-export const userIsLoggedInSelector = ({ user }) => user.isLoggedIn;
+export const userIsLoggedInSelector = ({ user }) => user.flags.isLoggedIn;

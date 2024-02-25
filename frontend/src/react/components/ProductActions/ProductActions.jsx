@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IoMdCart } from "react-icons/io";
+import { FaCartShopping } from "react-icons/fa6";
 import { addProductInBasket, changeNumberOfProducts } from "../../store/actions";
 import { basketSelector } from "../../store/selectors";
 import { COUNTER_RULES } from "../../../constants";
@@ -55,7 +55,7 @@ export const ProductActions = ({ product, loadingStatus }) => {
 				<Button
 					type="button"
 					text="В корзину"
-					icon={<IoMdCart className="icon iconButton" />}
+					icon={<FaCartShopping className="icon iconButton" />}
 					onClick={() => handleAddToBasket(product.id)}
 					isDisabled={isDisabled}
 				/>

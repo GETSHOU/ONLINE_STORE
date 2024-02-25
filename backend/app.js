@@ -13,6 +13,7 @@ const {
 	commentsController,
 	categoriesController,
 	subcategoriesController,
+	ordersController,
 } = require("./controllers");
 const { authenticated, hasRole } = require("./middlewares");
 const { ROLES } = require("./constants/roles");
@@ -233,6 +234,31 @@ app.delete(
 		commentsController.delete(req.params.productId, req.params.commentId, res);
 	}
 );
+
+// Получение списка заказов
+app.get(routes.ordersManagement.get, (req, res) => {
+	ordersController.get(req.params.userId, res);
+});
+
+// Создание заказа
+app.post(routes.ordersManagement.create, (req, res) => {
+	ordersController.create(
+		req.params.userId,
+		{
+			client: req.user.id,
+			public_order_id: req.body.publicOrderId,
+			products: req.body.products.map((item) => {
+				return {
+					product: item.productId,
+					product_count: item.productCount,
+				};
+			}),
+			total_count: req.body.totalCount,
+			total_price: req.body.totalPrice,
+		},
+		res
+	);
+});
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING).then(() => {
 	app.listen(port, () => {

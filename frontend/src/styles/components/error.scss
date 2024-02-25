@@ -1,6 +1,13 @@
 .error {
 	font-size: .9rem;
 	line-height: 1rem;
-	color: $form-error;
+	color: $error-color;
+	font-weight: 500;
+}
+
+.success {
+	font-size: .9rem;
+	line-height: 1rem;
+	color: $success-color;
 	font-weight: 500;
 }

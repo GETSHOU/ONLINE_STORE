@@ -31,7 +31,7 @@ const ProductSchema = mongoose.Schema({
 	],
 	_publicId: {
 		type: String,
-		default: generatePublicId,
+		default: generatePublicId(100000, 900000),
 	},
 	vendor_code: {
 		type: String,

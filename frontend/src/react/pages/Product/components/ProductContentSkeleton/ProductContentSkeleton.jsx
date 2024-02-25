@@ -8,17 +8,30 @@ export const ProductContentSkeleton = props => {
 	return (
 		<div className={styles.product}>
 			<div className={`${styles.product__info} ${styles.product__left}`}>
-				<Skeleton className={styles.product__imageSkeleton} {...props} />
+				<Skeleton
+					className={`${styles.product__imageSkeleton} ${styles.skeleton}`}
+					{...props}
+				/>
 			</div>
 			<div className={`${styles.product__info} ${styles.product__center}`}>
 				<div className={styles.specs}>
 					<div className={styles.specs__row}>
 						<p className={styles.specs__top}>
-							<Skeleton width={"10rem"} height={"1.2rem"} {...props} />
+							<Skeleton
+								width={"10rem"}
+								height={"1.2rem"}
+								className={styles.skeleton}
+								{...props}
+							/>
 						</p>
 					</div>
 					<div className={styles.specs__row}>
-						<Skeleton width={"15rem"} height={"1.2rem"} {...props} />
+						<Skeleton
+							width={"15rem"}
+							height={"1.2rem"}
+							className={styles.skeleton}
+							{...props}
+						/>
 					</div>
 					<div className={styles.specs__row}>
 						<ul className={styles.specs__bottom}>
@@ -27,6 +40,7 @@ export const ProductContentSkeleton = props => {
 								count={3}
 								width={"100%"}
 								height={20}
+								className={styles.skeleton}
 								{...props}
 							/>
 						</ul>

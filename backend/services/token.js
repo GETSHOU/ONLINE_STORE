@@ -8,7 +8,7 @@ module.exports = {
 	},
 	verify(token) {
 		if (!token) {
-			throw new Error("Token not provided");
+			throw new Error("Только для авторизованных пользователей");
 		}
 
 		return jwt.verify(token, secret);

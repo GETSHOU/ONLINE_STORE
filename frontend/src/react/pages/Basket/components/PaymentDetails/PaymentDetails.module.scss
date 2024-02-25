@@ -1,54 +1,63 @@
 @use "../../../../../styles/variables.scss" as *;
 
-.form {
+.wrapper {
 	display: flex;
-	flex-direction: column;
 	width: 100%;
 	padding: 20px;
 }
 
-.info, .total {
+.details {
 	display: flex;
-	width: 100%;
-	padding: 20px 0;
-}
-
-.textRow {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	margin-bottom: 10px;
-	color: $main-grey;
-	font-weight: 500;
-
-	&:last-child {
-		margin-bottom: 0;
-	}
-}
-
-.info {
 	flex-direction: column;
-	padding-top: 0;
-}
+	width: 100%;
 
-.total {
-	border-top: 1px solid $very-light-grey;
+	&__count, &__total {
+		display: flex;
+		width: 100%;
+		padding: 20px 0;
+	}
 
-	.textRow {
+	&__text {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		margin-bottom: 10px;
+		color: $main-grey;
+		font-weight: 500;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__count {
+		padding-top: 0;
+	}
+
+	&__total {
+		border-top: 1px solid $very-light-grey;
+
+		.details__text {
+			color: $main-color;
+			font-size: 1.2rem;
+			font-weight: bold;
+		}
+	}
+
+	&__price {
+		font-weight: 500;
 		color: $main-color;
-		font-size: 1.2rem;
+	}
+
+	&__totalPrice {
+		font-size: 1.3rem;
 		font-weight: bold;
 	}
 }
 
-.price {
-	font-weight: 500;
-	color: $main-color;
-}
 
-.totalPrice {
-	font-size: 1.3rem;
-	font-weight: bold;
 
-}
+
+
+

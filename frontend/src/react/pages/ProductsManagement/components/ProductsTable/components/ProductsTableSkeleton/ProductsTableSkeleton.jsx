@@ -11,24 +11,28 @@ export const ProductsTableSkeleton = ({ products, baseColor, highlightColor }, p
 					<Skeleton
 						width={"100%"}
 						height={"100%"}
+						className={styles.skeleton}
 						containerClassName={`${styles.table__rowSkeleton}`}
 						{...props}
 					/>
 					<Skeleton
 						width={"100%"}
 						height={"100%"}
+						className={styles.skeleton}
 						containerClassName={`${styles.table__rowSkeleton}`}
 						{...props}
 					/>
 					<Skeleton
 						width={"100%"}
 						height={"100%"}
+						className={styles.skeleton}
 						containerClassName={`${styles.table__rowSkeleton}`}
 						{...props}
 					/>
 					<Skeleton
 						width={"100%"}
 						height={"100%"}
+						className={styles.skeleton}
 						containerClassName={`${styles.table__rowSkeleton}`}
 						{...props}
 					/>

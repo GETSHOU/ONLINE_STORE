@@ -8,6 +8,7 @@ export const ProductActionsSkeleton = props => {
 			<div className={styles.price}>
 				<Skeleton
 					height={"1.5rem"}
+					className={styles.skeleton}
 					containerClassName={styles.price__priceSkeleton}
 					{...props}
 				/>
@@ -15,6 +16,7 @@ export const ProductActionsSkeleton = props => {
 			<div className={styles.actions}>
 				<Skeleton
 					height={"50px"}
+					className={styles.skeleton}
 					containerClassName={styles.actions__actionSkeleton}
 					{...props}
 				/>

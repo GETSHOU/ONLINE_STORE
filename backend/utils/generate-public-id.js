@@ -1,7 +1,9 @@
 let usedIds = new Set();
 
-const generatePublicId = () => {
-	const id = Math.floor(Math.random() * 900000) + 100000;
+const generatePublicId = (min, max) => {
+	const range = max - min;
+
+	const id = Math.floor(Math.random() * range) + min;
 
 	usedIds.add(id);
 

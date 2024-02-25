@@ -5,6 +5,7 @@ import styles from "./FormGroup.module.scss";
 export const FormGroup = forwardRef(
 	(
 		{
+			onSubmit,
 			fieldError,
 			buttonText,
 			isFormButton,
@@ -36,6 +37,7 @@ export const FormGroup = forwardRef(
 						<Button
 							type={"submit"}
 							text={buttonText}
+							onClick={onSubmit && onSubmit}
 							isDisabled={checkFieldErrors || submitButtonIsDisabled}
 						/>
 					</div>

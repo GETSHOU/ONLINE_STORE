@@ -32,8 +32,13 @@ export const Comments = ({ comments, productId, serverError, loadingStatus }) =>
 					</div>
 				)
 			) : (
-				<div className={styles.wrapperTitle}>
-					<Skeleton inline={true} height={"1.3rem"} width={250} />
+				<div className={`${styles.wrapperTitle} ${styles.skeleton}`}>
+					<Skeleton
+						inline={true}
+						height={"1.3rem"}
+						width={250}
+						containerClassName={styles.skeleton__title}
+					/>
 				</div>
 			)}
 			<div className={styles.comments}>

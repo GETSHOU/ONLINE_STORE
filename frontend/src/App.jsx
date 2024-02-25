@@ -6,6 +6,7 @@ import { ERRORS, ROLES } from "./constants";
 import {
 	Users,
 	Basket,
+	Orders,
 	Product,
 	Products,
 	HomePage,
@@ -52,6 +53,7 @@ export const App = () => {
 					<Route path="subcategories/:id" element={<Products />} />
 					<Route path="products/:id" element={<Product />} />
 					<Route path="basket" element={<Basket />} />
+					<Route path="orders/:id" element={<Orders />} />
 				</Route>
 
 				{/*Админ-панель*/}
@@ -76,4 +78,3 @@ export const App = () => {
 // TODO_3: Разобраться, что делать с количеством товаров на карточках категорий
 // TODO_4: Разделить роуты на разные файлы в Express.js (https://lk.result.school/pl/teach/control/lesson/view?id=321219502&editMode=0)
 // TODO_5: Добавить тени ко всем скелетонам
-// TODO_6: Создать обертку для скелетонов для темы скелетона

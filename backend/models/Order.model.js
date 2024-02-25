@@ -1,7 +1,16 @@
 const mongoose = require("mongoose");
+const { generatePublicId } = require("../utils");
 
 const OrderSchema = mongoose.Schema(
 	{
+		public_order_id: {
+			type: String,
+			default: generatePublicId(1000000, 9000000),
+		},
+		client: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User",
+		},
 		products: [
 			{
 				product: {
@@ -14,6 +23,10 @@ const OrderSchema = mongoose.Schema(
 				},
 			},
 		],
+		total_count: {
+			type: Number,
+			required: true,
+		},
 		total_price: {
 			type: Number,
 			required: true,

@@ -5,7 +5,7 @@ import styles from "../../PageTitle.module.scss";
 export const PageTitleSkeleton = props => {
 	return (
 		<div className={styles.pageTitle}>
-			<Skeleton {...props} />
+			<Skeleton {...props} className={styles.skeleton} />
 		</div>
 	);
 };

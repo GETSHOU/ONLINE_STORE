@@ -1,10 +1,7 @@
 import { ACTION_TYPE } from "../../../constants";
 import { authService } from "../../../services";
 
-const currentBasketDataJSON = localStorage.getItem("basket");
-const basketFromStorage = JSON.parse(currentBasketDataJSON);
-
-export const logoutAsync = () => dispatch =>
+export const logoutAsync = localStorageBasket => dispatch =>
 	authService
 		.logout()
 		.then(res => {
@@ -12,7 +9,7 @@ export const logoutAsync = () => dispatch =>
 				throw new Error(res.error);
 			}
 
-			dispatch({ type: ACTION_TYPE.LOGOUT, payload: basketFromStorage });
+			dispatch({ type: ACTION_TYPE.LOGOUT, payload: localStorageBasket });
 
 			sessionStorage.removeItem("userData");
 		})

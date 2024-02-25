@@ -5,7 +5,7 @@ import { ROLES } from "../../../constants";
 import { Container } from "../Container/Container";
 import styles from "./PrivateContent.module.scss";
 
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export const PrivateContent = ({
@@ -33,12 +33,14 @@ export const PrivateContent = ({
 								</div>
 							)
 						) : (
-							<Skeleton
-								width={"500px"}
-								height={"1.6rem"}
-								inline={true}
-								containerClassName={styles.header__subTitleSkeleton}
-							/>
+							<SkeletonTheme baseColor={"#B8B8B8"} highlightColor={"#CDCDCD"}>
+								<Skeleton
+									width={"500px"}
+									height={"1.6rem"}
+									inline={true}
+									containerClassName={styles.header__subTitleSkeleton}
+								/>
+							</SkeletonTheme>
 						)}
 					</header>
 					<main className={styles.content}>{children}</main>

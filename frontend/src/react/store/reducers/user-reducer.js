@@ -12,8 +12,21 @@ const initialUserState = {
 		basket: basketFromStorage || [],
 		orders: [],
 	},
-	isLoggedIn: false,
-	error: null,
+	serverMessages: {
+		user: {
+			userError: null,
+		},
+		orders: {
+			getOrdersError: null,
+			getOrdersSuccess: null,
+			createOrderError: null,
+			createOrderSuccess: null,
+		},
+	},
+	flags: {
+		isLoggedIn: false,
+		ordersLoadingStatus: false,
+	},
 };
 
 export const userReducer = (state = initialUserState, action) => {
@@ -25,20 +38,29 @@ export const userReducer = (state = initialUserState, action) => {
 					...state.userData,
 					...action.payload,
 				},
-				isLoggedIn: !state.isLoggedIn,
+				flags: {
+					...state.flags,
+					isLoggedIn: !state.flags.isLoggedIn,
+				},
 			};
 		case ACTION_TYPE.LOGOUT:
 			return {
 				...initialUserState,
 				userData: {
 					...initialUserState.userData,
-					basket: [...action.payload],
+					basket: action.payload,
 				},
 			};
 		case ACTION_TYPE.LOGOUT_ERROR:
 			return {
 				...state,
-				error: action.payload,
+				serverMessages: {
+					...state.serverMessages,
+					user: {
+						...state.serverMessages.user,
+						userError: action.payload,
+					},
+				},
 			};
 		case ACTION_TYPE.ADD_PRODUCT_IN_BASKET:
 			return {
@@ -72,6 +94,81 @@ export const userReducer = (state = initialUserState, action) => {
 						}
 						return item;
 					}),
+				},
+			};
+		case ACTION_TYPE.CREATE_ORDER_SUCCESS:
+			return {
+				...state,
+				userData: {
+					...state.userData,
+					basket: [],
+					orders: [...state.userData.orders, action.payload],
+				},
+				serverMessages: {
+					...state.serverMessages,
+					orders: {
+						...state.serverMessages.orders,
+						createOrderError: initialUserState.serverMessages.orders.createOrderError,
+						createOrderSuccess: "Ваш заказ создан!",
+					},
+				},
+			};
+		case ACTION_TYPE.CREATE_ORDER_ERROR:
+			return {
+				...state,
+				serverMessages: {
+					...state.serverMessages,
+					orders: {
+						...state.serverMessages.orders,
+						createOrderError: action.payload.error,
+						createOrderSuccess: initialUserState.serverMessages.orders.createOrderSuccess,
+					},
+				},
+			};
+		case ACTION_TYPE.CLEAR_CREATE_ORDER_SERVER_MESSAGES:
+			return {
+				...state,
+				serverMessages: {
+					...state.serverMessages,
+					orders: {
+						...state.serverMessages.orders,
+						createOrderError: initialUserState.serverMessages.orders.createOrderError,
+						createOrderSuccess: initialUserState.serverMessages.orders.createOrderSuccess,
+					},
+				},
+			};
+		case ACTION_TYPE.SET_ORDERS_SUCCESS:
+			return {
+				...state,
+				userData: {
+					...state.userData,
+					orders: action.payload,
+				},
+				serverMessages: {
+					...state.serverMessages,
+					orders: {
+						...state.serverMessages.orders,
+						getOrdersError: initialUserState.serverMessages.orders.createOrderError,
+					},
+				},
+			};
+		case ACTION_TYPE.SET_ORDERS_LOADING_STATUS:
+			return {
+				...state,
+				flags: {
+					...state.flags,
+					ordersLoadingStatus: action.payload,
+				},
+			};
+		case ACTION_TYPE.SET_ORDERS_ERROR:
+			return {
+				...state,
+				serverMessages: {
+					...state.serverMessages,
+					orders: {
+						...state.serverMessages.orders,
+						getOrdersError: action.payload.error,
+					},
 				},
 			};
 		default:

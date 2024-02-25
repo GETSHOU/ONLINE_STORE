@@ -16,7 +16,7 @@ export const UsersTable = ({
 		<div className={styles.tableWrapper}>
 			<div className={styles.table}>
 				<UsersTableTitles />
-				{!usersLoadingStatus && !rolesLoadingStatus ? (
+				{usersLoadingStatus && rolesLoadingStatus ? (
 					(!usersServerError || !rolesServerError) && (
 						<>
 							{users.map(({ id, roleId, email, name, registeredAt }) => (

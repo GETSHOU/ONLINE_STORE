@@ -1,12 +1,12 @@
 import { useLayoutEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { IoMdCart } from "react-icons/io";
-import { BiSolidUser } from "react-icons/bi";
+import { FaUser, FaBagShopping, FaCartShopping } from "react-icons/fa6";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
 import { openModal, logoutAsync } from "../../../../store/actions";
 import {
 	basketSelector,
+	userIdSelector,
 	userRoleSelector,
 	userNameSelector,
 	modalTypeSelector,
@@ -23,6 +23,7 @@ const ModalWindowReg = WithModal(WithModalAuth(Registration));
 
 export const ControlPanel = () => {
 	const basket = useSelector(basketSelector);
+	const userId = useSelector(userIdSelector);
 	const roleId = useSelector(userRoleSelector);
 	const currentModal = useSelector(modalTypeSelector);
 	const currentUserName = useSelector(userNameSelector);
@@ -34,6 +35,11 @@ export const ControlPanel = () => {
 	const isAllowedRoles = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const isOrdersPage = !!useMatch(`/orders/${userId}`);
+
+	const currentBasketDataJSON = localStorage.getItem("basket");
+	const basketFromStorage = JSON.parse(currentBasketDataJSON);
 
 	useLayoutEffect(() => {
 		if (sessionState) {
@@ -46,7 +52,11 @@ export const ControlPanel = () => {
 		setUserName(currentUserName);
 	}, [currentUserName, roleId, setUserName, sessionState, userName]);
 
-	const onLogout = () => dispatch(logoutAsync());
+	const onLogout = () => {
+		dispatch(logoutAsync(basketFromStorage));
+
+		if (isOrdersPage) navigate(-1);
+	};
 
 	const handleOpenAuthModal = () =>
 		dispatch(openModal({ type: MODAL_TYPES.AUTHORIZATION }));
@@ -57,11 +67,17 @@ export const ControlPanel = () => {
 		<>
 			<div className={styles.wrapper}>
 				<div className={`${styles.control} ${styles.disabled}`}>
-					<BiSolidUser className="icon iconControl" />
+					<FaUser className="icon iconControl" />
 					<span className={styles.controlItem}>{userName}</span>
 				</div>
+				{sessionState && (
+					<Link to={`/orders/${userId}`} className={styles.control}>
+						<FaBagShopping className="icon iconControl" />
+						<span className={styles.controlItem}>Мои заказы</span>
+					</Link>
+				)}
 				<Link to="/basket" className={styles.control}>
-					<IoMdCart className="icon iconControl" />
+					<FaCartShopping className="icon iconControl" />
 					<span className={styles.controlItem}>Корзина</span>
 					{getTotalCountProducts(basket) !== 0 && (
 						<span className={styles.controlCountProducts}>

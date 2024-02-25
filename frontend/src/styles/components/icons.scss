@@ -4,6 +4,10 @@
 	transition: $transition-hover;
 	user-select: none;
 
+	&Active {
+		color: $main-theme-color;
+	}
+
 	&.centeredY {
 		@include centeredY() {
 			position: absolute;
@@ -61,7 +65,7 @@
 		font-size: 1.5rem;
 	}
 
-	&EmptyBasket {
+	&EmptyData {
 		font-size: 4rem;
 		color: $main-theme-color;
 	}
@@ -105,6 +109,11 @@
 	&ToastifyClose {
 		font-size: 1.6rem;
 		color: $secondary-color;
+	}
+
+	&DisplayContent {
+		font-size: 1.4rem;
+		vertical-align: middle;
 	}
 }
 

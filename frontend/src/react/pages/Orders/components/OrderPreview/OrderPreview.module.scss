@@ -1,0 +1,75 @@
+@use '../../../../../styles/variables.scss' as *;
+
+.preview {
+	display: flex;
+	width: 100%;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #dfdfdf;
+
+	&:last-child {
+		margin-bottom: 0;
+		padding-bottom: 0;
+		border-bottom: none;
+	}
+
+	&__item {
+		margin-right: 20px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&Image {
+			width: 100px;
+			height: 100px;
+			padding: 10px;
+			background-color: $white;
+		}
+
+		&Center {
+			flex: 1;
+		}
+
+		&Price {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	&__textRow {
+		margin-bottom: 10px;
+		font-size: 0.9rem;
+		line-height: 1.2rem;
+
+		&:first-child {
+			font-weight: 500;
+			color: $main-grey;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__textLink {
+		font-size: 1.1rem;
+		font-weight: bold;
+		transition: $transition-hover;
+
+		&:hover {
+			color: $main-theme-color;
+		}
+	}
+
+	&__priceTop {
+		padding-bottom: 5px;
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: $main-grey;
+	}
+
+	&__priceBottom {
+		font-size: 1.1rem;
+		font-weight: 500;
+	}
+}

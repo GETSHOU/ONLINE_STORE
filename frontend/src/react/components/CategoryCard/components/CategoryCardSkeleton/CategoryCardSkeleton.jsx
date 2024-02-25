@@ -14,7 +14,7 @@ export const CategoryCardSkeleton = (
 					<Skeleton
 						width={"100%"}
 						height={"100%"}
-						containerClassName={`${styles.skeleton__card}`}
+						containerClassName={`${styles.skeleton__cardContainer}`}
 						{...props}
 					/>
 				</div>

@@ -1,1 +1,1 @@
-export const userErrorSelector = ({ user }) => user.error;
+export const userErrorSelector = ({ user }) => user.serverMessages.user.userError;

@@ -28,14 +28,15 @@
 
 		&.skeleton {
 			padding: 0;
-			background-color: transparent;
+			border-radius: 0;
+			background-color: $secondary-color;
 
-			& > .skeleton__container {
+			.skeleton__container {
 				height: #{calc($table-row-height - $table-row-padding * 2)}px;
 				width: 100%;
 			}
 
-			& > .skeleton__actionContainer {
+			.skeleton__actionContainer {
 				display: flex;
 				flex: 1;
 				height: #{calc($table-row-height - $table-row-padding * 2)}px;
@@ -52,6 +53,8 @@
 
 
 }
+
+
 
 
 

@@ -38,7 +38,7 @@ const authController = {
 	},
 	login: async (email, password, res) => {
 		try {
-			const user = await User.findOne({ email });
+			const user = await User.findOne({ email }).populate("orders");
 
 			if (!user) {
 				throw new Error("Пользователь не найден");

@@ -1,0 +1,17 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.orders {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	&__list {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+}

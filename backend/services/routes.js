@@ -42,6 +42,10 @@ const routes = {
 		update: `${baseUrl}comments/:commentId/update`,
 		delete: `${baseUrl}products/:productId/comments/:commentId/delete`,
 	},
+	ordersManagement: {
+		get: `${baseUrl}orders/:userId`,
+		create: `${baseUrl}orders/:userId/create`,
+	},
 };
 
 module.exports = routes;

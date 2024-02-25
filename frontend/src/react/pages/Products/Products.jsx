@@ -45,7 +45,12 @@ export const Products = () => {
 						{!loadingStatus ? (
 							!serverError && <SortingProductList />
 						) : (
-							<Skeleton height={"20px"} width={"400px"} inline={true} />
+							<Skeleton
+								width={"400px"}
+								height={"20px"}
+								inline={true}
+								className={styles.skeleton}
+							/>
 						)}
 					</div>
 					<div className={styles.contenMain}>
@@ -59,7 +64,7 @@ export const Products = () => {
 							)
 						) : (
 							<ul className={styles.list}>
-								<ProductCardSkeleton inline={true} products={3} />
+								<ProductCardSkeleton products={3} />
 							</ul>
 						)}
 					</div>
