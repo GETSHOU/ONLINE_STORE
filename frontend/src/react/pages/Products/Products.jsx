@@ -43,7 +43,7 @@ export const Products = () => {
 				<div className={`${styles.contentInnerWrapper} ${styles.content}`}>
 					<div className={styles.contentHeader}>
 						{!loadingStatus ? (
-							!serverError && <SortingProductList />
+							!serverError && <SortingProductList subcategoryId={params.id} />
 						) : (
 							<Skeleton
 								width={"400px"}

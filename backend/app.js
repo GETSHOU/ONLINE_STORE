@@ -56,8 +56,8 @@ app.get(routes.subcategoriesManagement.get, (req, res) => {
 });
 
 // Получение товаров выбранной подкатегории
-app.get(routes.productsManagement.getAll, (req, res) => {
-	productsController.getAll(req.params.subcategoryId, res);
+app.get(routes.productsManagement.getAllFromSubcategory, (req, res) => {
+	productsController.getAllFromSubcategory(req.params.subcategoryId, res);
 });
 
 // Получение одного товара
@@ -68,6 +68,16 @@ app.get(routes.productsManagement.getOne, (req, res) => {
 // Получение комментариев
 app.get(routes.commentsManagement.get, (req, res) => {
 	commentsController.get(req.params.productId, res);
+});
+
+// Сортировка товаров по возрастанию алфавита A-Z
+app.get(routes.productsManagement.getSortedByAsc, (req, res) => {
+	productsController.getSortedByAsc(req.params.subcategoryId, res);
+});
+
+// Сортировка товаров по убыванию алфавита Z-A
+app.get(routes.productsManagement.getSortedByDesc, (req, res) => {
+	productsController.getSortedByDesc(req.params.subcategoryId, res);
 });
 
 // ---------------- НИЖЕ ДЛЯ АВТОРИЗОВАННЫХ ПОЛЬЗОВАТЕЛЕЙ ---------------

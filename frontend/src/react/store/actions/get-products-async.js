@@ -6,7 +6,7 @@ export const getProductsAsync = id => dispatch => {
 	dispatch({ type: ACTION_TYPE.SET_PRODUCTS_LOADING_STATUS, payload: true });
 
 	return productsService
-		.getAll(id)
+		.getAllFromSubcategory(id)
 		.then(res => {
 			if (res.error) {
 				throw new Error(res.error);

@@ -3,17 +3,6 @@ const Subcategory = require("../models/Subcategory.model");
 const { mapProduct } = require("../helpers");
 
 const productsController = {
-	getAll: async (subcategoryId, res) => {
-		try {
-			const products = await Product.find({ parent: subcategoryId }).populate(
-				"parent"
-			);
-
-			res.send({ data: products.map(mapProduct) });
-		} catch (e) {
-			res.send({ error: e.message });
-		}
-	},
 	getOne: async (productId, res) => {
 		try {
 			const product = await Product.findById(productId).populate({
@@ -64,6 +53,43 @@ const productsController = {
 			await Product.deleteOne({ _id: productId });
 
 			res.send({ error: null });
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
+	getSortedByAsc: async (subcategoryId, res) => {
+		try {
+			const sortedProducts = await Product.find({ parent: subcategoryId }).sort(
+				{
+					price: 1,
+				}
+			);
+
+			res.send({ data: sortedProducts.map(mapProduct) });
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
+	getSortedByDesc: async (subcategoryId, res) => {
+		try {
+			const sortedProducts = await Product.find({ parent: subcategoryId }).sort(
+				{
+					price: -1,
+				}
+			);
+
+			res.send({ data: sortedProducts.map(mapProduct) });
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
+	getAllFromSubcategory: async (subcategoryId, res) => {
+		try {
+			const products = await Product.find({ parent: subcategoryId }).populate(
+				"parent"
+			);
+
+			res.send({ data: products.map(mapProduct) });
 		} catch (e) {
 			res.send({ error: e.message });
 		}

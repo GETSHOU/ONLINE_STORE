@@ -48,3 +48,5 @@ export * from "./remove-authorization-user-form-error";
 export * from "./get-orders-async";
 export * from "./create-order-async";
 export * from "./clear-create-order-server-messages";
+// Sorting
+export * from "./get-sorted-products";
