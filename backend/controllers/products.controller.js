@@ -57,25 +57,10 @@ const productsController = {
 			res.send({ error: e.message });
 		}
 	},
-	getSortedByAsc: async (subcategoryId, res) => {
+	getSortedProducts: async (subcategoryId, sortField, res) => {
 		try {
 			const sortedProducts = await Product.find({ parent: subcategoryId }).sort(
-				{
-					price: 1,
-				}
-			);
-
-			res.send({ data: sortedProducts.map(mapProduct) });
-		} catch (e) {
-			res.send({ error: e.message });
-		}
-	},
-	getSortedByDesc: async (subcategoryId, res) => {
-		try {
-			const sortedProducts = await Product.find({ parent: subcategoryId }).sort(
-				{
-					price: -1,
-				}
+				sortField
 			);
 
 			res.send({ data: sortedProducts.map(mapProduct) });

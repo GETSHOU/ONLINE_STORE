@@ -50,3 +50,4 @@ export * from "./create-order-async";
 export * from "./clear-create-order-server-messages";
 // Sorting
 export * from "./get-sorted-products";
+export * from "./get-sorted-products-error";

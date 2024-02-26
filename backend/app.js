@@ -72,12 +72,24 @@ app.get(routes.commentsManagement.get, (req, res) => {
 
 // Сортировка товаров по возрастанию алфавита A-Z
 app.get(routes.productsManagement.getSortedByAsc, (req, res) => {
-	productsController.getSortedByAsc(req.params.subcategoryId, res);
+	productsController.getSortedProducts(
+		req.params.subcategoryId,
+		{
+			price: 1,
+		},
+		res
+	);
 });
 
 // Сортировка товаров по убыванию алфавита Z-A
 app.get(routes.productsManagement.getSortedByDesc, (req, res) => {
-	productsController.getSortedByDesc(req.params.subcategoryId, res);
+	productsController.getSortedProducts(
+		req.params.subcategoryId,
+		{
+			price: -1,
+		},
+		res
+	);
 });
 
 // ---------------- НИЖЕ ДЛЯ АВТОРИЗОВАННЫХ ПОЛЬЗОВАТЕЛЕЙ ---------------

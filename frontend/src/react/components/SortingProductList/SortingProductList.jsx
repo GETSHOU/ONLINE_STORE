@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { IoMdArrowRoundUp, IoMdArrowRoundDown } from "react-icons/io";
 import { productsService } from "../../../services";
-import { getSortedProducts } from "../../store/actions";
-import { productsSelector } from "../../store/selectors";
+import { getSortedProducts, getSortedProductsError } from "../../store/actions";
 import { ACTION_TYPE, SORTING_TYPE } from "../../../constants";
 import styles from "./SortingProductList.module.scss";
 
@@ -20,10 +19,7 @@ export const SortingProductList = ({ subcategoryId }) => {
 				dispatch(getSortedProducts(res.data, sortType));
 			})
 			.catch(e => {
-				dispatch({
-					type: ACTION_TYPE.SET_SORTED_PRODUCTS_BY_ASC_ERROR,
-					payload: e.message,
-				});
+				dispatch(getSortedProductsError(e.message, sortType));
 			});
 	};
 

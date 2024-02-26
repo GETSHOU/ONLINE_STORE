@@ -88,6 +88,16 @@ export const productsReducer = (state = initialProductsState, action) => {
 				...state,
 				products: action.payload,
 			};
+		case ACTION_TYPE.SET_SORTED_PRODUCTS_BY_ASC_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.SET_SORTED_PRODUCTS_BY_DESC_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
 		default:
 			return state;
 	}
