@@ -20,7 +20,7 @@ export const CategoryCard = ({ id, parentTitle, categoryTitle, isSubcategoriesPa
 				</h4>
 				<div className={styles.cardBody}>
 					<h3 className={styles.cardTitle}>{categoryTitle}</h3>
-					<span className={styles.cardCounter}>Количество товаров</span>
+					{/* <span className={styles.cardCounter}>Количество товаров</span> */}
 				</div>
 			</Link>
 		</div>

@@ -75,5 +75,4 @@ export const App = () => {
 // TODO_0: ЧТО НУЖНО ДОРАБОТАТЬ
 // TODO_1: Добавить поиск по товарам в админке
 // TODO_2: Добавить поиск по товарам в в магазине
-// TODO_3: Разобраться, что делать с количеством товаров на карточках категорий
-// TODO_4: Разделить роуты на разные файлы в Express.js (https://lk.result.school/pl/teach/control/lesson/view?id=321219502&editMode=0)
+// TODO_3: Разделить роуты на разные файлы в Express.js (https://lk.result.school/pl/teach/control/lesson/view?id=321219502&editMode=0)

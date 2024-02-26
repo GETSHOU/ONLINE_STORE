@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { IoMdArrowRoundUp, IoMdArrowRoundDown } from "react-icons/io";
 import { productsService } from "../../../services";
 import { getSortedProducts, getSortedProductsError } from "../../store/actions";
-import { ACTION_TYPE, SORTING_TYPE } from "../../../constants";
+import { SORTING_TYPE } from "../../../constants";
 import styles from "./SortingProductList.module.scss";
 
 export const SortingProductList = ({ subcategoryId }) => {
