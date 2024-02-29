@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { BUTTON_SIZE } from "../../../../../constants";
 import { SearchInput } from "../SearchInput/SearchInput";
@@ -7,14 +6,14 @@ import { Logo } from "../Logo/Logo";
 import { Button } from "../../../Button/Button";
 import styles from "./HeaderTools.module.scss";
 
-export const HeaderTools = () => {
-	const [searchQuery, setSearchQuery] = useState("");
-
-	const onSearch = ({ target }) => {
-		setSearchQuery(target.value);
-		console.log(target.value);
-	};
-
+export const HeaderTools = ({
+	searchQuery,
+	shouldSearch,
+	setSearchQuery,
+	setShouldSearch,
+	startDelayedSearch,
+	setSearchCompleted,
+}) => {
 	return (
 		<div className={styles.wrapper}>
 			<Logo />
@@ -25,7 +24,14 @@ export const HeaderTools = () => {
 					text="Каталог"
 					icon={<HiBars3BottomLeft className="icon iconButton" />}
 				/>
-				<SearchInput searchQuery={searchQuery} onSearch={onSearch} />
+				<SearchInput
+					searchQuery={searchQuery}
+					shouldSearch={shouldSearch}
+					setSearchQuery={setSearchQuery}
+					setShouldSearch={setShouldSearch}
+					startDelayedSearch={startDelayedSearch}
+					setSearchCompleted={setSearchCompleted}
+				/>
 				<ControlPanel />
 			</div>
 		</div>

@@ -27,16 +27,16 @@ const routes = {
 		delete: `${baseUrl}subcategories/:subcategoryId/delete`,
 	},
 	productsManagement: {
+		get: `${baseUrl}products`,
 		getOne: `${baseUrl}products/:productId`,
 		create: `${baseUrl}subcategories/:subcategoryId/products/create`,
 		update: `${baseUrl}products/:productId/update`,
 		delete: `${baseUrl}products/:productId/delete`,
 		getSortedByAsc: `${baseUrl}subcategories/:subcategoryId/products/sort_asc`,
 		getSortedByDesc: `${baseUrl}subcategories/:subcategoryId/products/sort_desc`,
+		getSortedAllByAsc: `${baseUrl}sort_asc/products`,
+		getSortedAllByDesc: `${baseUrl}sort_desc/products`,
 		getAllFromSubcategory: `${baseUrl}subcategories/:subcategoryId/products`,
-	},
-	vendorsManagement: {
-		get: `${baseUrl}vendors`,
 	},
 	commentsManagement: {
 		get: `${baseUrl}products/:productId/comments`,

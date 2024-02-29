@@ -2,7 +2,50 @@ const Product = require("../models/Product.model");
 const Subcategory = require("../models/Subcategory.model");
 const { mapProduct } = require("../helpers");
 
+let foundedProducts = [];
+
 const productsController = {
+	get: async (search = null, limit = 1, page = 1, res) => {
+		foundedProducts = [];
+
+		try {
+			const offset = (page - 1) * limit;
+
+			const [products, count] = await Promise.all([
+				Product.find({
+					title: { $regex: search, $options: "i" },
+				})
+					.limit(limit)
+					.skip(offset),
+				Product.countDocuments({
+					title: { $regex: search, $options: "i" },
+				}),
+			]);
+
+			if (search) {
+				foundedProducts = [...products];
+
+				res.json({
+					data: {
+						products: foundedProducts.map(mapProduct),
+						lastPage: Math.ceil(count / limit),
+					},
+					error: null,
+				});
+			} else {
+				foundedProducts = [];
+
+				res.json({
+					data: {
+						products: foundedProducts,
+					},
+					error: null,
+				});
+			}
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
 	getOne: async (productId, res) => {
 		try {
 			const product = await Product.findById(productId).populate({
@@ -57,13 +100,25 @@ const productsController = {
 			res.send({ error: e.message });
 		}
 	},
+
 	getSortedProducts: async (subcategoryId, sortField, res) => {
 		try {
 			const sortedProducts = await Product.find({ parent: subcategoryId }).sort(
 				sortField
 			);
 
-			res.send({ data: sortedProducts.map(mapProduct) });
+			res.send({ data: sortedProducts.map(mapProduct), error: null });
+		} catch (e) {
+			res.send({ error: e.message });
+		}
+	},
+	getSortedAllProducts: async (sortField, res) => {
+		try {
+			const sortedProducts = await Product.find({
+				_id: { $in: foundedProducts },
+			}).sort(sortField);
+
+			res.send({ data: sortedProducts.map(mapProduct), error: null });
 		} catch (e) {
 			res.send({ error: e.message });
 		}
@@ -74,7 +129,7 @@ const productsController = {
 				"parent"
 			);
 
-			res.send({ data: products.map(mapProduct) });
+			res.send({ data: products.map(mapProduct), error: null });
 		} catch (e) {
 			res.send({ error: e.message });
 		}

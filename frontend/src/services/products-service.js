@@ -17,5 +17,15 @@ export const productsService = {
 					: sortType === SORTING_TYPE.BY_DESC && "sort_desc"
 			}?_sort=price`,
 		),
+	getSortedAllProducts: sortType =>
+		request(
+			`${BASE_URL}${
+				sortType === SORTING_TYPE.BY_ASC
+					? "sort_asc"
+					: sortType === SORTING_TYPE.BY_DESC && "sort_desc"
+			}/products?_sort=price`,
+		),
 	getAllFromSubcategory: id => request(`${BASE_URL}subcategories/${id}/products`),
+	getFoundedProducts: (searchQuery, page, limit) =>
+		request(`${BASE_URL}products?search=${searchQuery}&page=${page}&limit=${limit}`),
 };

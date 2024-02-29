@@ -9,11 +9,11 @@ const {
 	authController,
 	usersController,
 	rolesController,
+	ordersController,
 	productsController,
 	commentsController,
 	categoriesController,
 	subcategoriesController,
-	ordersController,
 } = require("./controllers");
 const { authenticated, hasRole } = require("./middlewares");
 const { ROLES } = require("./constants/roles");
@@ -70,7 +70,7 @@ app.get(routes.commentsManagement.get, (req, res) => {
 	commentsController.get(req.params.productId, res);
 });
 
-// Сортировка товаров по возрастанию алфавита A-Z
+// Сортировка товаров подкатегории по цене по возрастанию алфавита A-Z
 app.get(routes.productsManagement.getSortedByAsc, (req, res) => {
 	productsController.getSortedProducts(
 		req.params.subcategoryId,
@@ -81,13 +81,43 @@ app.get(routes.productsManagement.getSortedByAsc, (req, res) => {
 	);
 });
 
-// Сортировка товаров по убыванию алфавита Z-A
+// Сортировка товаров подкатегории по цене по убыванию алфавита Z-A
 app.get(routes.productsManagement.getSortedByDesc, (req, res) => {
 	productsController.getSortedProducts(
 		req.params.subcategoryId,
 		{
 			price: -1,
 		},
+		res
+	);
+});
+
+// Сортировка всех найденных (через поисковый запрос) товаров по цене по возрастанию алфавита A-Z
+app.get(routes.productsManagement.getSortedAllByAsc, (req, res) => {
+	productsController.getSortedAllProducts(
+		{
+			price: 1,
+		},
+		res
+	);
+});
+
+// Сортировка всех найденных (через поисковый запрос) товаров подкатегории по цене по убыванию алфавита Z-A
+app.get(routes.productsManagement.getSortedAllByDesc, (req, res) => {
+	productsController.getSortedAllProducts(
+		{
+			price: -1,
+		},
+		res
+	);
+});
+
+// Поиск товаров
+app.get(routes.productsManagement.get, (req, res) => {
+	productsController.get(
+		req.query.search,
+		req.query.limit,
+		req.query.page,
 		res
 	);
 });

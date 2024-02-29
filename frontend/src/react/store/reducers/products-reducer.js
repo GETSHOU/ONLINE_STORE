@@ -3,6 +3,12 @@ import { ACTION_TYPE } from "../../../constants";
 const initialProductsState = {
 	title: "",
 	products: [],
+	foundedProducts: {
+		lastPage: "",
+		products: [],
+		searchQuery: "",
+		loadingStatus: false,
+	},
 	options: {
 		loadingStatus: false,
 	},
@@ -12,6 +18,29 @@ const initialProductsState = {
 
 export const productsReducer = (state = initialProductsState, action) => {
 	switch (action.type) {
+		case ACTION_TYPE.SET_FOUNDED_PRODUCTS:
+			return {
+				...state,
+				foundedProducts: {
+					...state.foundedProducts,
+					products: action.payload.products || [],
+					lastPage: action.payload.lastPage,
+					searchQuery: action.payload.searchQuery,
+				},
+			};
+		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_LOADING_STATUS:
+			return {
+				...state,
+				foundedProducts: {
+					...state.foundedProducts,
+					loadingStatus: action.payload,
+				},
+			};
+		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
 		case ACTION_TYPE.SET_PRODUCTS:
 			return {
 				...state,
@@ -78,22 +107,48 @@ export const productsReducer = (state = initialProductsState, action) => {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.SET_SORTED_PRODUCTS_BY_ASC:
+		case ACTION_TYPE.SET_PRODUCTS_BY_ASC:
 			return {
 				...state,
 				products: action.payload,
 			};
-		case ACTION_TYPE.SET_SORTED_PRODUCTS_BY_DESC:
+		case ACTION_TYPE.SET_PRODUCTS_BY_DESC:
 			return {
 				...state,
 				products: action.payload,
 			};
-		case ACTION_TYPE.SET_SORTED_PRODUCTS_BY_ASC_ERROR:
+		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_BY_ASC:
+			return {
+				...state,
+				foundedProducts: {
+					...state.foundedProducts,
+					products: action.payload,
+				},
+			};
+		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_BY_DESC:
+			return {
+				...state,
+				foundedProducts: {
+					...state.foundedProducts,
+					products: action.payload,
+				},
+			};
+		case ACTION_TYPE.SET_PRODUCTS_BY_ASC_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.SET_SORTED_PRODUCTS_BY_DESC_ERROR:
+		case ACTION_TYPE.SET_PRODUCTS_BY_DESC_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_BY_ASC_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
+		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_BY_DESC_ERROR:
 			return {
 				...state,
 				error: action.payload,

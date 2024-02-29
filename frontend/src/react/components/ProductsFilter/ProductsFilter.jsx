@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button } from "../../../../components";
-import { SelectFilter } from "../SelectFilter/SelectFilter";
-import styles from "./ProductFilter.module.scss";
+import { Button } from "../Button/Button";
+import { ProductsSelectFilter } from "./components/ProductsSelectFilter/ProductsSelectFilter";
+import styles from "./ProductsFilter.module.scss";
 
-export const ProductFilter = () => {
+export const ProductsFilter = () => {
 	const [checked, setChecked] = useState([]);
 
 	const db_vendors = [
@@ -26,7 +26,7 @@ export const ProductFilter = () => {
 		<aside className={styles.filter}>
 			<h4 className={styles.filterTitle}>Фильтры</h4>
 			<ul className={styles.filterList}>
-				<SelectFilter
+				<ProductsSelectFilter
 					title="Производитель"
 					checked={checked}
 					data={db_vendors}

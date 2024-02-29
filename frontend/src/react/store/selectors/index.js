@@ -24,6 +24,7 @@ export * from "./product-loading-status-selector";
 export * from "./products-selector";
 export * from "./products-error-selector";
 export * from "./products-title-selector";
+export * from "./products-founded-selector";
 export * from "./products-loading-status-selector";
 // Categories
 export * from "./categories-selector";

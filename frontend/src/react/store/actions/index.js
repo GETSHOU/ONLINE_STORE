@@ -48,6 +48,8 @@ export * from "./remove-authorization-user-form-error";
 export * from "./get-orders-async";
 export * from "./create-order-async";
 export * from "./clear-create-order-server-messages";
-// Sorting
-export * from "./get-sorted-products";
-export * from "./get-sorted-products-error";
+// Sorting products
+export * from "./get-sorted-products-async";
+// Search products
+export * from "./get-founded-products-async";
+export * from "./get-sorted-all-products-async";

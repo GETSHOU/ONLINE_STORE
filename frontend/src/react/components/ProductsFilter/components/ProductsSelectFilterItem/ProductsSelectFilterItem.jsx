@@ -1,6 +1,6 @@
-import styles from "./SelectFilterItem.module.scss";
+import styles from "./ProductsSelectFilterItem.module.scss";
 
-export const SelectFilterItem = ({ id, label, checked, handleToggle }) => {
+export const ProductsSelectFilterItem = ({ id, label, checked, handleToggle }) => {
 	return (
 		<li className={styles.item}>
 			<label className={styles.label}>
