@@ -106,11 +106,14 @@ export const Comment = ({
 					<div className={styles.actions}>
 						{!isEdit ? (
 							<>
-								<ActionButton
-									icon={<RiEditBoxFill className="icon iconEdit" />}
-									isDisabled={isDisabled}
-									clickFunction={() => handleEdit()}
-								/>
+								{roleId === authorRoleId && (
+									<ActionButton
+										icon={<RiEditBoxFill className="icon iconEdit" />}
+										isDisabled={isDisabled}
+										clickFunction={() => handleEdit()}
+									/>
+								)}
+
 								<ActionButton
 									icon={<FaTrashAlt className="icon iconTrash" />}
 									isDisabled={isDisabled}
