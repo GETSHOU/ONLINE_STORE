@@ -1,0 +1,64 @@
+@use '../../../styles/variables.scss' as * ;
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+
+	&List {
+		display: flex;
+		align-items: center;
+	}
+
+	&Item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: 5px;
+		width: 40px;
+		height: 40px;
+		border: 1px solid $light-grey;
+		border-radius: 5px;
+		cursor: pointer;
+		user-select: none;
+		transition: all .3s ease;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&:hover {
+			border-color: $main-theme-color;
+
+			& > * {
+				color: $main-theme-color;
+			}
+		}
+
+		&:disabled {
+			& > * {
+				color: $main-grey;
+			}
+
+			&:hover {
+				border-color: $light-grey;
+
+				& > * {
+					color: $main-grey;
+				}
+			}
+		}
+	}
+
+	&ItemCurrent {
+		color: $secondary-color;
+		font-weight: bold;
+		cursor: default;
+		background-color: $main-theme-color;
+		border-color: $main-theme-color;
+
+		&:hover {
+			border-color: $main-theme-color;
+		}
+	}
+}

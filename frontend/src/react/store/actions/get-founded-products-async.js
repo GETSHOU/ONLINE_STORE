@@ -16,7 +16,8 @@ export const getFoundedProductsAsync = (searchQuery, page, limit) => dispatch =>
 				payload: {
 					products: res.data.products,
 					lastPage: res.data.lastPage,
-					searchQuery: res.data.searchQuery,
+					currentPage: res.data.currentPage,
+					countFoundedProducts: res.data.countFoundedProducts,
 				},
 			});
 		})

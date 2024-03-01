@@ -53,3 +53,8 @@ export * from "./get-sorted-products-async";
 // Search products
 export * from "./get-founded-products-async";
 export * from "./get-sorted-all-products-async";
+
+export * from "./toggle-search-page.js";
+export * from "./toggle-search-page-default.js";
+
+export * from "./products-search-page-default.js";

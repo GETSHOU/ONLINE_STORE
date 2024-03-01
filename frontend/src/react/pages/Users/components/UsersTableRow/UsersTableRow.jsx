@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { formatServerDate } from "../../../../../utils";
-import { Actions } from "../Actions/Actions";
 import { FormSelect } from "../../../../components";
+import { UsersActions } from "../UsersActions/UsersActions";
 import styles from "./UsersTableRow.module.scss";
 
 export const UsersTableRow = ({ name, email, roles, userId, roleId, registeredAt }) => {
@@ -24,7 +24,7 @@ export const UsersTableRow = ({ name, email, roles, userId, roleId, registeredAt
 				/>
 			</div>
 			<div className={styles.row__cell}>
-				<Actions userId={userId} roleId={roleId} selectedRoleId={selectedRoleId} />
+				<UsersActions userId={userId} roleId={roleId} selectedRoleId={selectedRoleId} />
 			</div>
 		</div>
 	);

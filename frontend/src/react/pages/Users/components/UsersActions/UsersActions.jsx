@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdPersonRemove, MdSave } from "react-icons/md";
-import { userRoleSelector } from "../../../../store/selectors";
-import { checkAccess, request } from "../../../../../utils";
-import { ROLES } from "../../../../../constants";
-import styles from "./Actions.module.scss";
 import { deleteUserAsync, updateUserRoleAsync } from "../../../../store/actions";
+import { userRoleSelector } from "../../../../store/selectors";
+import { checkAccess } from "../../../../../utils";
+import { ROLES } from "../../../../../constants";
+import styles from "./UsersActions.module.scss";
 
-export const Actions = ({ userId, roleId, selectedRoleId }) => {
+export const UsersActions = ({ userId, roleId, selectedRoleId }) => {
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [initialRoleId, setInitialRoleId] = useState(roleId);
 

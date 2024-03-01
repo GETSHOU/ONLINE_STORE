@@ -4,9 +4,10 @@ const initialProductsState = {
 	title: "",
 	products: [],
 	foundedProducts: {
-		lastPage: "",
 		products: [],
-		searchQuery: "",
+		lastPage: 1,
+		currentPage: 1,
+		countFoundedProducts: 0,
 		loadingStatus: false,
 	},
 	options: {
@@ -18,6 +19,27 @@ const initialProductsState = {
 
 export const productsReducer = (state = initialProductsState, action) => {
 	switch (action.type) {
+		case ACTION_TYPE.PRODUCTS_SEARCH_PAGE_DEFAULT:
+			return {
+				...state,
+				foundedProducts: initialProductsState.foundedProducts,
+			};
+		case ACTION_TYPE.TOGGLE_SEARCH_PAGE:
+			return {
+				...state,
+				foundedProducts: {
+					...state.foundedProducts,
+					currentPage: action.payload,
+				},
+			};
+		case ACTION_TYPE.TOGGLE_SEARCH_PAGE_DEFAULT:
+			return {
+				...state,
+				foundedProducts: {
+					...state.foundedProducts,
+					currentPage: initialProductsState.foundedProducts.currentPage,
+				},
+			};
 		case ACTION_TYPE.SET_FOUNDED_PRODUCTS:
 			return {
 				...state,
@@ -25,7 +47,7 @@ export const productsReducer = (state = initialProductsState, action) => {
 					...state.foundedProducts,
 					products: action.payload.products || [],
 					lastPage: action.payload.lastPage,
-					searchQuery: action.payload.searchQuery,
+					countFoundedProducts: action.payload.countFoundedProducts,
 				},
 			};
 		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_LOADING_STATUS:

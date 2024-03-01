@@ -29,6 +29,8 @@ const productsController = {
 					data: {
 						products: foundedProducts.map(mapProduct),
 						lastPage: Math.ceil(count / limit),
+						currentPage: page,
+						countFoundedProducts: count,
 					},
 					error: null,
 				});

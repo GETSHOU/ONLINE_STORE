@@ -1,3 +1,3 @@
 export const PAGINATION = {
-	LIMIT: 30,
+	LIMIT: 5,
 };
