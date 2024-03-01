@@ -115,5 +115,3 @@ export const App = () => {
 		</div>
 	);
 };
-
-// TODO: Разделить роуты на разные файлы в Express.js (https://lk.result.school/pl/teach/control/lesson/view?id=321219502&editMode=0)
