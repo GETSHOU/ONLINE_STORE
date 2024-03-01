@@ -143,7 +143,7 @@ export const CategoriesManagement = () => {
 			{/* Рендер модального окна */}
 			{currentModal === MODAL_TYPES.CONFIRM ? (
 				<ModalWindowConfirm
-					message={"Удалить подкатегорию?"}
+					message={"Удалить категорию?"}
 					handleApply={() => handleDelete(id)}
 					confirmButtonIsDisabled={confirmButtonIsDisabled}
 				/>
