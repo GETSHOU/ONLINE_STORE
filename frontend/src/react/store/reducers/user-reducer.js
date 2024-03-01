@@ -1,7 +1,5 @@
 import { ROLES, ACTION_TYPE } from "../../../constants";
-
-const currentBasketDataJSON = localStorage.getItem("basket");
-const basketFromStorage = JSON.parse(currentBasketDataJSON);
+import { getBasketFromLocalStorage } from "../../../utils";
 
 const initialUserState = {
 	userData: {
@@ -9,7 +7,7 @@ const initialUserState = {
 		name: "Гость",
 		email: null,
 		roleId: ROLES.GUEST,
-		basket: basketFromStorage || [],
+		basket: getBasketFromLocalStorage() || [],
 		orders: [],
 	},
 	serverMessages: {

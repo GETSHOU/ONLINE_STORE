@@ -11,7 +11,11 @@ import {
 	userNameSelector,
 	modalTypeSelector,
 } from "../../../../store/selectors";
-import { checkAccess, getTotalCountProducts } from "../../../../../utils";
+import {
+	checkAccess,
+	getTotalCountProducts,
+	getBasketFromLocalStorage,
+} from "../../../../../utils";
 import { MODAL_TYPES, ROLES } from "../../../../../constants";
 import { WithModal, WithModalAuth } from "../../../../hoc";
 import { Authorization } from "../../../Authorization/Authorization";
@@ -39,9 +43,6 @@ export const ControlPanel = () => {
 
 	const isOrdersPage = !!useMatch(`/orders/${userId}`);
 
-	const currentBasketDataJSON = localStorage.getItem("basket");
-	const basketFromStorage = JSON.parse(currentBasketDataJSON);
-
 	useLayoutEffect(() => {
 		if (sessionState) {
 			if (roleId === ROLES.GUEST) {
@@ -54,7 +55,7 @@ export const ControlPanel = () => {
 	}, [currentUserName, roleId, setUserName, sessionState, userName]);
 
 	const onLogout = () => {
-		dispatch(logoutAsync(basketFromStorage));
+		dispatch(logoutAsync(getBasketFromLocalStorage()));
 
 		if (isOrdersPage) {
 			navigate(-1);

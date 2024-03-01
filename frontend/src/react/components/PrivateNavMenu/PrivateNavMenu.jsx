@@ -6,6 +6,7 @@ import { TbLayoutGrid } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { logoutAsync } from "../../store/actions";
 import { userIdSelector } from "../../store/selectors";
+import { getBasketFromLocalStorage } from "../../../utils";
 import { PrivateNavMenuItem } from "./components/PrivateNavMenuItem/PrivateNavMenuItem";
 import styles from "./PrivateNavMenu.module.scss";
 
@@ -17,11 +18,8 @@ export const PrivateNavMenu = () => {
 
 	const isOrdersPage = !!useMatch(`/orders/${userId}`);
 
-	const currentBasketDataJSON = localStorage.getItem("basket");
-	const basketFromStorage = JSON.parse(currentBasketDataJSON);
-
 	const onLogout = () => {
-		dispatch(logoutAsync(basketFromStorage));
+		dispatch(logoutAsync(getBasketFromLocalStorage()));
 
 		if (isOrdersPage) {
 			navigate(-1);

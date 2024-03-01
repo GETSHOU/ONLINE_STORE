@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaCartShopping } from "react-icons/fa6";
 import { addProductInBasket, changeNumberOfProducts } from "../../store/actions";
 import { basketSelector } from "../../store/selectors";
+import { getBasketFromLocalStorage } from "../../../utils";
 import { COUNTER_RULES } from "../../../constants";
 import { Button } from "../Button/Button";
 import styles from "./ProductActions.module.scss";
@@ -14,13 +15,12 @@ export const ProductActions = ({ product, loadingStatus }) => {
 	const dispatch = useDispatch();
 	const basket = useSelector(basketSelector);
 
-	const currentBasketDataJSON = localStorage.getItem("basket");
-	const basketFromStorage = JSON.parse(currentBasketDataJSON);
-
-	const currentProduct = basketFromStorage.find(data => data.product.id === product.id);
+	const currentProduct = getBasketFromLocalStorage().find(
+		data => data.product.id === product.id,
+	);
 
 	useLayoutEffect(() => {
-		if (basketFromStorage.length === 0) return;
+		if (getBasketFromLocalStorage().length === 0) return;
 
 		setIsDisabled(true);
 
@@ -32,7 +32,7 @@ export const ProductActions = ({ product, loadingStatus }) => {
 				setIsDisabled(false);
 			}
 		}
-	}, [loadingStatus, basketFromStorage, product.id]);
+	}, [loadingStatus, product.id]);
 
 	const handleAddToBasket = id => {
 		const foundedProduct = basket.find(data => data.product.id === id);
