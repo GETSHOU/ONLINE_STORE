@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa6";
 import { CgWebsite } from "react-icons/cg";
 import { TbLayoutGrid } from "react-icons/tb";
@@ -10,15 +9,11 @@ import styles from "./PrivateNavMenu.module.scss";
 
 export const PrivateNavMenu = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
 	const currentBasketDataJSON = localStorage.getItem("basket");
 	const basketFromStorage = JSON.parse(currentBasketDataJSON);
 
-	const onLogout = () => {
-		dispatch(logoutAsync(basketFromStorage));
-		navigate("/");
-	};
+	const onLogout = () => dispatch(logoutAsync(basketFromStorage));
 
 	return (
 		<div className={styles.wrapper}>

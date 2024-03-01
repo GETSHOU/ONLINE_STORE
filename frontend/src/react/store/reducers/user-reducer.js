@@ -48,7 +48,7 @@ export const userReducer = (state = initialUserState, action) => {
 				...initialUserState,
 				userData: {
 					...initialUserState.userData,
-					basket: action.payload,
+					basket: action.payload || [],
 				},
 			};
 		case ACTION_TYPE.LOGOUT_ERROR:
