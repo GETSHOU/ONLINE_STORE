@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUser, FaBagShopping, FaCartShopping } from "react-icons/fa6";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
@@ -35,6 +35,8 @@ export const ControlPanel = () => {
 	const isAllowedRoles = checkAccess([ROLES.ADMIN, ROLES.MODERATOR], roleId);
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const isOrdersPage = !!useMatch(`/orders/${userId}`);
 
 	const currentBasketDataJSON = localStorage.getItem("basket");
 	const basketFromStorage = JSON.parse(currentBasketDataJSON);
@@ -50,7 +52,11 @@ export const ControlPanel = () => {
 		setUserName(currentUserName);
 	}, [currentUserName, roleId, setUserName, sessionState, userName]);
 
-	const onLogout = () => dispatch(logoutAsync(basketFromStorage));
+	const onLogout = () => {
+		dispatch(logoutAsync(basketFromStorage));
+
+		if (isOrdersPage) navigate(-1);
+	};
 
 	const handleOpenAuthModal = () =>
 		dispatch(openModal({ type: MODAL_TYPES.AUTHORIZATION }));
