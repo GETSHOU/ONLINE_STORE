@@ -49,7 +49,7 @@ export const UsersActions = ({ userId, roleId, selectedRoleId }) => {
 			<button
 				className={styles.actionsButton}
 				type="button"
-				disabled={isSaveButtonDisabled || isDisabled}
+				disabled={isSaveButtonDisabled || isDisabled || currentRoleId === roleId}
 				onClick={() => onRoleSave(userId, selectedRoleId)}
 			>
 				<MdSave className="icon iconAction" />
@@ -57,7 +57,7 @@ export const UsersActions = ({ userId, roleId, selectedRoleId }) => {
 			<button
 				className={styles.actionsButton}
 				type="button"
-				disabled={isDisabled}
+				disabled={isDisabled || currentRoleId === roleId}
 				onClick={() => onUserRemove(userId)}
 			>
 				<MdPersonRemove className="icon iconAction" />

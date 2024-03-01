@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import Select from "react-select";
+import { userRoleSelector } from "../../../../store/selectors";
 
-export const FormSelect = ({ data, name, onChange, selectedItem }) => {
+export const FormSelect = ({ data, name, roleId, onChange, selectedItem }) => {
+	const [isDisabled, setIsDisabled] = useState(false);
 	const [isSearchable, setIsSearchable] = useState(true);
+
+	const currentRoleId = useSelector(userRoleSelector);
 
 	return (
 		<Select
@@ -37,6 +42,7 @@ export const FormSelect = ({ data, name, onChange, selectedItem }) => {
 				SingleValue: () => <div className="selectedItem">{selectedItem.name}</div>,
 			}}
 			isSearchable={!isSearchable}
+			isDisabled={currentRoleId === roleId}
 		/>
 	);
 };

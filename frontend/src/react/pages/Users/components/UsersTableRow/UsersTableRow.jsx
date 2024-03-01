@@ -19,6 +19,7 @@ export const UsersTableRow = ({ name, email, roles, userId, roleId, registeredAt
 				<FormSelect
 					data={roles}
 					name="roles"
+					roleId={roleId}
 					onChange={roleOnChange}
 					selectedItem={selectedRole}
 				/>
