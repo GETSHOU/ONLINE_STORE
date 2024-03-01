@@ -37,7 +37,6 @@ export const ControlPanel = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const isHomePage = !!useMatch(`/`);
 	const isOrdersPage = !!useMatch(`/orders/${userId}`);
 
 	const currentBasketDataJSON = localStorage.getItem("basket");
@@ -55,14 +54,11 @@ export const ControlPanel = () => {
 	}, [currentUserName, roleId, setUserName, sessionState, userName]);
 
 	const onLogout = () => {
+		dispatch(logoutAsync(basketFromStorage));
+
 		if (isOrdersPage) {
 			navigate(-1);
-			dispatch(logoutAsync(basketFromStorage));
-		} else if (isHomePage) {
-			dispatch(logoutAsync(basketFromStorage));
 		}
-
-		dispatch(logoutAsync(basketFromStorage));
 	};
 
 	const handleOpenAuthModal = () =>

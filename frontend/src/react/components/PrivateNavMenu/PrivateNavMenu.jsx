@@ -15,21 +15,17 @@ export const PrivateNavMenu = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const isHomePage = !!useMatch(`/`);
 	const isOrdersPage = !!useMatch(`/orders/${userId}`);
 
 	const currentBasketDataJSON = localStorage.getItem("basket");
 	const basketFromStorage = JSON.parse(currentBasketDataJSON);
 
 	const onLogout = () => {
+		dispatch(logoutAsync(basketFromStorage));
+
 		if (isOrdersPage) {
 			navigate(-1);
-			dispatch(logoutAsync(basketFromStorage));
-		} else if (isHomePage) {
-			dispatch(logoutAsync(basketFromStorage));
 		}
-
-		dispatch(logoutAsync(basketFromStorage));
 	};
 
 	return (
