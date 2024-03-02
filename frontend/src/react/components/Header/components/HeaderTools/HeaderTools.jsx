@@ -1,6 +1,6 @@
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { BUTTON_SIZE } from "../../../../../constants";
-import { SearchInput } from "../SearchInput/SearchInput";
+import { SearchInput } from "../../../SearchInput/SearchInput";
 import { ControlPanel } from "../ControlPanel/ControlPanel";
 import { Logo } from "../Logo/Logo";
 import { Button } from "../../../Button/Button";

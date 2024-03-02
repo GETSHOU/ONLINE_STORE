@@ -8,6 +8,7 @@ export * from "./Container/Container";
 export * from "./PageTitle/PageTitle";
 export * from "./EmptyData/EmptyData";
 export * from "./Pagination/Pagination";
+export * from "./SearchInput/SearchInput";
 export * from "./Breadcrumbs/Breadcrumbs";
 export * from "./ProductCard/ProductCard";
 export * from "./ProductInfo/ProductInfo";

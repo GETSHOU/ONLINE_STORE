@@ -16,12 +16,16 @@ export const SearchInput = ({
 
 	useEffect(() => {
 		if (shouldSearch) {
-			navigate(`/products?search=${searchQuery}`);
+			if (searchQuery !== "") {
+				navigate(`/products?search=${searchQuery}`);
 
-			setShouldSearch(false);
-			setSearchCompleted(false);
+				setShouldSearch(false);
+				setSearchCompleted(false);
 
-			searchInputRef.current.blur();
+				searchInputRef.current.blur();
+			} else {
+				setShouldSearch(false);
+			}
 		}
 	}, [navigate, shouldSearch, searchQuery]);
 
