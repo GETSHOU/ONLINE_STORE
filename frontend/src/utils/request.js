@@ -5,7 +5,7 @@ export const request = (url, method, data) => {
 		},
 		method: method || "GET",
 		body: data ? JSON.stringify(data) : undefined,
-		credentials: "include",
+		// credentials: "include",
 	}).then(res => res.json());
 };
 
