@@ -12,22 +12,26 @@ const TOASTIFY_OPTIONS = {
 };
 
 export const Toastify = ({ error, success, action }) => {
-	const [timer, setTimer] = useState(null);
+	const [timerId, setTimerId] = useState(0);
 	const [visible, setVisible] = useState(true);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		setTimer(
-			setTimeout(() => {
-				setVisible(false);
-				dispatch(action());
-			}, TOASTIFY_OPTIONS.duration),
-		);
+		const id = setTimeout(() => {
+			setVisible(false);
+			dispatch(action());
+		}, TOASTIFY_OPTIONS.duration);
+
+		setTimerId(id);
+
+		return () => {
+			clearTimeout(id);
+		};
 	}, [dispatch, action]);
 
 	const handleClose = () => {
-		clearTimeout(timer);
+		clearTimeout(timerId);
 		dispatch(action());
 	};
 
