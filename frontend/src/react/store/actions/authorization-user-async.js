@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE_ERORRS } from "../../../constants";
 import { authService } from "../../../services";
 import { closeModal } from "./close-modal";
 import { setUser } from "./set-user";
@@ -18,5 +18,8 @@ export const authorizationUserAsync = user => dispatch =>
 			dispatch(closeModal());
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.AUTHORIZATION_USER_FORM_ERROR, payload: e.message });
+			dispatch({
+				type: ACTION_TYPE_ERORRS.AUTHORIZATION_USER_FORM_ERROR,
+				payload: e.message,
+			});
 		});

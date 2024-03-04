@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { subcategoriesService } from "../../../services";
 
 export const createSubcategoryAsync = (categoryId, subcategory) => dispatch =>
@@ -15,5 +15,8 @@ export const createSubcategoryAsync = (categoryId, subcategory) => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.CREATE_SUBCATEGORY_FORM_ERROR, payload: e.message });
+			dispatch({
+				type: ACTION_TYPE_ERORRS.CREATE_SUBCATEGORY_FORM_ERROR,
+				payload: e.message,
+			});
 		});

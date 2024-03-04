@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { productsService } from "../../../services";
 
 export const createProductAsync = (subcategoryId, product) => dispatch =>
@@ -15,5 +15,8 @@ export const createProductAsync = (subcategoryId, product) => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.CREATE_PRODUCT_FORM_ERROR, payload: e.message });
+			dispatch({
+				type: ACTION_TYPE_ERORRS.CREATE_PRODUCT_FORM_ERROR,
+				payload: e.message,
+			});
 		});

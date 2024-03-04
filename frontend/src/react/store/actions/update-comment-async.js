@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { commentsService } from "../../../services";
 
 export const updateCommentAsync = (commentId, updatedComment) => dispatch =>
@@ -15,5 +15,5 @@ export const updateCommentAsync = (commentId, updatedComment) => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.UPDATE_COMMENT_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE_ERORRS.UPDATE_COMMENT_ERROR, payload: e.message });
 		});

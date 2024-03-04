@@ -1,4 +1,4 @@
-import { ACTION_TYPE, SORTING_TYPE } from "../../../constants";
+import { ACTION_TYPE, SORTING_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { productsService } from "../../../services";
 
 export const getSortedProductsAsync = (subcategoryId, sortType) => dispatch =>
@@ -21,8 +21,9 @@ export const getSortedProductsAsync = (subcategoryId, sortType) => dispatch =>
 			dispatch({
 				type:
 					sortType === SORTING_TYPE.BY_ASC
-						? ACTION_TYPE.SET_PRODUCTS_BY_ASC_ERROR
-						: sortType === SORTING_TYPE.BY_DESC && ACTION_TYPE.SET_PRODUCTS_BY_DESC_ERROR,
+						? ACTION_TYPE_ERORRS.SET_PRODUCTS_BY_ASC_ERROR
+						: sortType === SORTING_TYPE.BY_DESC &&
+						  ACTION_TYPE_ERORRS.SET_PRODUCTS_BY_DESC_ERROR,
 				payload: e.message,
 			});
 		});

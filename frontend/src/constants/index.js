@@ -6,3 +6,5 @@ export * from "./action-type";
 export * from "./modal-types";
 export * from "./sorting-type";
 export * from "./counter-rules";
+export * from "./action-type-errors";
+export * from "./action-type-loaders";

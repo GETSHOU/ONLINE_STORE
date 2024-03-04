@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { usersService } from "../../../services";
 
 export const deleteUserAsync = userId => dispatch =>
@@ -15,5 +15,5 @@ export const deleteUserAsync = userId => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.DELETE_USER_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE_ERORRS.DELETE_USER_ERROR, payload: e.message });
 		});

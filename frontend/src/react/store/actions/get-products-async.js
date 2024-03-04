@@ -1,9 +1,9 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 import { productsService } from "../../../services";
 import { getParentCategoryTitle } from "../../../utils";
 
 export const getProductsAsync = id => dispatch => {
-	dispatch({ type: ACTION_TYPE.SET_PRODUCTS_LOADING_STATUS, payload: true });
+	dispatch({ type: ACTION_TYPE_LOADERS.SET_PRODUCTS_LOADING_STATUS, payload: true });
 
 	return productsService
 		.getAllFromSubcategory(id)
@@ -22,9 +22,9 @@ export const getProductsAsync = id => dispatch => {
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.SET_PRODUCTS_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE_ERORRS.SET_PRODUCTS_ERROR, payload: e.message });
 		})
 		.finally(() => {
-			dispatch({ type: ACTION_TYPE.SET_PRODUCTS_LOADING_STATUS, payload: false });
+			dispatch({ type: ACTION_TYPE_LOADERS.SET_PRODUCTS_LOADING_STATUS, payload: false });
 		});
 };

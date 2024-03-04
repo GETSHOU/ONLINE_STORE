@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { authService } from "../../../services";
 
 export const logoutAsync = localStorageBasket => dispatch =>
@@ -14,5 +14,5 @@ export const logoutAsync = localStorageBasket => dispatch =>
 			sessionStorage.removeItem("userData");
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.LOGOUT_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE_ERORRS.LOGOUT_ERROR, payload: e.message });
 		});

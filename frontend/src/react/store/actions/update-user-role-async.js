@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { usersService } from "../../../services";
 
 export const updateUserRoleAsync = (userId, updatedRoleId) => dispatch =>
@@ -15,5 +15,5 @@ export const updateUserRoleAsync = (userId, updatedRoleId) => dispatch =>
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.UPDATE_USER_ROLE_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE_ERORRS.UPDATE_USER_ROLE_ERROR, payload: e.message });
 		});

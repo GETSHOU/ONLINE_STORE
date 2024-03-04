@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { subcategoriesService } from "../../../services";
 import { closeModal } from "./close-modal";
 
@@ -18,5 +18,5 @@ export const deleteSubcategoryAsync = subcategoryId => dispatch =>
 			dispatch(closeModal());
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.DELETE_SUBCATEGORY_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE_ERORRS.DELETE_SUBCATEGORY_ERROR, payload: e.message });
 		});

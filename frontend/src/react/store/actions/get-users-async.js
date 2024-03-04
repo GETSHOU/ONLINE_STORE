@@ -1,8 +1,8 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 import { usersService } from "../../../services";
 
 export const getUsersAsync = () => dispatch => {
-	dispatch({ type: ACTION_TYPE.SET_USERS_LOADING_STATUS, payload: true });
+	dispatch({ type: ACTION_TYPE_LOADERS.SET_USERS_LOADING_STATUS, payload: true });
 
 	return usersService
 		.get()
@@ -17,9 +17,9 @@ export const getUsersAsync = () => dispatch => {
 			});
 		})
 		.catch(e => {
-			dispatch({ type: ACTION_TYPE.SET_USERS_ERROR, payload: e.message });
+			dispatch({ type: ACTION_TYPE_ERORRS.SET_USERS_ERROR, payload: e.message });
 		})
 		.finally(() => {
-			dispatch({ type: ACTION_TYPE.SET_USERS_LOADING_STATUS, payload: false });
+			dispatch({ type: ACTION_TYPE_LOADERS.SET_USERS_LOADING_STATUS, payload: false });
 		});
 };

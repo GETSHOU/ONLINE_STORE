@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { basketService } from "../../../services";
 
 export const createOrderAsync = (userId, order) => dispatch =>
@@ -16,7 +16,7 @@ export const createOrderAsync = (userId, order) => dispatch =>
 		})
 		.catch(e => {
 			dispatch({
-				type: ACTION_TYPE.CREATE_ORDER_ERROR,
+				type: ACTION_TYPE_ERORRS.CREATE_ORDER_ERROR,
 				payload: { error: e.message },
 			});
 		});

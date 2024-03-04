@@ -23,9 +23,9 @@ const devPort = 3000;
 const port = 3005;
 const app = express();
 
-app.use(express.static("../frontend/build"));
+// app.use(express.static("../frontend/build"));
 
-// app.use(cors({ origin: `http://localhost:${devPort}`, credentials: true }));
+app.use(cors({ origin: `http://localhost:${devPort}`, credentials: true }));
 
 app.use(cookieParser());
 app.use(express.json());

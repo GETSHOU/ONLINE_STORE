@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS } from "../../../constants";
 import { subcategoriesService } from "../../../services";
 import { closeModal } from "./close-modal";
 
@@ -19,5 +19,8 @@ export const updateSubcategoryAsync =
 				dispatch(closeModal());
 			})
 			.catch(e => {
-				dispatch({ type: ACTION_TYPE.UPDATE_SUBCATEGORY_ERROR, payload: e.message });
+				dispatch({
+					type: ACTION_TYPE_ERORRS.UPDATE_SUBCATEGORY_ERROR,
+					payload: e.message,
+				});
 			});
