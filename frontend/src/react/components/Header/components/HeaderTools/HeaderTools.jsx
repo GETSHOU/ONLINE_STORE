@@ -11,7 +11,6 @@ export const HeaderTools = ({
 	shouldSearch,
 	setSearchQuery,
 	setShouldSearch,
-	startDelayedSearch,
 	setSearchCompleted,
 }) => {
 	return (
@@ -29,7 +28,6 @@ export const HeaderTools = ({
 					shouldSearch={shouldSearch}
 					setSearchQuery={setSearchQuery}
 					setShouldSearch={setShouldSearch}
-					startDelayedSearch={startDelayedSearch}
 					setSearchCompleted={setSearchCompleted}
 				/>
 				<ControlPanel />

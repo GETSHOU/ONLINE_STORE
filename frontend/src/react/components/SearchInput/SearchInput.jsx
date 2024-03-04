@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
+import { debounce } from "../../../utils";
 import styles from "./SearchInput.module.scss";
 
 export const SearchInput = ({
@@ -8,11 +9,12 @@ export const SearchInput = ({
 	shouldSearch,
 	setSearchQuery,
 	setShouldSearch,
-	startDelayedSearch,
 	setSearchCompleted,
 }) => {
 	const navigate = useNavigate();
 	const searchInputRef = useRef(null);
+
+	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1500), []);
 
 	useEffect(() => {
 		if (shouldSearch) {

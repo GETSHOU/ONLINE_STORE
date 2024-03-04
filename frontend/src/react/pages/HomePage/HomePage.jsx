@@ -15,7 +15,6 @@ export const HomePage = ({
 	shouldSearch,
 	setSearchQuery,
 	setShouldSearch,
-	startDelayedSearch,
 	setSearchCompleted,
 }) => {
 	const roleId = useSelector(userRoleSelector);
@@ -30,7 +29,6 @@ export const HomePage = ({
 					shouldSearch={shouldSearch}
 					setSearchQuery={setSearchQuery}
 					setShouldSearch={setShouldSearch}
-					startDelayedSearch={startDelayedSearch}
 					setSearchCompleted={setSearchCompleted}
 				/>
 				<main className={styles.wrapperMain}>

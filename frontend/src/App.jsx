@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Route, Routes, useLocation, useMatch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { userRoleSelector } from "./react/store/selectors";
-import { checkAccess, debounce } from "./utils";
+import { checkAccess } from "./utils";
 import { ROLES, ERRORS } from "./constants";
 import {
 	Users,
@@ -25,8 +25,6 @@ export const App = () => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [shouldSearch, setShouldSearch] = useState(false);
 	const [searchCompleted, setSearchCompleted] = useState(false);
-
-	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1500), []);
 
 	const location = useLocation();
 
@@ -76,7 +74,6 @@ export const App = () => {
 							shouldSearch={shouldSearch}
 							setSearchQuery={setSearchQuery}
 							setShouldSearch={setShouldSearch}
-							startDelayedSearch={startDelayedSearch}
 							setSearchCompleted={setSearchCompleted}
 						/>
 					}

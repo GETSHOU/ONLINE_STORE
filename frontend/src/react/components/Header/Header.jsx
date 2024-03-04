@@ -12,7 +12,6 @@ export const Header = ({
 	shouldSearch,
 	setSearchQuery,
 	setShouldSearch,
-	startDelayedSearch,
 	setSearchCompleted,
 }) => {
 	return (
@@ -27,7 +26,6 @@ export const Header = ({
 					shouldSearch={shouldSearch}
 					setSearchQuery={setSearchQuery}
 					setShouldSearch={setShouldSearch}
-					startDelayedSearch={startDelayedSearch}
 					setSearchCompleted={setSearchCompleted}
 				/>
 			</div>
