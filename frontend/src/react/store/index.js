@@ -33,6 +33,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
-store.subscribe(() => {
-	localStorage.setItem("basket", JSON.stringify(store.getState().user.userData.basket));
-});
+// store.subscribe(() => {
+// 	localStorage.setItem("basket", JSON.stringify(store.getState().user.userData.basket));
+// });
