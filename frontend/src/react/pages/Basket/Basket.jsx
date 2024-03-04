@@ -1,6 +1,11 @@
-import { useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCreateOrderServerMessages } from "../../store/actions";
-import { basketSelector, ordersCreateSuccessSelector } from "../../store/selectors";
+import {
+	basketSelector,
+	ordersCreateErrorSelector,
+	ordersCreateSuccessSelector,
+} from "../../store/selectors";
 import { Toastify, PageTitle, EmptyData } from "../../components";
 import { BasketCard } from "./components/BasketCard/BasketCard";
 import { PaymentDetails } from "./components/PaymentDetails/PaymentDetails";
@@ -8,7 +13,21 @@ import styles from "./Basket.module.scss";
 
 export const Basket = () => {
 	const basket = useSelector(basketSelector);
+	const serverError = useSelector(ordersCreateErrorSelector);
 	const serverSuccess = useSelector(ordersCreateSuccessSelector);
+
+	const dispatch = useDispatch();
+
+	const serverMessage = !!serverError || !!serverSuccess;
+
+	useEffect(() => {
+		return () => {
+			dispatch(clearCreateOrderServerMessages());
+			console.log("Destroyed Basket");
+		};
+	}, [dispatch]);
+
+	const onClose = useCallback(() => dispatch(clearCreateOrderServerMessages()), []);
 
 	return (
 		<>
@@ -39,19 +58,14 @@ export const Basket = () => {
 								</div>
 							</div>
 						) : (
-							<>
-								<EmptyData basket={!!basket} />
-								{!!serverSuccess && (
-									<Toastify
-										success={serverSuccess}
-										action={clearCreateOrderServerMessages}
-									/>
-								)}
-							</>
+							<EmptyData basket={!!basket} />
 						)}
 					</>
 				)}
 			</div>
+			{serverMessage && (
+				<Toastify error={serverError} success={serverSuccess} onClose={onClose} />
+			)}
 		</>
 	);
 };
