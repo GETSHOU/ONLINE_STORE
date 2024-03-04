@@ -2,6 +2,7 @@
 	"name": "online-store",
 	"version": "1.0.1",
 	"private": true,
+	"proxy": "http://localhost:3005",
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.2",
 		"eslint-config-prettier": "^9.0.0",
