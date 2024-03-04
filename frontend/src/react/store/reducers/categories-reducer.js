@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 
 const initialCategoriesState = {
 	title: "Каталог товаров",
@@ -22,7 +22,7 @@ export const categoriesReducer = (state = initialCategoriesState, action) => {
 				...state,
 				title: action.payload,
 			};
-		case ACTION_TYPE.SET_CATEGORIES_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_CATEGORIES_LOADING_STATUS:
 			return {
 				...state,
 				options: {
@@ -53,27 +53,27 @@ export const categoriesReducer = (state = initialCategoriesState, action) => {
 				...state,
 				categories: state.categories.filter(category => category.id !== action.payload),
 			};
-		case ACTION_TYPE.SET_CATEGORIES_ERROR:
+		case ACTION_TYPE_ERORRS.SET_CATEGORIES_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.CREATE_CATEGORY_FORM_ERROR:
+		case ACTION_TYPE_ERORRS.CREATE_CATEGORY_FORM_ERROR:
 			return {
 				...state,
 				errorForm: action.payload,
 			};
-		case ACTION_TYPE.REMOVE_CATEGORY_FORM_ERROR:
+		case ACTION_TYPE_ERORRS.REMOVE_CATEGORY_FORM_ERROR:
 			return {
 				...state,
 				errorForm: initialCategoriesState.errorForm,
 			};
-		case ACTION_TYPE.UPDATE_CATEGORY_ERROR:
+		case ACTION_TYPE_ERORRS.UPDATE_CATEGORY_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.DELETE_CATEGORY_ERROR:
+		case ACTION_TYPE_ERORRS.DELETE_CATEGORY_ERROR:
 			return {
 				...state,
 				error: action.payload,

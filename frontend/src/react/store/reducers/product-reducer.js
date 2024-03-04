@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 
 const initialProductState = {
 	product: {
@@ -25,7 +25,7 @@ export const productReducer = (state = initialProductState, action) => {
 				...state,
 				product: action.payload,
 			};
-		case ACTION_TYPE.SET_PRODUCT_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_PRODUCT_LOADING_STATUS:
 			return {
 				...state,
 				options: {
@@ -67,22 +67,22 @@ export const productReducer = (state = initialProductState, action) => {
 					),
 				},
 			};
-		case ACTION_TYPE.SET_PRODUCT_ERROR:
+		case ACTION_TYPE_ERORRS.SET_PRODUCT_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.CREATE_COMMENT_ERROR:
+		case ACTION_TYPE_ERORRS.CREATE_COMMENT_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.UPDATE_COMMENT_ERROR:
+		case ACTION_TYPE_ERORRS.UPDATE_COMMENT_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.DELETE_COMMENT_ERROR:
+		case ACTION_TYPE_ERORRS.DELETE_COMMENT_ERROR:
 			return {
 				...state,
 				error: action.payload,

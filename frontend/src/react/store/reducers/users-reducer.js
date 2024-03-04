@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 
 const initialUsersState = {
 	users: [],
@@ -15,12 +15,12 @@ export const usersReducer = (state = initialUsersState, action) => {
 				...state,
 				users: action.payload,
 			};
-		case ACTION_TYPE.SET_USERS_ERROR:
+		case ACTION_TYPE_ERORRS.SET_USERS_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.SET_USERS_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_USERS_LOADING_STATUS:
 			return {
 				...state,
 				options: {
@@ -41,7 +41,7 @@ export const usersReducer = (state = initialUsersState, action) => {
 					return { ...user };
 				}),
 			};
-		case ACTION_TYPE.UPDATE_USER_ROLE_ERROR:
+		case ACTION_TYPE_ERORRS.UPDATE_USER_ROLE_ERROR:
 			return {
 				...state,
 				error: action.payload,
@@ -51,7 +51,7 @@ export const usersReducer = (state = initialUsersState, action) => {
 				...state,
 				users: state.users.filter(user => user.id !== action.payload),
 			};
-		case ACTION_TYPE.DELETE_USER_ERROR:
+		case ACTION_TYPE_ERORRS.DELETE_USER_ERROR:
 			return {
 				...state,
 				error: action.payload,

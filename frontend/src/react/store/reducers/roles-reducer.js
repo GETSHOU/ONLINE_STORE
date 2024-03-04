@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 
 const initialRolesState = {
 	roles: [],
@@ -15,12 +15,12 @@ export const rolesReducer = (state = initialRolesState, action) => {
 				...state,
 				roles: action.payload,
 			};
-		case ACTION_TYPE.SET_ROLES_ERROR:
+		case ACTION_TYPE_ERORRS.SET_ROLES_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.SET_ROLES_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_ROLES_LOADING_STATUS:
 			return {
 				...state,
 				options: {

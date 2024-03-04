@@ -1,4 +1,9 @@
-import { ROLES, ACTION_TYPE } from "../../../constants";
+import {
+	ROLES,
+	ACTION_TYPE,
+	ACTION_TYPE_ERORRS,
+	ACTION_TYPE_LOADERS,
+} from "../../../constants";
 import { getBasketFromLocalStorage } from "../../../utils";
 
 const initialUserState = {
@@ -49,7 +54,7 @@ export const userReducer = (state = initialUserState, action) => {
 					basket: action.payload || [],
 				},
 			};
-		case ACTION_TYPE.LOGOUT_ERROR:
+		case ACTION_TYPE_ERORRS.LOGOUT_ERROR:
 			return {
 				...state,
 				serverMessages: {
@@ -111,7 +116,7 @@ export const userReducer = (state = initialUserState, action) => {
 					},
 				},
 			};
-		case ACTION_TYPE.CREATE_ORDER_ERROR:
+		case ACTION_TYPE_ERORRS.CREATE_ORDER_ERROR:
 			return {
 				...state,
 				serverMessages: {
@@ -150,7 +155,7 @@ export const userReducer = (state = initialUserState, action) => {
 					},
 				},
 			};
-		case ACTION_TYPE.SET_ORDERS_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_ORDERS_LOADING_STATUS:
 			return {
 				...state,
 				flags: {
@@ -158,7 +163,7 @@ export const userReducer = (state = initialUserState, action) => {
 					ordersLoadingStatus: action.payload,
 				},
 			};
-		case ACTION_TYPE.SET_ORDERS_ERROR:
+		case ACTION_TYPE_ERORRS.SET_ORDERS_ERROR:
 			return {
 				...state,
 				serverMessages: {

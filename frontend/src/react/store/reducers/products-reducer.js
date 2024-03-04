@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 
 const initialProductsState = {
 	title: "",
@@ -50,7 +50,7 @@ export const productsReducer = (state = initialProductsState, action) => {
 					countFoundedProducts: action.payload.countFoundedProducts,
 				},
 			};
-		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_FOUNDED_PRODUCTS_LOADING_STATUS:
 			return {
 				...state,
 				foundedProducts: {
@@ -58,7 +58,7 @@ export const productsReducer = (state = initialProductsState, action) => {
 					loadingStatus: action.payload,
 				},
 			};
-		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_ERROR:
+		case ACTION_TYPE_ERORRS.SET_FOUNDED_PRODUCTS_ERROR:
 			return {
 				...state,
 				error: action.payload,
@@ -73,7 +73,7 @@ export const productsReducer = (state = initialProductsState, action) => {
 				...state,
 				title: action.payload,
 			};
-		case ACTION_TYPE.SET_PRODUCTS_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_PRODUCTS_LOADING_STATUS:
 			return {
 				...state,
 				options: {
@@ -104,27 +104,27 @@ export const productsReducer = (state = initialProductsState, action) => {
 				...state,
 				products: state.products.filter(product => product.id !== action.payload),
 			};
-		case ACTION_TYPE.SET_PRODUCTS_ERROR:
+		case ACTION_TYPE_ERORRS.SET_PRODUCTS_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.CREATE_PRODUCT_FORM_ERROR:
+		case ACTION_TYPE_ERORRS.CREATE_PRODUCT_FORM_ERROR:
 			return {
 				...state,
 				errorForm: action.payload,
 			};
-		case ACTION_TYPE.REMOVE_PRODUCT_FORM_ERROR:
+		case ACTION_TYPE_ERORRS.REMOVE_PRODUCT_FORM_ERROR:
 			return {
 				...state,
 				errorForm: initialProductsState.errorForm,
 			};
-		case ACTION_TYPE.UPDATE_PRODUCT_ERROR:
+		case ACTION_TYPE_ERORRS.UPDATE_PRODUCT_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.DELETE_PRODUCT_ERROR:
+		case ACTION_TYPE_ERORRS.DELETE_PRODUCT_ERROR:
 			return {
 				...state,
 				error: action.payload,
@@ -155,22 +155,22 @@ export const productsReducer = (state = initialProductsState, action) => {
 					products: action.payload,
 				},
 			};
-		case ACTION_TYPE.SET_PRODUCTS_BY_ASC_ERROR:
+		case ACTION_TYPE_ERORRS.SET_PRODUCTS_BY_ASC_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.SET_PRODUCTS_BY_DESC_ERROR:
+		case ACTION_TYPE_ERORRS.SET_PRODUCTS_BY_DESC_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_BY_ASC_ERROR:
+		case ACTION_TYPE_ERORRS.SET_FOUNDED_PRODUCTS_BY_ASC_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.SET_FOUNDED_PRODUCTS_BY_DESC_ERROR:
+		case ACTION_TYPE_ERORRS.SET_FOUNDED_PRODUCTS_BY_DESC_ERROR:
 			return {
 				...state,
 				error: action.payload,

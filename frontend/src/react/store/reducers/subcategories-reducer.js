@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "../../../constants";
+import { ACTION_TYPE, ACTION_TYPE_ERORRS, ACTION_TYPE_LOADERS } from "../../../constants";
 
 const initialSubcategoriesState = {
 	title: "",
@@ -22,7 +22,7 @@ export const subcategoriesReducer = (state = initialSubcategoriesState, action) 
 				...state,
 				title: action.payload,
 			};
-		case ACTION_TYPE.SET_SUBCATEGORIES_LOADING_STATUS:
+		case ACTION_TYPE_LOADERS.SET_SUBCATEGORIES_LOADING_STATUS:
 			return {
 				...state,
 				options: {
@@ -55,27 +55,27 @@ export const subcategoriesReducer = (state = initialSubcategoriesState, action) 
 					subcategory => subcategory.id !== action.payload,
 				),
 			};
-		case ACTION_TYPE.SET_SUBCATEGORIES_ERROR:
+		case ACTION_TYPE_ERORRS.SET_SUBCATEGORIES_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.CREATE_SUBCATEGORY_FORM_ERROR:
+		case ACTION_TYPE_ERORRS.CREATE_SUBCATEGORY_FORM_ERROR:
 			return {
 				...state,
 				errorForm: action.payload,
 			};
-		case ACTION_TYPE.REMOVE_SUBCATEGORY_FORM_ERROR:
+		case ACTION_TYPE_ERORRS.REMOVE_SUBCATEGORY_FORM_ERROR:
 			return {
 				...state,
 				errorForm: initialSubcategoriesState.errorForm,
 			};
-		case ACTION_TYPE.UPDATE_SUBCATEGORY_ERROR:
+		case ACTION_TYPE_ERORRS.UPDATE_SUBCATEGORY_ERROR:
 			return {
 				...state,
 				error: action.payload,
 			};
-		case ACTION_TYPE.DELETE_SUBCATEGORY_ERROR:
+		case ACTION_TYPE_ERORRS.DELETE_SUBCATEGORY_ERROR:
 			return {
 				...state,
 				error: action.payload,
